@@ -266,9 +266,10 @@ xoops_cp_header() ;
 // css display
 require_once XOOPS_TRUST_PATH.'/libs/altsys/class/D3Tpl.class.php' ;
 $tpl = new D3Tpl() ;
-echo '<style scoped="scoped">';
+
+/* echo '<style scoped="scoped">';
 $tpl->display('db:altsys_inc_mytplsadmin.css') ;
-echo '</style>';
+echo '</style>'; */
 
 // javascript
 echo $javascript;
@@ -283,7 +284,7 @@ if ($breadcrumbsObj->hasPaths()) {
     $breadcrumbsObj->appendPath('', $target_mname) ;
 }
 
-echo '<h3>' . _MYTPLSADMIN_H3_MODULE . " : $target_mname</h3>\n" ;
+echo "<h2>"._MYTPLSADMIN_H3_MODULE." : $target_mname</h2>\n" ;
 
 // link to create a new custom template
 if ('_custom' == $target_dirname) {
@@ -294,13 +295,15 @@ if ('_custom' == $target_dirname) {
 echo "
 	<form name='MainForm' action='?mode=admin&amp;lib=altsys&amp;page=mytplsadmin&amp;dirname=".htmlspecialchars($target_dirname, ENT_QUOTES)."' method='post'>
 	".$xoopsGTicket->getTicketHtml(__LINE__)."
-    <table class='outer'><thead>
+    <table class='outer'>
+    <thead>
         <tr>
-			<th>"._MYTPLSADMIN_TH_NAME . '</th>
-			<th>' . _MYTPLSADMIN_TH_TYPE . "</th>
+			<th>"._MYTPLSADMIN_TH_NAME."</th>
+			<th>"._MYTPLSADMIN_TH_TYPE."</th>
 			<th><input type='checkbox' title="._MYTPLSADMIN_TITLE_CHECKALL." onclick=\"with(document.MainForm){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].name.indexOf('basecheck')>=0){elements[i].checked=this.checked;}}}\" />"._MYTPLSADMIN_TH_FILE."</th>
 			$tplsets_th4disp
-        </tr></thead>\n" ;
+        </tr>
+    </thead>\n" ;
 
 // STYLE for distinguishing fingerprints
 $fingerprint_classes = ['', ' fingerprint1', ' fingerprint2', ' fingerprint3', ' fingerprint4', ' fingerprint5', ' fingerprint6', ' fingerprint7'];
@@ -315,11 +318,11 @@ while (list($tpl_file, $tpl_desc, $type, $count) = $db->fetchRow($frs)) {
 		<tr class='$evenodd'>
 			<td>
 				<dl>
-					<dt>".htmlspecialchars($tpl_file, ENT_QUOTES) . '</dt>
-					<dd>' . htmlspecialchars($tpl_desc, ENT_QUOTES) . '</dd>
+					<dt>".htmlspecialchars($tpl_file, ENT_QUOTES)."</dt>
+					<dd>".htmlspecialchars($tpl_desc, ENT_QUOTES)."</dd>
 				</dl>
 			</td>
-			<td>' . $type . ' (' . $count . ")</td>\n" ;
+			<td>".$type." (".$count.")</td>\n" ;
 
     // the base file template column
     $basefilepath = tplsadmin_get_basefilepath($target_dirname, $type, $tpl_file) ;
@@ -343,7 +346,7 @@ while (list($tpl_file, $tpl_desc, $type, $count) = $db->fetchRow($frs)) {
         $numrows = $db->getRowsNum($drs) ;
         $tpl = $db->fetchArray($drs) ;
         if (empty($tpl['tpl_id'])) {
-            echo "<td class='$evenodd'>($numrows)</td>\n" ;
+            echo '<td>($numrows)</td>\n' ;
         } else {
             $fingerprint = tplsadmin_get_fingerprint(explode("\n", $tpl['tpl_source'])) ;
             if (isset($fingerprints[ $fingerprint ])) {
@@ -353,9 +356,11 @@ while (list($tpl_file, $tpl_desc, $type, $count) = $db->fetchRow($frs)) {
                 $class = $fingerprint_classes[++$fingerprint_class_count] ;
                 $fingerprints[ $fingerprint ] = $class ;
             }
-            echo "<td class='{$class}'>".formatTimestamp($tpl['tpl_lastmodified'], 'm').'<br />'.substr($fingerprint, 0, 16)."<br /><input type='checkbox' name='{$tplset4disp}_check[{$tpl_file}]' value='1' /> &nbsp; <a href='?mode=admin&amp;lib=altsys&amp;page=mytplsform&amp;tpl_file=".htmlspecialchars($tpl['tpl_file'], ENT_QUOTES) . '&amp;tpl_tplset='
-                 . htmlspecialchars($tpl['tpl_tplset'], ENT_QUOTES) . '&amp;dirname='
-                 . htmlspecialchars($target_dirname, ENT_QUOTES) . "'>" . _EDIT . "</a> ($numrows)</td>\n" ;
+            echo "
+            <td class='{$class}'>".formatTimestamp($tpl['tpl_lastmodified'], 'm').'<br />'.substr($fingerprint, 0, 16)."<br />
+            <input type='checkbox' name='{$tplset4disp}_check[{$tpl_file}]' value='1' /> &nbsp; 
+            <a href='?mode=admin&amp;lib=altsys&amp;page=mytplsform&amp;tpl_file=".htmlspecialchars($tpl['tpl_file'], ENT_QUOTES)."&amp;tpl_tplset=".htmlspecialchars($tpl['tpl_tplset'], ENT_QUOTES)."&amp;dirname=".htmlspecialchars($target_dirname, ENT_QUOTES)."'>"._EDIT."</a> ($numrows)
+            </td>\n" ;
         }
     }
 
@@ -363,16 +368,17 @@ while (list($tpl_file, $tpl_desc, $type, $count) = $db->fetchRow($frs)) {
 }
 
 // command submit ROW
-echo "<tfoot><tr class='foot'>
+echo "<tfoot>
+        <tr class='foot'>
 		<td>
-			"._MYTPLSADMIN_CREATE_NEW_TPLSET . ': <br />
-			' . _MYTPLSADMIN_CAPTION_BASE . ":
+			"._MYTPLSADMIN_CREATE_NEW_TPLSET.": <br />
+			"._MYTPLSADMIN_CAPTION_BASE.":
 			<select name='clone_tplset_from'>
 				$tplset_options
-				<option value='_blank_'>"._MYTPLSADMIN_OPT_BLANKSET . '</option>
+				<option value='_blank_'>"._MYTPLSADMIN_OPT_BLANKSET."</option>
 			</select>
 			<br />
-			' . _MYTPLSADMIN_CAPTION_SETNAME . ": <input type='text' name='clone_tplset_to' size='8' maxlength='16' /> <input type='submit' name='clone_tplset_do' value='" . _MYTPLSADMIN_BTN_NEWTPLSET . "' />
+			"._MYTPLSADMIN_CAPTION_SETNAME.": <input type='text' name='clone_tplset_to' size='8' maxlength='16' /> <input type='submit' name='clone_tplset_do' value='"._MYTPLSADMIN_BTN_NEWTPLSET."' />
 		</td>
 		<td class='head'></td>
 		<td class='head'>
@@ -401,7 +407,7 @@ echo "</tr>
     </tfoot>\n" ;
 
 
-echo '</table></form>';
+echo "</table></form>" ;
 // end of table & form
 
 xoops_cp_footer() ;

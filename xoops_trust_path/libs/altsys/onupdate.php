@@ -37,7 +37,7 @@ if (! function_exists('altsys_onupdate_base')) {
     // 0.4 -> 0.5
     $check_sql = 'SELECT COUNT(*) FROM ' . $db->prefix($mydirname . '_language_constants') ;
         if (! $db->query($check_sql)) {
-            $db->queryF('CREATE TABLE ' . $db->prefix($mydirname . '_language_constants') . " (mid smallint(5) unsigned NOT NULL default 0,language varchar(32) NOT NULL default '',name varchar(255) NOT NULL default '',value text,PRIMARY KEY (mid,language,name)) ENGINE=MyISAM") ;
+            $db->queryF('CREATE TABLE ' . $db->prefix($mydirname . '_language_constants') . " (mid smallint(5) unsigned NOT NULL default 0,language varchar(32) NOT NULL default '',name varchar(255) NOT NULL default '',value text,PRIMARY KEY (mid,language,name)) ENGINE=InnoDB") ;
         }
 
 
@@ -70,12 +70,6 @@ if (! function_exists('altsys_onupdate_base')) {
                     // generate compiled file
                     require_once XOOPS_TRUST_PATH.'/libs/altsys/include/altsys_functions.php' ;
                         altsys_clear_templates_c() ;
-                    /*include_once XOOPS_ROOT_PATH.'/class/xoopsblock.php' ;
-                    if( ! xoops_template_touch( $tplid ) ) {
-                        $msgs[] = '<span style="color:#ff0000;">ERROR: Failed compiling template <b>'.htmlspecialchars($mydirname.'_'.$file).'</b>.</span>';
-                    } else {
-                        $msgs[] = 'Template <b>'.htmlspecialchars($mydirname.'_'.$file).'</b> compiled.</span>';
-                    }*/
                     }
                 }
             }

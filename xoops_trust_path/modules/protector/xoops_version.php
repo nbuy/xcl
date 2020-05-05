@@ -14,6 +14,7 @@ $modversion['version'] = '2.3.0';
 $modversion['detailed_version'] = '2.3.0.0';
 $modversion['credits'] = 'PEAK Corp. version 3.54';
 $modversion['author'] = 'GIJ=CHECKMATE PEAK Corp.(https://www.peak.ne.jp/) ';
+$modversion['cube_style'] = true;
 $modversion['help'] = 'help.html';
 $modversion['license'] = 'GPL';
 $modversion['official'] = 0;

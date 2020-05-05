@@ -178,8 +178,7 @@ $mymenu_fake_uri = 'index.php?mode=admin&lib=altsys&page=mytplsadmin&dirname='.$
 // mymenu
 altsys_include_mymenu() ;
 
-echo "<div class='ui-card-main'>\n\n
-<h3 style='text-align:"._GLOBAL_LEFT.";'>"._MD_A_MYTPLSFORM_EDIT . ' : ' . htmlspecialchars($tpl['tpl_type'], ENT_QUOTES) . ' : ' . htmlspecialchars($tpl['tpl_file'], ENT_QUOTES) . ' (' . htmlspecialchars($tpl['tpl_tplset'], ENT_QUOTES) . ")</h3>\n" ;
+echo "<h2 style='text-align:"._GLOBAL_LEFT.";'>"._MD_A_MYTPLSFORM_EDIT." : ".htmlspecialchars($tpl['tpl_type'], ENT_QUOTES)." : ".htmlspecialchars($tpl['tpl_file'], ENT_QUOTES)." (".htmlspecialchars($tpl['tpl_tplset'], ENT_QUOTES).")</h2>\n" ;
 
 
 // diff from file to selected DB template
@@ -225,7 +224,7 @@ if ('default' != $tpl['tpl_tplset']) {
 }
 
 
-echo "
+echo "<div class='ui-card-full'>\n\n
 	<form name='diff_form' id='diff_form' action='' method='get'>\n" ;
 if ($diff_from_file4disp) {
     echo "<input type='checkbox' name='display_diff2file' value='1' onClick=\"if(this.checked){document.getElementById('diff2file').style.display='block'}else{document.getElementById('diff2file').style.display='none'};\" id='display_diff2file' checked='checked' />&nbsp;<label for='display_diff2file'>diff from file</label>
@@ -241,11 +240,11 @@ echo "
 
 echo "
 <a name='altsys_tplsform_top' id='altsys_tplsform_top'></a>
-<form name='MainForm' id='altsys_tplsform' action='?mode=admin&amp;lib=altsys&amp;page=mytplsform&amp;tpl_file=".htmlspecialchars($tpl_file, ENT_QUOTES) . '&amp;tpl_tplset=' . htmlspecialchars($tpl['tpl_tplset'], ENT_QUOTES) . '&amp;dirname=' . $target_mname . "' method='post'>
+<form name='MainForm' id='altsys_tplsform' action='?mode=admin&amp;lib=altsys&amp;page=mytplsform&amp;tpl_file=".htmlspecialchars($tpl_file, ENT_QUOTES)."&amp;tpl_tplset=".htmlspecialchars($tpl['tpl_tplset'], ENT_QUOTES)."&amp;dirname=".$target_mname."' method='post'>
 	".$xoopsGTicket->getTicketHtml(__LINE__, 1800, 'altsys_tplsform')."
-	<textarea name='tpl_source' id='altsys_tpl_source' wrap='off' style='width:100%; height:20vh'>".htmlspecialchars($tpl['tpl_source'], ENT_QUOTES) . '</textarea>
+	<textarea name='tpl_source' id='altsys_tpl_source' wrap='off' style='width:100%; height:20vh'>".htmlspecialchars($tpl['tpl_source'], ENT_QUOTES)."</textarea>
 	<br />
-';
+";
 if ('create' == $edit_mode) {
     // create form
     echo "

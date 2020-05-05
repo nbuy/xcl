@@ -125,6 +125,7 @@ class xoops_elFinder {
 				$session->start();
 				$data = ['uname' => ''];
 				if (isset($_GET['logout'])) {
+					$session->set('netvolume', []);
 					$this->destroySessionVar();
 					$this->setXoopsUser();
 				} else {
@@ -490,26 +491,33 @@ class xoops_elFinder {
 		}
 	}
 	
-	public function netmountCallback($cmd, &$result, $args, $elfinder) {
-		if (is_object($this->xoopsUser) && (!empty($result['sync']) || !empty($result['added']) || !empty($result['removed']))) {
-			if ($uid = $this->xoopsUser->getVar('uid')) {
-				$session = $elfinder->getSession();
-				$uid = (int)$uid;
-				$table = $this->db->prefix($this->mydirname.'_userdat');
-				$netVolumes = $this->db->quoteString(serialize($session->get('netvolume', [])));
-				$sql = 'SELECT `id` FROM `'.$table.'` WHERE `key`=\'netVolumes\' AND `uid`='.$uid;
-				if ($res = $this->db->query($sql)) {
-					if ($this->db->getRowsNum($res) > 0) {
-						$sql = 'UPDATE `'.$table.'` SET `data`='.$netVolumes.', `mtime`='.time().' WHERE `key`=\'netVolumes\' AND `uid`='.$uid;
-					} else {
-						$sql = 'INSERT `'.$table.'` SET `key`=\'netVolumes\', `uid` = '.$uid.', `data`='.$netVolumes.', `mtime`='.time();
-					}
-					$this->db->queryF($sql);
+	public function netmountCallback($cmd, $result, $args, $elfinder) {
+		if (is_object($this->xoopsUser) && (!empty($result['sync']) || !empty($result['added']) || !empty($result['removed']) || !empty($result['changed']))) {
+			if ($cmd === 'rename') {
+				if (empty($result['changed']) || empty($result['changed'][0]['isroot']) || empty($result['changed'][0]['options']['netkey'])) {
+					return;
 				}
 			}
+			$this->saveNetmoutData($elfinder->getSession());
 		}
 	}
 	
+	public function saveNetmoutData($session) {
+		if ($uid = $this->getUserRoll()['uid']) {
+			$table = $this->db->prefix($this->mydirname.'_userdat');
+			$netVolumes = $this->db->quoteString(serialize($session->get('netvolume', array())));
+			$sql = 'SELECT `id` FROM `'.$table.'` WHERE `key`=\'netVolumes\' AND `uid`='.$uid;
+			if ($res = $this->db->query($sql)) {
+				if ($this->db->getRowsNum($res) > 0) {
+					$sql = 'UPDATE `'.$table.'` SET `data`='.$netVolumes.', `mtime`='.time().' WHERE `key`=\'netVolumes\' AND `uid`='.$uid;
+				} else {
+					$sql = 'INSERT `'.$table.'` SET `key`=\'netVolumes\', `uid` = '.$uid.', `data`='.$netVolumes.', `mtime`='.time();
+				}
+				$this->db->queryF($sql);
+			}
+		}
+	}
+
 	protected function tokenDataGC() {
 		$files = glob($this->tokeDataPrefix . '*', GLOB_NOSORT);
 		if ($files) {
@@ -552,7 +560,7 @@ class xoops_elFinder {
 		return $token;
 	}
 
-	public function notifyMail($cmd, &$result, $args, $elfinder) {
+	public function notifyMail($cmd, $result, $args, $elfinder) {
 		if (!empty($result['added'])) {
 			$mail = false;
 			if (is_object($this->xoopsUser)) {
@@ -676,7 +684,7 @@ EOD;
 	 * @return void|true
 	 * @author Dmitry (dio) Levashov
 	 **/
-	public function log($cmd, &$result, $args, $elfinder) {
+	public function log($cmd, $result, $args, $elfinder) {
 		$log = $cmd.' ['.date('d.m H:s')."]\n";
 		
 		if (!empty($result['error'])) {

@@ -1,7 +1,7 @@
 <?php
 // $Id: MyBlocksAdminForXCL21.class.php ,ver 0.0.7.1 2011/01/27 16:10:00 domifara Exp $
 
-require_once __DIR__ . '/MyBlocksAdmin.class.php' ;
+require_once dirname(__FILE__).'/MyBlocksAdmin.class.php' ;
 
 class MyBlocksAdminForXCL21 extends MyBlocksAdmin
 {
@@ -45,8 +45,8 @@ public function renderCell4BlockOptions($block_data)
     return $legacy_block->getOptionForm() ;
 }
 
-    public function checkFck()
-    {
-        return (! altsysUtils::isInstalledXclHtmleditor() && file_exists(XOOPS_ROOT_PATH.'/common/fckeditor/fckeditor.js'));
-    }
+    // public function checkFck()
+    // {
+    //     return (! altsysUtils::isInstalledXclHtmleditor() && file_exists(XOOPS_ROOT_PATH.'/common/fckeditor/fckeditor.js'));
+    // }
 }
