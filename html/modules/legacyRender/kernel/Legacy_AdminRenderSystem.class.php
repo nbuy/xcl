@@ -123,14 +123,24 @@ class Legacy_AdminRenderSystem extends Legacy_RenderSystem
         $this->mSmarty->register_modifier('theme', 'Legacy_modifier_theme');
         $this->mSmarty->register_function('stylesheet', 'Legacy_function_stylesheet');
 
+        // !TODO - get global smarty module and uid for theme design :
+        // <{$uid|xoops_user:"uname"}>, <{$uid|xoops_user:"name"}>, <{$uid|xoops_user:"email"}>, <{$uid|xoops_user:"last_login"}>
+        global $xoopsUser, $xoopsModule, $xoopsOption, $xoopsConfig;
+        $dirname = is_object( @$xoopsModule ) ? $xoopsModule->getVar('dirname') : '' ;
+        $modname = is_object( @$xoopsModule ) ? $xoopsModule->getVar('name') : '' ;
+        $uid = is_object( @$xoopsUser ) ? $xoopsUser->getVar('uid') : '' ;
+
         $this->mSmarty->assign(
             [
-            'xoops_url'       => XOOPS_URL,
-            'xoops_rootpath'   => XOOPS_ROOT_PATH,
-            'xoops_langcode'   => _LANGCODE,
-            'xoops_charset'    => _CHARSET,
-            'xoops_version'    => XOOPS_VERSION,
-            'xoops_upload_url' => XOOPS_UPLOAD_URL
+            'xoops_url'         => XOOPS_URL,
+            'xoops_rootpath'    => XOOPS_ROOT_PATH,
+            'xoops_langcode'    => _LANGCODE,
+            'xoops_charset'     => _CHARSET,
+            'xoops_version'     => XOOPS_VERSION,
+            'xoops_upload_url'  => XOOPS_UPLOAD_URL,
+            'xoops_modulename'  => $modname,
+            'xoops_dirname'     => $dirname,
+            'uid'               => $uid
             ]
         );
 

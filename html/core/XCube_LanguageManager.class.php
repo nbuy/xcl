@@ -37,9 +37,8 @@ class XCube_LanguageManager
      * @var string
      */
     public $mLocaleName;
-    // !Fix PHP7 NOTICE: deprecated constructor
+
     public function __construct()
-    //public function XCube_LanguageManager()
     {
         $this->mLanguageName = $this->getFallbackLanguage();
         $this->mLocaleName = $this->getFallbackLocale();
@@ -176,7 +175,7 @@ class XCube_LanguageManager
      */
     public function getFallbackLanguage()
     {
-        return 'eng';
+        return "en"; // !Todo check UTF-8
     }
 
     /**
@@ -187,7 +186,7 @@ class XCube_LanguageManager
      */
     public function getFallbackLocale()
     {
-        return 'EG';
+        return "EN"; // !Todo check UTF-8
     }
     
     public function encodeUTF8($str)

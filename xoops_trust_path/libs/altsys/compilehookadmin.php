@@ -227,7 +227,9 @@ altsys_include_mymenu() ;
 $breadcrumbsObj =& AltsysBreadcrumbs::getInstance() ;
 $breadcrumbsObj->appendPath(XOOPS_URL.'/modules/altsys/admin/index.php?mode=admin&amp;lib=altsys&amp;page=compilehookadmin', _MI_ALTSYS_MENU_COMPILEHOOKADMIN) ;
 
-echo "<div class='ui-card-main'>
+echo "
+<h2>"._MI_ALTSYS_MENU_COMPILEHOOKADMIN."</h2>
+<div class='ui-card-full'>
 	<style>
 		dl	{ margin: 10px; }
 		dt	{ margin-bottom:5px; }
@@ -271,10 +273,10 @@ echo "
 		<p>
 			<dl>
 				<dt>
-					"._TPLSADMIN_DT_GETTPLSVARSINFO_DW . '
+					"._TPLSADMIN_DT_GETTPLSVARSINFO_DW."
 				</dt>
 				<dd>
-					' . _TPLSADMIN_DD_GETTPLSVARSINFO_DW . "
+					"._TPLSADMIN_DD_GETTPLSVARSINFO_DW."
 					<br />
 					<input type='submit' name='as_dw_extension_zip' value='zip' />
 					<input type='submit' name='as_dw_extension_tgz' value='tar.gz' />
@@ -287,10 +289,10 @@ echo "
 		<p>
 			<dl>
 				<dt>
-					"._TPLSADMIN_DT_GETTEMPLATES . '
+					"._TPLSADMIN_DT_GETTEMPLATES."
 				</dt>
 				<dd>
-					' . _TPLSADMIN_DD_GETTEMPLATES . "
+					"._TPLSADMIN_DD_GETTEMPLATES."
 					<br />
 					<select name='tplset'>$tplset_options</select>
 					<input type='submit' name='download_zip' value='zip' />
@@ -304,10 +306,10 @@ echo "
 		<p>
 			<dl>
 				<dt>
-					"._TPLSADMIN_DT_PUTTEMPLATES . '
+					"._TPLSADMIN_DT_PUTTEMPLATES."
 				</dt>
 				<dd>
-					' . _TPLSADMIN_DD_PUTTEMPLATES . "
+					"._TPLSADMIN_DD_PUTTEMPLATES."
 					<br />
 					<select name='tplset'>$tplset_options</select>
 					<input type='file' name='tplset_archive' size='60' />

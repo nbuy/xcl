@@ -15,11 +15,6 @@
 </div>
 
 
-
-<div class="ui-card-full">
-<div class="ui-dev-mode"><{$smarty.template}></div>
-
-
 <h2 class="admintitle">
   <{if $category != null}>
     <{$category->getName()|xoops_escape}>
@@ -27,6 +22,9 @@
     <{$smarty.const._MI_LEGACY_MENU_PREFERENCE}>
   <{/if}>
 </h2>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
+
 
 <{if $actionForm->hasError()}>
 <div class="error">
@@ -63,7 +61,9 @@
       <tr>
         <td class="head">
           <div class="legacy_list_title"><{$config->getTitle()}>
-          <{if $mcrypt_enabled && $config->get('conf_valuetype') == 'encrypt'}><img src="<{"icons/textfield_key.png"|theme}>" alt="Encrypted"><{/if}>
+          <{if $mcrypt_enabled && $config->get('conf_valuetype') == 'encrypt'}>
+          <img src="<{"icons/textfield_key.png"|theme}>" alt="Encrypted">
+          <{/if}>
           <{if $config->get('conf_desc') != null}>
             <p class="legacy_list_description"><{$config->getDesc()}></p>
           <{/if}>
@@ -72,7 +72,6 @@
         <td class="<{cycle values="odd,even"}>">
           <{if $conf_formtype == 'textarea'}>
             <{xoops_textarea name=$conf_name rows=5 cols=50 value=$actionForm->get($rconf_name)}>
-
 
           <{elseif $conf_formtype == 'server_module'}>
             <select name='<{$conf_name}>' id='legacy_xoopsform_<{$conf_name}>'>
@@ -270,5 +269,3 @@
 </table>
 
 </form>
-
-</div>

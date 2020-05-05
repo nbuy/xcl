@@ -1,6 +1,6 @@
 <?php
 // $Id: install.php,v 1.3 2007/06/24 12:39:39 tom_g3x Exp $
-define('_INSTALL_L0', 'Welcome to the Install Wizard for XCL - Web Application Platform 2.3');
+define('_INSTALL_L0', 'Welcome to the Installer Wizard for XCL - Web Application Platform 2.3');
 define('_INSTALL_L168', 'XCL 2.3 requires PHP7.x.x');
 define(
     '_INSTALL_L70',
@@ -13,13 +13,13 @@ define('_INSTALL_L3', 'Next, on line 35, change %s to %s');
 define('_INSTALL_L4', 'OK, I have set the above settings, let me try again!');
 define('_INSTALL_L5', 'WARNING!');
 define('_INSTALL_L6', 'There is a mismatch between your XOOPS_ROOT_PATH configuration on line 31 of mainfile.php and the root path info we have detected.');
-define('_INSTALL_L7', 'Your setting: ');
+define('_INSTALL_L7', 'Your settings: ');
 define('_INSTALL_L8', 'We detected: ');
 define('_INSTALL_L9', '( On MS platforms, you may receive this error message even when your configuration is correct. If that is the case, please press the button below to continue)');
 define('_INSTALL_L10', 'Please press the button below to continue if this is really ok.');
-define('_INSTALL_L11', 'The server path to your XCL root directory: ');
-define('_INSTALL_L12', 'URL to your XCL root directory: ');
-define('_INSTALL_L13', 'If the above setting is correct, press the button below to continue.');
+define('_INSTALL_L11', 'The server path to your XCL root directory');
+define('_INSTALL_L12', 'The public URL to your XCL root directory');
+define('_INSTALL_L13', 'If the above settings are correct, press the button below to continue.');
 define('_INSTALL_L14', 'Next');
 define('_INSTALL_L15', 'Please open mainfile.php and enter required DB settings data');
 define('_INSTALL_L16', '%s is the hostname of your database server.');
@@ -31,7 +31,7 @@ define('_INSTALL_L21', 'The following database was not found on the server:');
 define('_INSTALL_L22', 'Attempt to create it?');
 define('_INSTALL_L23', 'Yes');
 define('_INSTALL_L24', 'No');
-define('_INSTALL_L25', 'We have detected the following database information from your configuration in mainfile.php. Please fix it now if this is not correct.');
+define('_INSTALL_L25', 'We have detected the following database information from your configuration in mainfile.php. If this is not correct, please fix it now.');
 define('_INSTALL_L26', 'Database Configuration');
 define('_INSTALL_L51', 'Database');
 define('_INSTALL_L66', 'Choose the database to be used');
@@ -40,26 +40,26 @@ define('_INSTALL_L67', "Hostname of the database server. If you are unsure, 'loc
 define('_INSTALL_L28', 'Database Username');
 define('_INSTALL_L65', 'Your database user account on the host');
 define('_INSTALL_L29', 'Database Name');
-define('_INSTALL_L64', 'The name of database on the host. The installer will attempt to create the database if not exists');
+define('_INSTALL_L64', 'The name of database on the host. The installer will attempt to create the database');
 define('_INSTALL_L52', 'Database Password');
 define('_INSTALL_L68', 'Password for your database user account');
 define('_INSTALL_L30', 'Table Prefix');
 define('_INSTALL_L63', 'This prefix will be added to all new tables created to avoid name conflict in the database. If you are unsure, just use the default.');
 define('_INSTALL_L54', 'Use persistent connection?');
 define('_INSTALL_L69', "Default is 'NO'. Choose 'NO' if you are unsure.");
-define('_INSTALL_L55', 'XCL Physical Path');
+define('_INSTALL_L55', 'The XCL Physical Path');
 define('_INSTALL_L59', 'Physical path to your main XCL directory WITHOUT trailing slash');
-define('_INSTALL_L75', 'XOOPS_TRUST_PATH Physical Path');
+define('_INSTALL_L75', 'The XOOPS_TRUST_PATH Physical Path');
 define('_INSTALL_L76', 'Physical path to your main XOOPS_TRUST_PATH directory WITHOUT trailing slash<br />You should set XOOPS_TRUST_PATH outside DocumentRoot.');
 
-define('_INSTALL_L56', 'XCL Virtual Path (URL)');
+define('_INSTALL_L56', 'The XCL Virtual Path (URL)');
 define('_INSTALL_L58', 'Virtual path to your main XCL directory WITHOUT trailing slash');
 
 define('_INSTALL_L31', 'Could not create database. Contact the server administrator for details.');
-define('_INSTALL_L32', 'The 1st Step Installation Complete');
+define('_INSTALL_L32', 'The 1st Step is completed successfully');
 define('_INSTALL_L33', "Click <a href='../index.php'>HERE</a> to see the home page of your site.");
 define('_INSTALL_L35', "If you had any errors, please contact the dev team at <a href='https://github.com/xoopscube/xcl/' rel='external'>XOOPS Cube Project</a>");
-define('_INSTALL_L36', "Please choose your site admin's name and password.");
+define('_INSTALL_L36', "Create the Administrator account.");
 define('_INSTALL_L37', 'Admin Name');
 define('_INSTALL_L38', 'Admin Email');
 define('_INSTALL_L39', 'Admin Password');
@@ -77,10 +77,10 @@ define('_INSTALL_L43', 'Database %s created!');
 define('_INSTALL_L44', 'Unable to make %s');
 define('_INSTALL_L45', 'Table %s created.');
 
-define('_INSTALL_L46', "In order for the modules included in the package to work correctly, the following files must be writeable by the server. Please change the permission setting for these files. (i.e. 'chmod 666 file_name' and 'chmod 777 dir_name' on a UNIX/LINUX server, or check the properties of the file and make sure the read-only flag is not set on a Windows server)");
+define('_INSTALL_L46', "In order for the modules included in the package to work correctly, the following files must be writeable by the server. Please change the permission settings for these files. (i.e. 'chmod 666 file_name' and 'chmod 777 dir_name' on a UNIX/LINUX server, or check the properties of the file and make sure the read-only flag is not set on a Windows server)");
 define('_INSTALL_L47', 'Next');
 
-define('_INSTALL_L53', 'Please confirm the following submitted data:');
+define('_INSTALL_L53', 'Confirm Web server Settings');
 
 define('_INSTALL_L60', 'Could not write into mainfile.php. Please check the file permission and try again.');
 define('_INSTALL_L61', 'Could not write to mainfile.php. Contact the server administrator for details.');
@@ -104,8 +104,8 @@ define('_INSTALL_L92', 'Save settings');
 define('_INSTALL_L93', 'Modify settings');
 define('_INSTALL_L88', 'Saving configuration data..');
 define('_INSTALL_L166', 'Check file permissions in XOOPS_TRUST_PATH');
-define('_INSTALL_L167', 'Checking file and directory permissions..');
-define('_INSTALL_L94', 'Check path & URL');
+define('_INSTALL_L167', 'Check Trust Path Permissions');
+define('_INSTALL_L94', 'Check Public PATH and URL');
 define('_INSTALL_L127', 'Checking file path & URL settings..');
 define('_INSTALL_L95', 'Could not detect the physical path to your XOOPS directory.');
 define('_INSTALL_L96', 'There is a conflict between the detected physical path (%s) and the one you input.');
@@ -124,11 +124,11 @@ define('_INSTALL_L108', 'Connection to database server is OK.');
 define('_INSTALL_L109', 'Database %s does not exists.');
 define('_INSTALL_L110', 'Database %s exists and connectable.');
 define('_INSTALL_L111', 'Database connection is OK.<br />Press the button below to create database tables.');
-define('_INSTALL_L112', 'Admin user setting');
+define('_INSTALL_L112', 'Administrator Account');
 define('_INSTALL_L113', 'Table %s deleted.');
 define('_INSTALL_L114', 'Failed creating database tables.');
 define('_INSTALL_L115', 'Database tables created.');
-define('_INSTALL_L116', 'Insert data');
+define('_INSTALL_L116', 'Add New Data');
 define('_INSTALL_L117', 'Finish');
 
 define('_INSTALL_L118', 'Failed creating table %s.');
@@ -185,7 +185,7 @@ define('_INSTALL_L154', '%s updated.');
 
 define('_INSTALL_L128', 'Select a language for the installation process');
 define('_INSTALL_L200', 'Reload');
-define('_INSTALL_L210', 'The 2nd Step Installation');
+define('_INSTALL_L210', 'XCL Global Settings (2nd step)');
 
 
 define('_INSTALL_CHARSET', 'UTF-8');

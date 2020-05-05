@@ -1,5 +1,3 @@
-<{ include file="./components/module-overview.html" }>
-
 <div class="adminnavi" aria-label="breadcrumb">
   <a href="./index.php"><{$smarty.const._MI_LEGACY_NAME}></a>
   &raquo;&raquo; <a href="./index.php?action=ModuleList"><{$smarty.const._MI_LEGACY_MENU_MODULELIST}></a>
@@ -7,15 +5,16 @@
 </div>
 
 
-<div class="ui-card-full">
+<{ include file="./components/module-overview.html" }>
 
-<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <h2 class="admintitle"><{$smarty.const._AD_LEGACY_LANG_MODINSTALL}></h2>
 
+<div class="ui-dev-mode"><{$smarty.template}></div>
+
 <div class="tips"><{$smarty.const._AD_LEGACY_LANG_MODINSTALL_LIST_ADVICE}></div>
 
-</div>
+
 <{* ---------- ---------- ---------- ---------- ---------- UI-GRID-BLOCKS *}>
 
 

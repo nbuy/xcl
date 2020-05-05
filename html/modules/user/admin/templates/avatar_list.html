@@ -4,24 +4,18 @@
 </div>
 
 
-
-<div class="ui-card-full">
-<div class="ui-dev-mode"><{$smarty.template}></div>
-
-
 <h2 class="admintitle"><{$smarty.const._MI_USER_ADMENU_AVATAR_MANAGE}></h2>
 
+<div class="ui-dev-mode"><{$smarty.template}></div>
+
 <div class="tips">
-<ul>
-<li>
-<{$smarty.const._AD_USER_LANG_AVATAR_TOTAL}>: <{$avatarTotal}>&nbsp;&nbsp;<br />
-<{$smarty.const._AD_USER_LANG_AVATAR_TYPE_S}>: <{$savatarTotal}>&nbsp;&nbsp;|&nbsp; <{$smarty.const._AD_USER_LANG_AVATAR_TYPE_C}>: <{$cavatarTotal}>
-</li>
-<li>
-<{$smarty.const._AD_USER_TIPS_AVATAR}>
-</li>
-<li><a href="<{$xoops_url}>/modules/legacy/admin/index.php?action=Help&amp;dirname=user"><{$smarty.const._HELP}></a></li>
-</ul>
+	<ul>
+		<li><{$smarty.const._AD_USER_LANG_AVATAR_TOTAL}>: <{$avatarTotal}>&nbsp;&nbsp;<br />
+		<{$smarty.const._AD_USER_LANG_AVATAR_TYPE_S}>: <{$savatarTotal}>&nbsp;&nbsp;|&nbsp; <{$smarty.const._AD_USER_LANG_AVATAR_TYPE_C}>: <{$cavatarTotal}>
+		</li>
+		<li><{$smarty.const._AD_USER_TIPS_AVATAR}></li>
+		<li><a href="<{$xoops_url}>/modules/legacy/admin/index.php?action=Help&amp;dirname=user"><{$smarty.const._HELP}></a></li>
+	</ul>
 </div>
 
 <ul class="toptab">
@@ -181,5 +175,3 @@
 </form>
 
 <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
-
-</div>

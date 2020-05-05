@@ -1444,6 +1444,9 @@ $.fn.elfindercwd = function(fm, options) {
 					bottomMarkerShow(place);
 					if (Object.keys(atmb).length) {
 						Object.assign(bufferExt.attachTmbs, atmb);
+						if (buffer.length < 1) {
+							loadThumbnails();
+						}
 					}
 				}
 			},
@@ -2293,10 +2296,10 @@ $.fn.elfindercwd = function(fm, options) {
 			
 			selectAllCheckbox = selectCheckbox? $('<div class="elfinder-cwd-selectall"><input type="checkbox"/></div>')
 				.attr('title', fm.i18n('selectall'))
-				.on('touchstart mousedown click', function(e) {
+				.on('click', function(e) {
 					e.stopPropagation();
 					e.preventDefault();
-					if ($(this).data('pending') || e.type === 'click') {
+					if ($(this).data('pending')) {
 						return false;
 					}
 					selectAllCheckbox.data('pending', true);
@@ -2663,7 +2666,7 @@ $.fn.elfindercwd = function(fm, options) {
 				});
 			})
 			.bind('viewchange', function() {
-				var l      = fm.storage('view') == 'list',
+				var l      = fm.viewType != 'list',
 					allsel = cwd.hasClass('elfinder-cwd-allselected');
 				
 				if (l != list) {

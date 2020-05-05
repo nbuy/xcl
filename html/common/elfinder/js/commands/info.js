@@ -111,8 +111,14 @@
 			customActions = [],
 			style = '',
 			hashClass = 'elfinder-font-mono elfinder-info-hash',
-			size, tmb, file, title, dcnt, rdcnt, path, getHashAlgorisms, hideItems;
-			
+			getHashAlgorisms = [],
+			ndialog  = fm.ui.notify,
+			size, tmb, file, title, dcnt, rdcnt, path, hideItems, hashProg;
+
+		if (ndialog.is(':hidden') && ndialog.children('.elfinder-notify').length) {
+			ndialog.elfinderdialog('open').height('auto');
+		}
+
 		if (!cnt) {
 			return $.Deferred().reject();
 		}
@@ -189,7 +195,7 @@
 				} else if (file.mime.indexOf('image') !== -1) {
 					if (file.width && file.height) {
 						content.push(row.replace(l, msg.dim).replace(v, file.width+'x'+file.height));
-					} else {
+					} else if (file.size && file.size !== '0') {
 						content.push(row.replace(l, msg.dim).replace(v, tpl.spinner.replace('{text}', msg.calc).replace('{name}', 'dim')));
 						reqs.push(fm.request({
 							data : {cmd : 'dim', target : file.hash},
@@ -223,26 +229,29 @@
 				getHashAlgorisms = [];
 				$.each(fm.storage('hashchekcer') || o.showHashAlgorisms, function(i, n) {
 					if (!file[n]) {
-					content.push(row.replace(l, fm.i18n(n)).replace(v, tpl.spinner.replace('{text}', msg.calc).replace('{name}', n)));
+						content.push(row.replace(l, fm.i18n(n)).replace(v, tpl.spinner.replace('{text}', msg.calc).replace('{name}', n)));
 						getHashAlgorisms.push(n);
 					} else {
 						content.push(row.replace(l, fm.i18n(n)).replace(v, file[n]).replace('{class}', hashClass));
 					}
 				});
 
-				reqs.push(
-					fm.getContentsHashes(file.hash, getHashAlgorisms, o.showHashOpts).progress(function(hashes) {
-						$.each(getHashAlgorisms, function(i, n) {
-							if (hashes[n]) {
-								replSpinner(hashes[n], n, hashClass);
-							}
-						});
-					}).always(function() {
-						$.each(getHashAlgorisms, function(i, n) {
-							replSpinner(msg.unknown, n);
-						});
-					})
-				);
+				if (getHashAlgorisms.length) {
+					hashProg = $('<div class="elfinder-quicklook-info-progress"/>');
+					reqs.push(
+						fm.getContentsHashes(file.hash, getHashAlgorisms, o.showHashOpts, { progressBar : hashProg }).progress(function(hashes) {
+							$.each(getHashAlgorisms, function(i, n) {
+								if (hashes[n]) {
+									replSpinner(hashes[n], n, hashClass);
+								}
+							});
+						}).always(function() {
+							$.each(getHashAlgorisms, function(i, n) {
+								replSpinner(msg.unknown, n);
+							});
+						})
+					);
+				}
 			}
 			
 			// Add custom info fields
@@ -297,6 +306,10 @@
 		dialog.attr('id', id).one('mousedown', '.elfinder-info-path', function() {
 			$(this).html(applyZWSP($(this).html(), true));
 		});
+
+		if (getHashAlgorisms.length) {
+			hashProg.appendTo(dialog.find('.'+spclass+'-'+getHashAlgorisms[0]).parent());
+		}
 
 		if (fm.UA.Mobile && $.fn.tooltip) {
 			dialog.children('.ui-dialog-content .elfinder-info-title').tooltip({

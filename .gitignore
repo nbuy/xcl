@@ -1,11 +1,16 @@
 ## XCL 
 # ignore temporary files, cache, templates
+html/mainfile.php
+html/modules/xelfinder/cache/*
+
 xoops_trust_path/cache/*
 xoops_trust_path/templates_c/*
 xoops_trust_path/uploads/xupdate/*
-CHANGELOG.md
-README.md
+*.bak
+master.code-workspace
 
+#CHANGELOG.md
+#README.md
 
 
 ## Linux
@@ -415,4 +420,3 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-*.bak

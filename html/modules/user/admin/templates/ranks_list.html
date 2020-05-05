@@ -1,4 +1,9 @@
 
+<div class="adminnavi">
+  <a href="./index.php"><{$smarty.const._MI_USER_NAME}></a>
+  &raquo;&raquo; <span class="adminnaviTitle addRank"><a href="./index.php?action=RanksList"><{$smarty.const._AD_USER_LANG_RANK_LIST}></a></span>
+</div>
+
 <!-- Ranks Overview -->
 <div class="ui-card-overview">
 
@@ -35,18 +40,9 @@
 </div>
 
 
-<div class="adminnavi">
-  <a href="./index.php"><{$smarty.const._MI_USER_NAME}></a>
-  &raquo;&raquo; <span class="adminnaviTitle addRank"><a href="./index.php?action=RanksList"><{$smarty.const._AD_USER_LANG_RANK_LIST}></a></span>
-</div>
-
-
-
-<div class="ui-card-full">
-    <div class="ui-dev-mode"><{$smarty.template}></div>
-
-
 <h2 class="admintitle"><{$smarty.const._AD_USER_LANG_RANK_LIST}></h2>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <div class="tips">
   <{$smarty.const._AD_USER_TIPS_RANK}>
@@ -175,5 +171,3 @@
 </form>
 
 <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
-
-</dv>

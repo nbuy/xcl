@@ -1,15 +1,15 @@
-<{ include file="./components/block-overview.html" }>
-
-
 <div class="adminnavi" aria-label="breadcrumb">
 	<a href="./index.php"><{$smarty.const._MI_LEGACY_NAME}></a>
 	&raquo;&raquo; <span class="adminnaviTitle"><a href="./index.php?action=BlockList" aria-current="page"><{$smarty.const._MI_LEGACY_MENU_BLOCKLIST}></a></span>
 </div>
 
 
-<div class="ui-card-full">
+<{ include file="./components/block-overview.html" }>
+
 
 <h2 class="admintitle"><{$smarty.const._MI_LEGACY_MENU_BLOCKLIST}></h2>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <div class="tips">
  <{$smarty.const._AD_LEGACY_TIPS_ADD_CUSTOM_BLOCK}> <{$smarty.const._AD_LEGACY_TIPS_BLOCK}>
@@ -25,14 +25,10 @@
 </div>
 <{/if}>
 
-</div><{*  /ui-card-full *}>
-
 
 <{ include file="./components/block-search.html" }>
 
 <{ include file="./components/block-filter.html" }>
-
-
 
 
 <form name="blockform" method="post" action="./index.php?action=BlockList">
