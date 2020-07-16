@@ -1,0 +1,1 @@
+../../smarty3/libs/plugins/shared.literal_compiler_param.php
