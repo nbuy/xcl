@@ -23,7 +23,6 @@ if (!defined('SMARTY_DIR')) {
  */
 require_once SMARTY_DIR.'Smarty.class.php';
 
-
 class XoopsTpl extends Smarty
 {
 
@@ -39,7 +38,7 @@ class XoopsTpl extends Smarty
     public function __construct()
     {
         global $xoopsConfig;
-        $this->Smarty();
+        parent::__construct();
         $this->compile_id = XOOPS_URL;
         if (1 == $xoopsConfig['theme_fromfile']) {
             $this->_canUpdateFromFile = true;
@@ -59,6 +58,9 @@ class XoopsTpl extends Smarty
         $this->plugins_dir = [SMARTY_DIR . 'plugins', XOOPS_ROOT_PATH . '/class/smarty/plugins'];
 //		$this->default_template_handler_func = 'xoops_template_create';
         $this->use_sub_dirs = false;
+        // escape as default for security
+        // $this->default_modifiers = ['escape'];
+
 
         $this->assign(
             [
@@ -81,9 +83,14 @@ class XoopsTpl extends Smarty
         if (empty($this->debug_tpl)) {
             // set path to debug template from SMARTY_DIR
             $this->debug_tpl = XOOPS_ROOT_PATH.'/modules/legacy/templates/xoops_debug.tpl';
-            if ($this->security && is_file($this->debug_tpl)) {
-                $this->secure_dir[] = realpath($this->debug_tpl);
+            $security_policy = new Smarty_Security($this);
+            $security_policy->php_functions = ['is_array', 'is_string', 'is_null', 'isset', 'is_numeric'];
+            $security_policy->php_handling = Smarty::PHP_REMOVE;
+            $security_policy->php_modifiers = array();
+            if (is_file($this->debug_tpl)) {
+                $security_policy->secure_dir[] = realpath($this->debug_tpl);
             }
+            $this->enableSecurity($security_policy);
             $this->debug_tpl = 'file:' . XOOPS_ROOT_PATH.'/modules/legacy/templates/xoops_debug.tpl';
         }
 
@@ -281,8 +288,8 @@ function xoops_template_touch($tpl_id, $clear_old = true)
         if (is_object($tplfile)) {
             $file = $tplfile->getVar('tpl_file');
             if ($clear_old) {
-                $tpl->clear_cache('db:'.$file);
-                $tpl->clear_compiled_tpl('db:'.$file);
+                $tpl->clearCache('db:'.$file);
+                $tpl->clearCompiledTemplate('db:'.$file);
             }
             // $tpl->fetch('db:'.$file);
             return true;
