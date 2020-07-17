@@ -42,18 +42,18 @@
 
 		<{* ---------- ---------- ---------- ---------- ---------- Module Style Overview *}>
 
-		<!-- <{stylesheet file=module.css static=true}> -->
+		<!-- <{stylesheet file="module.css" static=true}> -->
 
 
 		<{* ---------- ---------- ---------- ---------- ---------- Module Header *}>
 
-		<{ $xoops_module_header }>
+		<{$xoops_module_header}>
 
 
 		<{* ---------- ---------- ---------- ---------- ---------- Admin Style *}>
 
 		<!-- !TODO Check This -->
-        <{stylesheet file=style.css static=true}>
+        <{stylesheet file="style.css" static=true}>
 
         <link type="text/css" rel="stylesheet" href="<{$xoops_url}>/modules/legacy/admin/theme/style.css">
 
@@ -80,7 +80,7 @@
 
 	<header class="header">
 
-        <{ include file="../templates/components/admin-nav-header.html" }>
+        <{include file="../templates/components/admin-nav-header.html" }>
 
 	</header>
 
@@ -123,7 +123,7 @@
 
 	<main class="main">
 
-	<{ include file="../templates/components/admin-options.html" }>
+	<{include file="../templates/components/admin-options.html" }>
 
 
 	<{* ---------- ---------- ---------- ---------- ---------- Block Online Info *}>

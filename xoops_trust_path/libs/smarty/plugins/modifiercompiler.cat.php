@@ -1,0 +1,1 @@
+../../smarty3/libs/plugins/modifiercompiler.cat.php

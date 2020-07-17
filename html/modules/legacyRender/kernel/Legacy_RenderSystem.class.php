@@ -41,7 +41,7 @@ class Legacy_XoopsTpl extends XoopsTpl
         parent::__construct();
     }
 
-    public function assign($tpl_var, $value = null)
+    public function assign($tpl_var, $value = null, $dummy = null)
     {
         if (is_array($tpl_var)) {
             $root =& XCube_Root::getSingleton();
@@ -52,7 +52,7 @@ class Legacy_XoopsTpl extends XoopsTpl
                     if (isset($reserve[$key])) {
                         $context->setAttribute($reserve[$key], htmlspecialchars_decode($val));
                     }
-                    $this->_tpl_vars[$key] = $val;
+                    parent::assign($key, $val);
                 }
             }
         } else {
@@ -61,7 +61,7 @@ class Legacy_XoopsTpl extends XoopsTpl
                     $root =& XCube_Root::getSingleton();
                     $root->mContext->setAttribute($this->_mContextReserve[$tpl_var], htmlspecialchars_decode($value));
                 }
-                $this->_tpl_vars[$tpl_var] = $value;
+                parent::assign($tpl_var, $value);
             }
         }
     }
@@ -73,7 +73,7 @@ class Legacy_XoopsTpl extends XoopsTpl
                 $root =& XCube_Root::getSingleton();
                 $root->mContext->setAttribute($this->_mContextReserve[$tpl_var], htmlspecialchars_decode($value));
             }
-            $this->_tpl_vars[$tpl_var] =& $value;
+            parent::assign($tpl_var, $value);
         }
     }
 
@@ -83,14 +83,14 @@ class Legacy_XoopsTpl extends XoopsTpl
         if (!isset($name)) {
             foreach ($this->_mContextReserve as $t_key => $t_value) {
                 if (isset($this->_mContextReserve[$t_value])) {
-                    $this->_tpl_vars[$t_key] = htmlspecialchars($root->mContext->getAttribute($this->_mContextReserve[$t_value]), ENT_QUOTES);
+                    $this->global_tpl_vars[$t_key] = htmlspecialchars($root->mContext->getAttribute($this->_mContextReserve[$t_value]), ENT_QUOTES);
                 }
             }
             $value =& parent::get_template_vars($name);
         } elseif (isset($this->_mContextReserve[$name])) {
             $value = htmlspecialchars($root->mContext->getAttribute($this->_mContextReserve[$name]), ENT_QUOTES);
         } else {
-            $value =& parent::get_template_vars($name);
+            $value =& parent::getTemplateVars($name);
         }
         return $value;
     }
@@ -161,7 +161,7 @@ class Legacy_RenderSystem extends XCube_RenderSystem
             $this->mXoopsTpl =new Legacy_XoopsTpl();
         }
         $mTpl =& $this->mXoopsTpl;
-        $mTpl->register_function('legacy_notifications_select', 'LegacyRender_smartyfunction_notifications_select');
+        $mTpl->registerPlugin('function', 'legacy_notifications_select', 'LegacyRender_smartyfunction_notifications_select');
         $this->mSetupXoopsTpl->call(new XCube_Ref($mTpl));
 
         // compatible
@@ -300,7 +300,7 @@ class Legacy_RenderSystem extends XCube_RenderSystem
         //
         // Reset
         //
-        $mTpl->clear_assign(array_keys($vars));
+        $mTpl->clearAssign(array_keys($vars));
     }
 
     public function _render(&$target)

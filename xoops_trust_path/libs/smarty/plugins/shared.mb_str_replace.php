@@ -1,0 +1,1 @@
+../../smarty3/libs/plugins/shared.mb_str_replace.php
