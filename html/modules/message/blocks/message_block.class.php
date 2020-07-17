@@ -50,9 +50,7 @@ class Message_Block extends Legacy_BlockProcedure
             $render->setAttribute('block', $client->call('getCountUnreadPM', ['uid' => $uid]));
         }
 
-        if (null !== $root->mServiceManager->getService('UserSearch')) {
-            $render->setAttribute('UserSearch', true);
-        }
+        $render->setAttribute('UserSearch', (null !== $root->mServiceManager->getService('UserSearch')));
 
         $modHand = xoops_getmodulehandler('inbox', 'message');
         $render->setAttribute('incount', $modHand->getInboxCount($uid));

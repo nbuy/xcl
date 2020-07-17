@@ -82,7 +82,7 @@
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_MOD_ADMINGROUP}></td>
       <td class="<{cycle values="odd,even"}>">
         <select  size='5' name='admin_groupid[]' multiple='multiple'>
-          <{xoops_optionsArray id=admin_groupid[] from=$groupArr value=groupid label=name default=$admingroupidArr}>
+          <{xoops_optionsArray id="admin_groupid[]" from=$groupArr value=groupid label=name default=$admingroupidArr}>
         </select>
       </td>
     </tr>
@@ -90,7 +90,7 @@
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_MOD_READGROUP}></td>
       <td class="<{cycle values="odd,even"}>">
         <select  size='5' name='read_groupid[]' multiple='multiple'>
-          <{xoops_optionsArray id=read_groupid[] from=$groupArr value=groupid label=name default=$readgroupidArr}>
+          <{xoops_optionsArray id="read_groupid[]" from=$groupArr value=groupid label=name default=$readgroupidArr}>
         </select>
       </td>
     </tr>
