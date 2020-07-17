@@ -33,7 +33,7 @@ class Message_Preload extends XCube_ActionFilter
   
     public static function addFilter(&$xoopsTpl)
     {
-        $xoopsTpl->plugins_dir[] = XOOPS_MODULE_PATH.'/message/smarty';
+        $xoopsTpl->addPluginsDir(XOOPS_MODULE_PATH.'/message/smarty');
     }
   
     public static function getNewMessage(&$arrays)

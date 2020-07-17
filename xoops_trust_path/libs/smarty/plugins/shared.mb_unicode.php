@@ -1,0 +1,1 @@
+../../smarty3/libs/plugins/shared.mb_unicode.php

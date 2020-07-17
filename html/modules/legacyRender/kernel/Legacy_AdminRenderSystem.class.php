@@ -33,15 +33,11 @@ class Legacy_AdminSmarty extends Smarty
     // If you don't intend to override the theme, set false.
     //
     public $overrideMode = true;
+    private $_canUpdateFromFile;
     
-    public function Legacy_AdminSmarty()
-    {
-        self::__construct();
-    }
-
     public function __construct()
     {
-        parent::Smarty();
+        parent::__construct();
 
         $this->compile_id = XOOPS_URL;
         $this->_canUpdateFromFile = true;
@@ -120,8 +116,8 @@ class Legacy_AdminRenderSystem extends Legacy_RenderSystem
         $this->mController =& $controller;
         
         $this->mSmarty =new Legacy_AdminSmarty();
-        $this->mSmarty->register_modifier('theme', 'Legacy_modifier_theme');
-        $this->mSmarty->register_function('stylesheet', 'Legacy_function_stylesheet');
+        $this->mSmarty->registerPlugin('modifier', 'theme', 'Legacy_modifier_theme');
+        $this->mSmarty->registerPlugin('function', 'stylesheet', 'Legacy_function_stylesheet');
 
         // !TODO - get global smarty module and uid for theme design :
         // <{$uid|xoops_user:"uname"}>, <{$uid|xoops_user:"name"}>, <{$uid|xoops_user:"email"}>, <{$uid|xoops_user:"last_login"}>
@@ -165,7 +161,7 @@ class Legacy_AdminRenderSystem extends Legacy_RenderSystem
         // Reset
         //
         foreach ($target->getAttributes() as $key => $value) {
-            $this->mSmarty->clear_assign($key);
+            $this->mSmarty->clearAssign($key);
         }
     }
     
@@ -261,7 +257,7 @@ class Legacy_AdminRenderSystem extends Legacy_RenderSystem
         // Clear assign.
         //
         foreach ($target->getAttributes() as $key=>$value) {
-            $this->mSmarty->clear_assign($key);
+            $this->mSmarty->clearAssign($key);
         }
     }
 }
@@ -291,7 +287,7 @@ function Legacy_modifier_theme($string)
     return LEGACY_ADMIN_RENDER_FALLBACK_URL . '/' . $string;
 }
 
-function Legacy_function_stylesheet($params, &$smarty)
+function Legacy_function_stylesheet($params, $smarty)
 {
     if (!isset($params['file'])) {
         $smarty->trigger_error('stylesheet: missing file parameter.');

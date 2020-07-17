@@ -369,7 +369,7 @@ class Legacy_ModuleInstallUtils
             // clear cache
             //
             $xoopsTpl =new XoopsTpl();
-            $xoopsTpl->clear_cache(null, 'mod_' . $module->get('dirname'));
+            $xoopsTpl->clearCache(null, 'mod_' . $module->get('dirname'));
 
             foreach ($delTemplates as $tpl) {
                 if (!$tplHandler->delete($tpl)) {
