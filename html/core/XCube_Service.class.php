@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Service.class.php,v 1.4 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -69,9 +69,7 @@ class XCube_Service
 
     public $_mFunctions = [];
 
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct()
-    //public function XCube_Service()
     {
     }
 
@@ -90,9 +88,9 @@ class XCube_Service
         $n = func_num_args();
         $arg0 = &$args[0];
 
-        if ($n === 3) {
+        if (3 === $n) {
             $this->_addFunctionStandard($arg0, $args[1], $args[2]);
-        } elseif ($n === 1 && is_array($arg0)) {
+        } elseif (1 === $n && is_array($arg0)) {
             $this->_addFunctionStandard($arg0['name'], $arg0['in'], $arg0['out']);
         }
     }
@@ -107,8 +105,9 @@ class XCube_Service
     }
 
     /**
-     * @var   string          $name
-     * @param XCube_Procedure $procedure
+     * XCube_Procedure
+     * @var   string $name
+     * @param  $procedure
      */
     public function register($name, &$procedure)
     {
@@ -129,9 +128,7 @@ class XCube_AbstractServiceClient
 
     public $mUser;
 
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct(&$service)
-    //public function XCube_AbstractServiceClient(&$service)
     {
         $this->mService =& $service;
     }

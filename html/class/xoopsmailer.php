@@ -1,33 +1,19 @@
 <?php
-// $Id: xoopsmailer.php,v 1.5 2008/08/28 14:22:16 minahito Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <https://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: https://www.myweb.ne.jp/, https://www.xoops.org/, https://jp.xoops.org/ //
-// Project: The XOOPS Project                                                //
-// ------------------------------------------------------------------------- //
+/**
+ * *
+ *  * Sending mail
+ *  *
+ *  * @package    class
+ *  * @subpackage mail
+ *  * @author     Original Authors: Minahito
+ *  * @author     Other Authors : Kazumi Ono (aka onokazu)
+ *  * @copyright  2005-2020 The XOOPSCube Project
+ *  * @license    Legacy : https://github.com/xoopscube/xcl/blob/master/GPL_V2.txt
+ *  * @license    Cube : https://github.com/xoopscube/xcl/blob/master/BSD_license.txt
+ *  * @version    v 1.5 2008/08/28 14:22:16 minahito, Release: @package_230@
+ *  * @link       https://github.com/xoopscube/xcl
+ * *
+ */
 
 if (!defined('XOOPS_ROOT_PATH')) {
     exit();
@@ -40,7 +26,7 @@ if (isset($GLOBALS['xoopsConfig']['language']) && file_exists(XOOPS_ROOT_PATH.'/
 }
 
 /**
- * The new Multimailer class that will carry out the actual sending and will later replace this class. 
+ * The new Multimailer class that will carry out the actual sending and will later replace this class.
  * If you're writing new code, please use that class instead.
  */
 include_once(XOOPS_ROOT_PATH . '/class/mail/xoopsmultimailer.php');
@@ -52,12 +38,6 @@ include_once(XOOPS_ROOT_PATH . '/class/mail/xoopsmultimailer.php');
  * Changed to use the facilities of  {@link XoopsMultiMailer}
  *
  * @deprecated	use {@link XoopsMultiMailer} instead.
- *
- * @package		class
- * @subpackage	mail
- *
- * @author		Kazumi Ono	<onokazu@xoops.org>
- * @copyright	(c) 2000-2003 The Xoops Project - www.xoops.org
  */
 class xoopsmailer
 {
@@ -154,8 +134,7 @@ class xoopsmailer
         // Change below to \r\n if you have problem sending mail
         'LE'           => "\n"
     ];
-// !Fix PHP7 deprecated contructor
-    //public function XoopsMailer()
+
     public function __construct()
     {
         $this->multimailer = new XoopsMultiMailer();
@@ -326,7 +305,7 @@ class xoopsmailer
             $text = str_replace('{X_UEMAIL}', $user->getVar('email'), $text);
             $text = str_replace('{X_UNAME}', $user->getVar('uname'), $text);
             $text = str_replace('{X_UACTLINK}', XOOPS_URL . '/user.php?op=actv&id=' . $user->getVar('uid') . '&actkey=' . $user->getVar('actkey'), $text);
-            
+
             // send mail
             if ($this->isMail) {
                 if (!$this->sendMail($user->getVar('email'), $subject, $text, $headers)) {
@@ -351,7 +330,7 @@ class xoopsmailer
                     }
                 }
             }
-            
+
             // 2.1.2 removes the following code. If this patch doesn't cause a bug, we'll remove it perfectly.
             // flush();
         }
@@ -426,7 +405,7 @@ class xoopsmailer
             if (!empty($this->errors)) {
                 $ret = '<h4>' . _ERRORS . '</h4>';
                 foreach ($this->errors as $error) {
-                    $ret .= $error . '<br />';
+                    $ret .= $error . '<br>';
                 }
             } else {
                 $ret = '';
@@ -444,7 +423,7 @@ class xoopsmailer
             $ret = '';
             if (!empty($this->success)) {
                 foreach ($this->success as $suc) {
-                    $ret .= $suc . '<br />';
+                    $ret .= $suc . '<br>';
                 }
             }
             return $ret;

@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: ModuleUninstallAction.class.php,v 1.3 2008/09/25 15:11:51 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -192,7 +192,7 @@ class Legacy_ModuleUninstallAction extends Legacy_Action
         $renderer->setTemplateName('module_uninstall.html');
         $renderer->setAttribute('actionForm', $this->mActionForm);
         $renderer->setAttribute('module', $this->mXoopsModule);
-        $renderer->setAttribute('currentVersion', round($this->mXoopsModule->get('version') / 100, 2)); // !TODO version revision
+        $renderer->setAttribute('currentVersion', round($this->mXoopsModule->get('version') / 100, 2)); // !Fix version TODO revision
     }
 
     public function executeViewCancel(&$controller, &$xoopsUser, &$renderer)

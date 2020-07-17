@@ -3,7 +3,7 @@
 /**
  * @package EasyLexSQL
  * @version $Id: EasyLex_SQLScanner.class.php,v 1.3 2008/10/12 04:31:22 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -56,7 +56,7 @@ class EasyLex_SQLToken
 
 /**
  * This is BSD easy lexcal scanner for SQL.
- * 
+ *
  * @version 1.00
  */
 class EasyLex_SQLScanner
@@ -79,8 +79,7 @@ class EasyLex_SQLScanner
     {
         $this->mBuffer = [];
         for ($i = 0; $i < strlen($buffer); $i++) {
-            $this->mBuffer[$i] = $buffer{
-                $i};
+            $this->mBuffer[$i] = $buffer[$i];
         }
 
         $this->mIndex = 0;
@@ -148,7 +147,7 @@ class EasyLex_SQLScanner
     /**
      * Load file and set buffer. If $preprocess is true, scan commetns and
      * remove these.
-     * 
+     *
      * @param  string $path file path
      * @param  bool   $preprocess
      * @return bool
@@ -327,7 +326,7 @@ class EasyLex_SQLScanner
 
     /**
      * Return Array of operations.
-     * 
+     *
      * @return Array $ret[Index] = Array of tokens.
      */
     public function &getOperations()

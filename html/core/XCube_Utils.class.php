@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Utils.class.php,v 1.5 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -74,7 +74,7 @@ class XCube_Utils
     {
         $arr = func_get_args();
 
-        if (count($arr) === 0) {
+        if (0 === count($arr)) {
             return null;
         }
 
@@ -87,9 +87,9 @@ class XCube_Utils
             $variables = $arr;
             array_shift($variables);
         }
-
         foreach ($variables as $i => $iValue) {
             // Temporary....
+            // @gigamaster merged calls
             $message = str_replace(array('{' . ($i) . '}', '{' . ($i) . ':ucFirst}', '{' . ($i) . ':toLower}', '{' . ($i) . ':toUpper}'), array($variables[$i], ucfirst($iValue), strtolower($iValue), strtoupper($iValue)), $message);
         }
 
@@ -105,7 +105,7 @@ class XCube_Utils
      */
     public static function encrypt($plain_text, $key = null)
     {
-        if ($plain_text === '') {
+        if ('' === $plain_text) {
             return $plain_text;
         }
 
@@ -182,7 +182,7 @@ class XCube_Utils
         // remove pkcs#7 padding for openssl encrypted text if padding string found
         $pad_ch = substr($plain_text, -1);
         $pad_len = ord($pad_ch);
-        if (substr_compare($plain_text, str_repeat($pad_ch, $pad_len), -$pad_len) === 0) {
+        if (0 == substr_compare($plain_text, str_repeat($pad_ch, $pad_len), -$pad_len)) {
             $plain_text = substr($plain_text, 0, strlen($plain_text) - $pad_len);
         }
 
@@ -190,24 +190,26 @@ class XCube_Utils
     }
 
     /**
-     * @deprecated XCube 1.0 will remove this method.
+     * @deprecated XCube 1.0 removes this method.
      * @see XCube_Utils::formatString()
      */
     public function formatMessage()
     {
         $arr = func_get_args();
 
-        if (count($arr) === 0) {
+        if (0 == count($arr)) {
             return null;
         }
 
-        if (count($arr) === 1) {
+        if (1 == count($arr)) {
+            //@gigamaster replaced by self - this return XCube_Utils::formatString($arr[0]);
             return self::formatString($arr[0]);
         }
 
         if (count($arr) > 1) {
             $vals = $arr;
             array_shift($vals);
+            //@gigamaster replaced by self - return XCube_Utils::formatString($arr[0], $vals);
             return self::formatString($arr[0], $vals);
         }
     }

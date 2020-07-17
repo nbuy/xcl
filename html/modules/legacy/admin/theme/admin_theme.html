@@ -1,15 +1,24 @@
 <!doctype html>
 <html class="no-js" lang="<{$xoops_langcode}>">
 <!-- ===========================
-    XOOPS Cube Theme : XCL Admin Flex Grid
+    XOOPSCube Theme : XCL Admin Flex Grid
     Distribution : XCL 2.3 Alpha
-    Version : 0.0.5
+    Version : 0.7.0
     Author : Nuno Luciano aka Gigamaster
-    Date : 2019-11-11
+    Date : 2020-06-11
     URL : https://github.com/xoopscube/xcl/
 =========================== -->
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <link rel="preload" href="<{$xoops_url}>/modules/legacy/admin/theme/style.css" as="style">
+    <link rel="preload" href="<{'js/script.js'|theme}>" as="script">
+    <link rel="prerender" href="<{$xoops_url}>/admin.php">
+    <link rel="prerender" href="<{$xoops_url}>/modules/legacy/admin/index.php?action=BlockList">
+    <link rel="prerender" href="<{$xoops_url}>/modules/legacy/admin/index.php?action=ModuleList">
+    <link rel="prerender" href="<{$xoops_url}>/modules/altsys/admin/index.php?mode=admin&lib=altsys&page=myblocksadmin">
+    <link rel="prerender" href="<{$xoops_url}>/modules/altsys/admin/index.php?mode=admin&lib=altsys&page=mytplsadmin">
+    <link rel="prerender" href="<{$xoops_url}>/modules/altsys/admin/index.php?mode=admin&lib=altsys&page=mylangadmin">
+    <{* ---------- ---------- ---------- ---------- ---------- PRERENDER ADMIN *}>
 	<meta http-equiv="content-type" content="text/html; charset=<{$xoops_charset}>">
 	<meta http-equiv="content-language" content="<{$xoops_langcode}>">
 	<meta http-equiv="content-script-type" content="text/javascript">
@@ -17,19 +26,19 @@
 	<meta name="description" content="XCL Admin Dashboard">
 	<meta name="author" content="Nuno Luciano aka Gigamaster">
 	<meta name="generator" content="XOOPS Cube">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Admin : <{$legacy_sitename|xoops_escape}> : <{$smarty.const._CPHOME}> : <{$legacy_pagetitle|xoops_escape}></title>
 
 
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-		<{* ---------- ---------- ---------- ---------- ---------- Mobile App Manifest *}>
+        <{* ---------- ---------- ---------- ---------- ---------- Mobile App Manifest *}>
 
 		<!-- <link rel="manifest" href="<{$xoops_url}>/modules/legacy/admin/theme/site.webmanifest"> -->
 
 		<{* ---------- ---------- ---------- ---------- ---------- Fav icon *}>
 
 		<link rel="apple-touch-icon" href="<{$xoops_url}>/images/favicon.ico">
+        <link rel="shortcut icon" href="<{$xoops_url}>/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="<{$xoops_url}>/images/favicon.ico" type="image/x-icon">
 
 		<{* ---------- ---------- ---------- ---------- ---------- Module Style Overview *}>
 
@@ -44,12 +53,16 @@
 		<{* ---------- ---------- ---------- ---------- ---------- Admin Style *}>
 
 		<!-- !TODO Check This -->
-		<{stylesheet file=style.css static=true}>
-		<link type="text/css" rel="stylesheet" href="<{$xoops_url}>/modules/legacy/admin/theme/style.css">
+        <{stylesheet file=style.css static=true}>
 
-		<{* ---------- ---------- ---------- ---------- ---------- CDN Script Fallback Local *}>
+        <link type="text/css" rel="stylesheet" href="<{$xoops_url}>/modules/legacy/admin/theme/style.css">
 
-		<!-- <script src='<{* "js/jquery-1.12.4.min.js"|theme *}>'></script> -->
+
+        <{* ---------- ---------- ---------- ---------- ---------- Javascript plugin *}>
+
+<!--        <script src='<{$xoops_url}>/common/js/jquery-migrate.min.js'></script>-->
+        <link type="text/css" rel="stylesheet" href="<{$xoops_url}>/common/js/prismjs/prism.css">
+        <script src='<{$xoops_url}>/common/js/prismjs/prism.js' defer></script>
 
 		<{* ---------- ---------- ---------- ---------- ---------- Xoops javascript *}>
 
@@ -59,49 +72,18 @@
 
 <body>
 
-	<{* ---------- ---------- ---------- ---------- ---------- Mobile Screen Mode *}>
-	<div class="ui-screen-mode">
-		<div class="ui-screen-info">Orientation</div>
-		<div class="ui-screen-info">
-			<img src="<{"icons/icon-screen-rotate.svg"|theme}>" class="svg">
-		</div>
-		<div class="ui-screen-info">Please</div>
-		<div class="ui-screen-info">Rotate your device!</div>
-		<div class="ui-screen-info">Thank you.</div>
-	</div>
-
 <{* ---------- ---------- ---------- ---------- ---------- Grid Admin Dashboard *}>
 
 <div class="grid" id="container">
 
 	<{* ---------- ---------- ---------- ---------- ---------- Header *}>
 
-	<{* Icons size - the most commonly used : 16x16, 24x24, 32x32, 48x48, 64x64 *}>
-	<{* CSS .iconify {width: 20px; height: 20px;} *}>
 	<header class="header">
-		<nav>
-			<ul>
-				<li class="nav-logo">
-					<a href="#"><img src="<{"design/logo.png"|theme}>" alt="<{$legacy_sitename|xoops_escape}> : <{$smarty.const._CPHOME}>"><span class="caret"></span></a>
-					<ul class="nav-sub" style="display:block">
-						<li><a href="<{$xoops_url}>/admin.php" accesskey="m"><{$smarty.const._CPHOME}> <span class="caret"></span></a>
-						<li><a href="<{$xoops_url}>/modules/legacy/admin/index.php?action=BlockList">Blocks</a>
-						<li><a href="<{$xoops_url}>/modules/altsys/admin/index.php?mode=admin&lib=altsys&page=mylangadmin">Language</a>
-						<li><a href="<{$xoops_url}>/modules/legacy/admin/index.php?action=ModuleList">Modules</a>
-						<li><a href="<{$xoops_url}>/modules/legacy/admin/index.php?action=ThemeList">Themes</a>
-						<li><a href="<{$xoops_url}>/modules/altsys/admin/index.php?mode=admin&lib=altsys&page=mytplsadmin">Templates</a>
-					</ul>
-				<!-- <li><a href="<{$xoops_url}>/modules/legacy/admin/index.php?action=ActSearch" role="search" accesskey="s">Search</a> -->
-				<li>
 
-				<li class="ui-color-mode">
-					<{$xoops_lblocks.action_search.content}>
-					<span class="[ ui-color-mode-label ]">&#x263C;</span><input type="checkbox" id="checkbox" class="switch [ ui-color-mode-switch ]">
-
-			</ul>
-		</nav>
+        <{ include file="../templates/components/admin-nav-header.html" }>
 
 	</header>
+
 
 	<{* ---------- ---------- ---------- ---------- ---------- Nav Mobile *}>
 
@@ -109,11 +91,10 @@
 		<svg role="img" xmlns="http://www.w3.org/2000/svg" aria-hidden=”true” width="24" height="24" viewBox="0 0 24 24" class="svg-ui-icon">
 			<path d="M21 15.61L19.59 17l-5.01-5l5.01-5L21 8.39L17.44 12L21 15.61M3 6h13v2H3V6m0 7v-2h10v2H3m0 5v-2h13v2H3z" fill="currentColor"></path>
 		</svg>
-	</div>
+    </div>
+
 
 	<{* ---------- ---------- ---------- ---------- ---------- Nav RIGHT *}>
-
-
 
 
 	<{* ---------- ---------- ---------- ---------- ---------- Aside Navigation *}>
@@ -141,7 +122,8 @@
 	<{* ---------- ---------- ---------- ---------- ---------- Main *}>
 
 	<main class="main">
-		<{ include file="../templates/components/admin-options.html" }>
+
+	<{ include file="../templates/components/admin-options.html" }>
 
 
 	<{* ---------- ---------- ---------- ---------- ---------- Block Online Info *}>
@@ -149,9 +131,9 @@
 	<{if $xoops_dirname == "legacy" && $currentModule->mXoopsModule->getVar('dirname') == "legacy" }>
 
 	<{foreach name=lblock item=block from=$xoops_lblocks}>
-	<{if $block.name =='onlineinfo' && $block.name !='sidemenu'}>
-	<{$block.content}>
-	<{/if}>
+        <{if $block.name =='onlineinfo' && $block.name !='sidemenu'}>
+        <{$block.content}>
+        <{/if}>
 	<{/foreach}>
 
 	<{/if}>
@@ -175,9 +157,9 @@
 
 	</div><{* /Grid *}>
 
-	<div class="design"></div>
+    <script src="<{'js/script.js'|theme}>"></script>
+    <script src="<{$xoops_url}>/common/js/ui-render-svg.js"></script>
 
-	<script src="<{'js/script.js'|theme}>"></script>
 
 </body>
 

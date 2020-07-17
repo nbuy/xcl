@@ -141,9 +141,9 @@ class MyBlocksAdmin
         // can delete if it is a cloned block
         if ('D' == $block->getVar('block_type') || 'C' == $block->getVar('block_type')) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
 
@@ -156,13 +156,13 @@ class MyBlocksAdmin
         // can clone link if it is marked as cloneable block
         if ('D' == $block->getVar('block_type') || 'C' == $block->getVar('block_type')) {
             return 2;
-        } else {
-            // $modversion['blocks'][n]['can_clone']
-            foreach ($this->block_configs as $bconf) {
-                if ($block->getVar('show_func') == @$bconf['show_func'] && $block->getVar('func_file') == @$bconf['file'] && (empty($bconf['template']) || $block->getVar('template') == @$bconf['template'])) {
-                    if (!empty($bconf['can_clone'])) {
-                        return 2;
-                    }
+        }
+
+// $modversion['blocks'][n]['can_clone']
+        foreach ($this->block_configs as $bconf) {
+            if ($block->getVar('show_func') == @$bconf['show_func'] && $block->getVar('func_file') == @$bconf['file'] && (empty($bconf['template']) || $block->getVar('template') == @$bconf['template'])) {
+                if (!empty($bconf['can_clone'])) {
+                    return 2;
                 }
             }
         }
@@ -226,7 +226,7 @@ class MyBlocksAdmin
         $module_options = '';
         foreach ($module_list as $mid => $mname) {
             $mname = htmlspecialchars($mname);
-            if (in_array($mid, $selected_mids)) {
+            if (in_array($mid, $selected_mids, true)) {
                 $module_options .= "<option value='$mid' selected='selected'>$mname</option>\n";
             } else {
                 $module_options .= "<option value='$mid'>$mname</option>\n";
@@ -352,7 +352,7 @@ class MyBlocksAdmin
 				<div title='Block-Right'>
 					<input type='radio' name='sides[$bid]' value='" . XOOPS_SIDEBLOCK_RIGHT . "' class='blockposition' $ssel1 onclick='document.getElementById(\"extra_side_$bid\").value=" . XOOPS_SIDEBLOCK_RIGHT . ";' />
 				</div>
-		
+
 				<div style='width:45px;' title='Block-Extra'>
 					<input type='text' name='extra_sides[$bid]' value='" . $value4extra_side . "' class='block-extra-side' id='extra_side_$bid' />
 				</div>
@@ -442,9 +442,9 @@ class MyBlocksAdmin
 
         if (empty($modversion['blocks'])) {
             return [];
-        } else {
-            return $modversion['blocks'];
         }
+
+        return $modversion['blocks'];
     }
 
 
@@ -521,11 +521,11 @@ class MyBlocksAdmin
             $block->setVar('name', $name);
         }
         $msg = _MD_A_MYBLOCKSADMIN_DBUPDATED;
-        if (false != $block->store()) {
+        if (false !== $block->store()) {
             include_once XOOPS_ROOT_PATH . '/class/template.php';
             $xoopsTpl = new XoopsTpl();
             $xoopsTpl->xoops_setCaching(2);
-            if ('' != $block->getVar('template')) {
+            if ('' !== $block->getVar('template')) {
                 if ($xoopsTpl->is_cached('db:' . $block->getVar('template'))) {
                     if (!$xoopsTpl->clear_cache('db:' . $block->getVar('template'))) {
                         $msg = 'Unable to clear cache for block ID' . $bid;
@@ -877,7 +877,7 @@ class MyBlocksAdmin
                 break;
         }
 
-        $is_custom = in_array($block->getVar('block_type'), ['C', 'E']) ? true : false;
+        $is_custom = in_array($block->getVar('block_type'), ['C', 'E']);
         $block_template = $block->getVar('template', 'n');
         $block_template_tplset = '';
 
@@ -944,7 +944,7 @@ class MyBlocksAdmin
             'op' => $next_op,
             'form_title' => $form_title,
             'submit_button' => $button_value,
-            'common_fck_installed' => $this->checkFck(),
+//            'common_fck_installed' => $this->checkFck(),
             'gticket_hidden' => $GLOBALS['xoopsGTicket']->getTicketHtml(__LINE__, 1800, 'myblocksadmin'),
             ]
         );
@@ -957,10 +957,10 @@ class MyBlocksAdmin
         return;
     }
 
-    public function checkFck()
-    {
-        return file_exists(XOOPS_ROOT_PATH . '/common/fckeditor/fckeditor.js');
-    }
+//    public function checkFck()
+//    {
+//        return file_exists(XOOPS_ROOT_PATH . '/common/fckeditor/fckeditor.js');
+//    }
 
     public function previewContent($block_data)
     {
@@ -1007,7 +1007,7 @@ class MyBlocksAdmin
             'P' => _MD_A_MYBLOCKSADMIN_CTYPE_PHP,
         ];
 
-        return isset($ctypes[$bctype]) ? $ctypes[$bctype] : _MD_A_MYBLOCKSADMIN_CTYPE_SMILE;
+        return $ctypes[$bctype] ?? _MD_A_MYBLOCKSADMIN_CTYPE_SMILE;
     }
 
 

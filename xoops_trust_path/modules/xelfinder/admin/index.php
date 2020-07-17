@@ -48,4 +48,3 @@ echo '<div>'.$sResult.'</div>';
 
 xoops_cp_footer();
 
-?>

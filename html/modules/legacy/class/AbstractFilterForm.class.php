@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: AbstractFilterForm.class.php,v 1.3 2008/09/25 15:11:30 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -18,43 +18,40 @@ class Legacy_AbstractFilterForm
     public $mSortKeys = [];
     public $_mCriteria = null;
     public $mNavi = null;
-    
-    public $_mHandler = null;
-    
-    public function Legacy_AbstractFilterForm(&$navi, &$handler)
-    {
-        self::__construct($navi, $handler);
-    }
 
-    public function __construct(&$navi, &$handler)
+    public $_mHandler = null;
+
+    public function __construct($navi, $handler)
     {
         $this->mNavi =& $navi;
         $this->_mHandler =& $handler;
-        
+
         $this->_mCriteria =new CriteriaCompo();
-        
+
         $this->mNavi->mGetTotalItems->add([&$this, 'getTotalItems']);
     }
-    
+
     public function getDefaultSortKey()
     {
     }
-    
+
     public function getTotalItems(&$total)
     {
         $total = $this->_mHandler->getCount($this->getCriteria());
     }
-    
+
     public function fetchSort()
     {
         $root =& XCube_Root::getSingleton();
         $this->mSort = (int)$root->mContext->mRequest->getRequest('sort');
-        
+
         if (!isset($this->mSortKeys[abs($this->mSort)])) {
             $this->mSort = $this->getDefaultSortKey();
         }
-        
+
+        if (isset( $this->mNavi->mSort['sort'])) {
         $this->mNavi->mSort['sort'] = $this->mSort;
+        }
     }
 
     public function fetch()
@@ -62,11 +59,13 @@ class Legacy_AbstractFilterForm
         $this->mNavi->fetch();
         $this->fetchSort();
     }
-    
+
     public function getSort()
     {
+        if (!isset($this->mSortKeys[abs($this->mSort)])) {
         $sortkey = abs($this->mNavi->mSort['sort']);
         return isset($this->mSortKeys[$sortkey]) ? $this->mSortKeys[$sortkey] : null;
+        }
     }
 
     public function getOrder()
@@ -90,12 +89,12 @@ class Legacy_AbstractFilterForm
             $t_limit = (int)$limit;
             $this->mNavi->setPerpage($t_limit);
         }
-        
+
         $criteria = $this->_mCriteria;
-        
+
         $criteria->setStart($t_start);
         $criteria->setLimit($t_limit);
-        
+
         return $criteria;
     }
 }

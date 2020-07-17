@@ -8,8 +8,6 @@
  *
  */
 
-
-
 /*
 If the first character in a line is #, ; or //, the line is treated as comment.
 */
@@ -54,7 +52,7 @@ class XCube_IniHandler
                 //remove CR
                 $line = preg_replace('/\r/', '', $line);
                 //case: section line
-                if (preg_match('/\[(.*)]/', $line, $str)) {
+                if (preg_match('/\[(.*)\]/', $line, $str)) {
                     if (true === $this->_mSectionFlag) {
                         $key = $str[1];
                         $this->_mConfig[$key] = [];
@@ -91,7 +89,6 @@ class XCube_IniHandler
         if (true === $this->_mSectionFlag) {
             return $this->_mConfig[$section][$key];
         }
-
         return $this->_mConfig[$key];
     }
 

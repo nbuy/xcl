@@ -1,5 +1,6 @@
 <div class="adminnavi" aria-label="breadcrumb">
-  <a href="./index.php"><{$smarty.const._MI_LEGACY_NAME}></a>
+    <a href="<{$xoops_url}>/admin.php">Dashboard</a>
+    &raquo;&raquo; <a href="./index.php"><{$smarty.const._MI_LEGACY_NAME}></a>
   &raquo;&raquo; <a href="./index.php?action=BlockList"><{$smarty.const._MI_LEGACY_MENU_BLOCKLIST}></a>
   &raquo;&raquo; <span class="adminnaviTitle" aria-current="page"><{$smarty.const._AD_LEGACY_LANG_BLOCK_EDIT}></span>
 </div>
@@ -99,8 +100,8 @@
 	<tfoot>
     <tr class="foot">
       <td colspan="2">
-        <input class="formButton" type="submit" value="<{$smarty.const._SUBMIT}>" />
-        <input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel" />
+        <input class="button-submit" type="submit" value="<{$smarty.const._SUBMIT}>">
+        <input class="button-cancel" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel">
       </td>
 		</tr>
 	</tfoot>

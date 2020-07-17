@@ -27,7 +27,7 @@ class PicoControllerVoteContent extends PicoControllerAbstract
 
         $this->contentObj = new PicoContent($this->mydirname, $request['content_id'], $this->currentCategoryObj);
 
-        // check existence
+        // check error
         if ($this->contentObj->isError()) {
             redirect_header(XOOPS_URL . "/modules/$this->mydirname/index.php", 2, _MD_PICO_ERR_READCONTENT);
             exit;
@@ -69,7 +69,6 @@ class PicoControllerVoteContent extends PicoControllerAbstract
         $this->is_need_header_footer = false;
     }
 
-    // !Fix WARNING: Declaration compatible with PicoControllerAbstract::render
     public function render($target = null)
     {
         redirect_header(XOOPS_URL . "/modules/$this->mydirname/" . pico_common_make_content_link4html($this->mod_config, $this->contentObj->getData()), 0, _MD_PICO_MSG_VOTEACCEPTED);

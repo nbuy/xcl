@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_RenderSystem.class.php,v 1.3 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -48,9 +48,8 @@ class XCube_RenderTarget
     public $mType = XCUBE_RENDER_TARGET_TYPE_BUFFER;
 
     public $mCacheTime;
-    // !Fix PHP7 NOTICE: deprecated constructor
+
     public function __construct()
-    //public function XCube_RenderTarget()
     {
     }
 
@@ -147,14 +146,13 @@ class XCube_RenderTarget
 class XCube_RenderSystem
 {
     /**
-     @access private
+     * @access private
      */
     public $mController;
 
     public $mRenderMode = XCUBE_RENDER_MODE_NORMAL;
-    // !Fix PHP7 NOTICE: deprecated constructor
+
     public function __construct()
-    //public function XCube_RenderSystem()
     {
     }
 

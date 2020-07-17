@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Identity.class.php,v 1.3 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -24,9 +24,8 @@ class XCube_Identity
      * @var string
      */
     public $_mAuthenticationType = '';
-    // !Fix PHP7 NOTICE: deprecated constructor
+
     public function __construct()
-    //public function XCube_Identity()
     {
     }
 
@@ -92,9 +91,8 @@ class XCube_Principal
      * @var string[]
      */
     public $_mRoles = [];
-    // !Fix PHP7 NOTICE: deprecated constructor
+
     public function __construct($identity, $roles = [])
-    //public function XCube_Principal($identity, $roles = array())
     {
         $this->mIdentity =& $identity;
         $this->_mRoles = $roles;

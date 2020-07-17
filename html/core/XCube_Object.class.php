@@ -3,7 +3,7 @@
  *
  * @param $definition
  * @return array
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license   https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  * @package   XCube
  * @version   $Id: XCube_Object.class.php,v 1.3 2008/10/12 04:30:27 minahito Exp $
@@ -42,11 +42,11 @@ class XCube_Object
     public function getPropertyDefinition()
     {
     }
-    // !Fix PHP7 NOTICE: deprecated constructor
+
     public function __construct()
-    //public function XCube_Object()
-    {
-        foreach ($this->getPropertyDefinition() as $t_field) {
+    { //typo rename to fields
+        $fields = $this->getPropertyDefinition();
+        foreach ($fields as $t_field) {
             $this->mProperty[$t_field['name']] = [
                 'type' => $t_field['type'],
                 'value' => null

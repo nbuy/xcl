@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: BlockInstallListAction.class.php,v 1.3 2008/09/25 15:11:54 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -60,12 +60,11 @@ class Legacy_BlockInstallListAction extends Legacy_AbstractListAction
         foreach (array_keys($this->mObjects) as $key) {
             $this->mObjects[$key]->loadModule();
         }
-        // !TODO NOTICE: Undefined variable: mods.
-        // ! WARNING: Invalid argument supplied for foreach()
+
         $mods = [];
 
         foreach ($mods as $mod) {
-            
+
             $rtn    = [];
             $sadmin = $moduleperm_handler->checkRight('module_admin', $mod->getVar('mid'), $xoopsUser->getGroups());
             if ($sadmin && ($mod->getVar('hasnotification') || is_array($mod->getInfo('config')) || is_array($mod->getInfo('comments')))) {

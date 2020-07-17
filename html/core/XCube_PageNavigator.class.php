@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_PageNavigator.class.php,v 1.5 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -25,7 +25,7 @@ class XCube_PageNavigator
 {
     /**
      * Array for extra informations.
-     * @var Array
+     * @var
      */
     public $mAttributes = [];
 
@@ -56,7 +56,7 @@ class XCube_PageNavigator
 
     /**
      * Array for sort.
-     * @var Array
+     * @var
      */
     public $mSort = [];
 
@@ -103,9 +103,17 @@ class XCube_PageNavigator
      */
     public $mGetTotalItems;
     /**
+     * @var bool
+     */
+    public $_mIsSpecifiedTotal;
+    /**
      * @var int
      */
-    private $mTotal;
+    public $mTotal;
+    /**
+     * @var int
+     */
+
 
     /**
      * Constructor.
@@ -145,14 +153,14 @@ class XCube_PageNavigator
 
         if ($navi->mFlags & XCUBE_PAGENAVI_START) {
             $t_start = $root->mContext->mRequest->getRequest($navi->getStartKey());
-            if (($t_start !== null) && ((int)$t_start >= 0)) {
+            if (null !== $t_start && (int)$t_start >= 0) {
                 $navi->mStart = (int)$t_start;
             }
         }
 
         if ($navi->mFlags & XCUBE_PAGENAVI_PERPAGE && !$navi->mPerpageFreeze) {
             $t_perpage = $root->mContext->mRequest->getRequest($navi->getPerpageKey());
-            if (($t_perpage !== null) && ((int)$t_perpage > 0)) {
+            if (null !== $t_perpage && (int)$t_perpage > 0) {
                 $navi->mPerpage = (int)$t_perpage;
             }
         }
@@ -184,7 +192,7 @@ class XCube_PageNavigator
 
     public function getRenderBaseUrl($mask = null)
     {
-        if ($mask === null) {
+        if (null === $mask) {
             $mask = [];
         }
         if (!is_array($mask)) {
@@ -196,25 +204,19 @@ class XCube_PageNavigator
 
             foreach ($this->mExtra as $key=>$value) {
                 if (is_array($mask) && !in_array($key, $mask, true)) {
-                    //$tarr[]=$key."=".urlencode($value);
                     $this->_renderExtra($key, $value, $tarr);
                 }
             }
 
-            if (count($tarr) === 0) {
+            if (0 === count($tarr)) {
                 return $this->mUrl;
             }
 
-
-
-
             if (false !== strpos($this->mUrl, '?')) {
-                //return $this->mUrl  . http_build_query($mask. '&amp;');
-                return $this->mUrl . '&amp;' . http_build_query('&amp;', $tarr);
+                return $this->mUrl . '&amp;' . implode('&amp;', $tarr);
             }
 
-            //return $this->mUrl . http_build_query($mask,'&amp;'). '?' ;
-            return $this->mUrl . '?' . http_build_query($tarr,'&amp;');
+            return $this->mUrl . '?' . implode('&amp;', $tarr);
         }
 
         return $this->mUrl;
@@ -224,12 +226,11 @@ class XCube_PageNavigator
      * Return url string for navigation. The return value is lose start value.
      * The user need to add start value. For example, It is "$navi->getRenderUrl().'20'".
      * This method name is bad. I must rename this.
-     * @param null $mask
      * @return string
      */
     public function getRenderUrl($mask = null)
     {
-        if ($mask !== null && !is_array($mask)) {
+        if (null !== $mask && !is_array($mask)) {
             $mask = [$mask];
         }
 
@@ -256,10 +257,10 @@ class XCube_PageNavigator
             $tarr[] = $this->getPerpageKey() . '=' . $this->mPerpage;
 
             if (false !== strpos($this->mUrl, '?')) {
-                return $this->mUrl . '&amp;' . http_build_query('&amp;', $tarr);
+                return $this->mUrl . '&amp;' . implode('&amp;', $tarr);
             }
 
-            return $this->mUrl . '?' . http_build_query('&amp;', $tarr);
+            return $this->mUrl . '?' . implode('&amp;', $tarr);
         }
 
         return $this->mUrl;
@@ -285,10 +286,10 @@ class XCube_PageNavigator
         }
 
         if (false !== strpos($this->mUrl, '?')) {
-            return $this->mUrl . '&amp;' . http_build_query($tarr,'&amp;');
+            return $this->mUrl . '&amp;' . implode('&amp;', $tarr);
         }
 
-        return $this->mUrl . '?' . http_build_query($tarr,'&amp;');
+        return $this->mUrl . '?' . implode('&amp;', $tarr);
     }
 
     /**
@@ -320,7 +321,7 @@ class XCube_PageNavigator
 
     public function getTotalItems()
     {
-        if ($this->_mIsSpecifedTotalItems === false) {
+        if (false === $this->_mIsSpecifedTotalItems) {
             $this->mGetTotalItems->call(new XCube_Ref($this->mTotal));
             $this->_mIsSpecifedTotalItems = true;
         }

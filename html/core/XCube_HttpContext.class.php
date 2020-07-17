@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_HttpContext.class.php,v 1.4 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -19,9 +19,9 @@ class XCube_HttpContext
     /**
      * Hashmap that can be used to organize and share data. Use setAttribute()
      * and get Attribute() to access this member property. But, direct access
-     * is allowed, because PHP4 is unpossible to handle reference well.
-     *
-     * @var Array
+     * is allowed, because it is impossible to handle reference well on older PHP versions.
+     * Array
+     * @var
      * @access protected
      */
     public $mAttributes = [];
@@ -51,9 +51,8 @@ class XCube_HttpContext
      * @access private
      */
     public $mThemeName;
-    // !Fix PHP7 NOTICE: deprecated constructor
+
     public function __construct()
-    //public function XCube_HttpContext()
     {
     }
 
@@ -115,8 +114,8 @@ class XCube_HttpContext
 
     /**
      * Sets the object which has a interface of XCube_Principal.
-     *
-     * @param XCube_AbstractPrincipal $principal
+     * XCube_AbstractPrincipal
+     * @param  $principal
      */
     public function setUser(&$principal)
     {
@@ -190,16 +189,15 @@ class XCube_HttpRequest extends XCube_AbstractRequest
         if (!isset($_GET[$key]) && !isset($_POST[$key])) {
             return null;
         }
-
         return isset($_GET[$key]) ? $_GET[$key] : $_POST[$key];
     }
 
     /**
      * Supports getRequest().
-     *
+     * Array
      * @private
-     * @param Array $arr
-     * @return Array
+     * @param  $arr
+     * @return array
      */
     public function _getArrayRequest($arr)
     {
@@ -215,12 +213,12 @@ class XCube_GenericRequest extends XCube_AbstractRequest
 {
     /**
      * Hash map which stores registered values.
-     * @var Array
+     * Array
+     * @var
      */
     public $mAttributes = [];
-    // !Fix PHP7 NOTICE: deprecated constructor
+
     public function __construct($arr = null)
-    //public function XCube_GenericRequest($arr = null)
     {
         if (is_array($arr)) {
             $this->mAttributes = $arr;

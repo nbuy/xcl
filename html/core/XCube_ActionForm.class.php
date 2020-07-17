@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_ActionForm.class.php,v 1.4 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -108,9 +108,7 @@ class XCube_ActionForm
      * @public
      * @brief Constructor.
      */
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct()
-    //public function XCube_ActionForm()
     {
         $root =& XCube_Root::getSingleton();
         $this->mContext =& $root->getContext();
@@ -149,7 +147,7 @@ class XCube_ActionForm
      */
     public function getToken()
     {
-        if ($this->_mToken === null) {
+        if (null === $this->_mToken) {
             mt_srand(microtime() * 100000);
             $root=&XCube_Root::getSingleton();
             $salt = $root->getSiteConfig('Cube', 'Salt');
@@ -192,10 +190,10 @@ class XCube_ActionForm
     public function set()
     {
         if (isset($this->mFormProperties[func_get_arg(0)])) {
-            if (func_num_args() === 2) {
+            if (2 === func_num_args()) {
                 $value = func_get_arg(1);
                 $this->mFormProperties[func_get_arg(0)]->setValue($value);
-            } elseif (func_num_args() === 3) {
+            } elseif (3 === func_num_args()) {
                 $index = func_get_arg(1);
                 $value = func_get_arg(2);
                 $this->mFormProperties[func_get_arg(0)]->setValue($index, $value);
@@ -209,9 +207,9 @@ class XCube_ActionForm
     public function setVar()
     {
         if (isset($this->mFormProperties[func_get_arg(0)])) {
-            if (func_num_args() === 2) {
+            if (2 === func_num_args()) {
                 $this->mFormProperties[func_get_arg(0)]->setValue(func_get_arg(1));
-            } elseif (func_num_args() === 3) {
+            } elseif (3 === func_num_args()) {
                 $this->mFormProperties[func_get_arg(0)]->setValue(func_get_arg(1), func_get_arg(2));
             }
         }
@@ -250,7 +248,7 @@ class XCube_ActionForm
      * @return XCube_AbstractProperty[]
      * @attention
      *     This method may not be must. So it will be renamed in the near future.
-     * @todo Check whether this method is must.
+     * @todo Check whether this method is needed.
      */
     public function &getFormProperties()
     {
@@ -295,7 +293,6 @@ class XCube_ActionForm
     /**
      * @protected
      * @brief Validates the token.
-     * @var TYPE_NAME $token
      * @return void
      *
      *   Validates the token. This method is deprecated, because XCube_Action will
@@ -308,7 +305,7 @@ class XCube_ActionForm
         //
         // check onetime & transaction token
         //
-        if ($this->getTokenName() !== null) {
+        if (null !== $this->getTokenName()) {
             $key = str_replace('.', '_', $this->getTokenName());
             $token = isset($_REQUEST[$key]) ? $_REQUEST[$key] : null;
 
@@ -316,15 +313,14 @@ class XCube_ActionForm
 
             if (!isset($_SESSION['XCUBE_TOKEN'][$this->getTokenName()])) {
                 $flag = false;
-            }
-            elseif ($token !== $_SESSION['XCUBE_TOKEN'][$this->getTokenName()]) {
+            } elseif ($_SESSION['XCUBE_TOKEN'][$this->getTokenName()] != $token) {
                 unset($_SESSION['XCUBE_TOKEN'][$this->getTokenName()]);
                 $flag = false;
             }
 
             if (!$flag) {
                 $message = $this->getTokenErrorMessage();
-                if ($message === null) {
+                if (null === $message) {
                     $this->mErrorFlag = true;
                 } else {
                     $this->addErrorMessage($message);
@@ -503,9 +499,7 @@ class XCube_FieldProperty
      * @remarks
      *     Only sub-classes of XCube_ActionForm calles this constructor.
      */
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct(&$form)
-    //public function XCube_FieldProperty(&$form)
     {
         $this->mForm =& $form;
     }
@@ -614,17 +608,17 @@ class XCube_FieldProperty
     {
         if (is_array($this->mDepends) && count($this->mDepends) > 0) {
             foreach ($this->mDepends as $name => $depend) {
-                if ($depend->isValid($form, $this->mVariables)) {
-                    // OK
-                } else {
+                if (!$depend->isValid($form, $this->mVariables)) {
                     // Error
                     // NOTICE: This is temporary until we will decide the method of managing error.
                     $this->mForm->mErrorFlag = true;
 
                     // TEST!!
-                    if (isset($this->mForm)) {
-                        $this->mForm->addErrorMessage($this->renderMessage($name));
-                    }
+                    $this->mForm->addErrorMessage($this->renderMessage($name));
+                } else {
+                    // OK check
+                    //!check empty block else
+                    return null;
                 }
             }
         }

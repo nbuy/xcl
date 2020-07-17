@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Validator.class.php,v 1.7 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -21,9 +21,9 @@
 class XCube_Validator
 {
     /**
-     *
-     * @param XCube_FormProperty $form
-     * @param array              $vars variables of this field property.
+     * XCube_FormProperty
+     * @param  $form
+     * @param array $vars variables of this field property.
      * @return void
      */
     public function isValid(&$form, $vars)
@@ -43,7 +43,10 @@ class XCube_MinlengthValidator extends XCube_Validator
 {
     public function isValid(&$form, $vars)
     {
-        return $form->isNull() ? true : strlen($form->toString()) >= $vars['minlength'];
+        if ($form->isNull()) {
+            return true;
+        }
+        return strlen($form->toString()) >= $vars['minlength'];
     }
 }
 
@@ -51,7 +54,10 @@ class XCube_MaxlengthValidator extends XCube_Validator
 {
     public function isValid(&$form, $vars)
     {
-        return $form->isNull() ? true : strlen($form->toString()) <= $vars['maxlength'];
+        if ($form->isNull()) {
+            return true;
+        }
+        return strlen($form->toString()) <= $vars['maxlength'];
     }
 }
 
@@ -59,7 +65,10 @@ class XCube_MinValidator extends XCube_Validator
 {
     public function isValid(&$form, $vars)
     {
-        return $form->isNull() ? true : $form->toNumber() >= $vars['min'];
+        if ($form->isNull()) {
+            return true;
+        }
+        return $form->toNumber() >= $vars['min'];
     }
 }
 
@@ -67,7 +76,10 @@ class XCube_MaxValidator extends XCube_Validator
 {
     public function isValid(&$form, $vars)
     {
-        return $form->isNull() ? true : $form->toNumber() <= $vars['max'];
+        if ($form->isNull()) {
+            return true;
+        }
+        return $form->toNumber() <= $vars['max'];
     }
 }
 
@@ -75,7 +87,10 @@ class XCube_IntRangeValidator extends XCube_Validator
 {
     public function isValid(&$form, $vars)
     {
-        return $form->isNull() ? true : ((int)$form->toNumber() >= $vars['min'] && (int)$form->toNumber() <= $vars['max']);
+        if ($form->isNull()) {
+            return true;
+        }
+        return ((int)$form->toNumber() >= $vars['min'] && (int)$form->toNumber() <= $vars['max']);
     }
 }
 
@@ -83,7 +98,10 @@ class XCube_EmailValidator extends XCube_Validator
 {
     public function isValid(&$form, $vars)
     {
-        return $form->isNull() ? true : preg_match("/^[_a-z0-9\-+!#$%&'*\/=?^`{|}~]+(\.[_a-z0-9\-+!#$%&'*\/=?^`{|}~]+)*@[a-z0-9-]+([\.][a-z0-9-]+)+$/i", $form->toString());
+        if ($form->isNull()) {
+            return true;
+        }
+        return preg_match("/^[_a-z0-9\-+!#$%&'*\/=?^`{|}~]+(\.[_a-z0-9\-+!#$%&'*\/=?^`{|}~]+)*@[a-z0-9-]+([\.][a-z0-9-]+)+$/i", $form->toString());
     }
 }
 
@@ -91,7 +109,10 @@ class XCube_MaskValidator extends XCube_Validator
 {
     public function isValid(&$form, $vars)
     {
-        return $form->isNull() ? true : preg_match($vars['mask'], $form->toString());
+        if ($form->isNull()) {
+            return true;
+        }
+        return preg_match($vars['mask'], $form->toString());
     }
 }
 
@@ -102,13 +123,13 @@ class XCube_ExtensionValidator extends XCube_Validator
         if ($form->isNull()) {
             return true;
         }
-
         if (!$form instanceof \XCube_FileProperty) {
             return true;
         }
 
-        foreach (explode(',', $vars['extension']) as $ext) {
-            if (strtolower($ext) === strtolower($form->mValue->getExtension())) {
+        $extArr = explode(',', $vars['extension']);
+        foreach ($extArr as $ext) {
+            if (strtolower($form->mValue->getExtension()) == strtolower($ext)) {
                 return true;
             }
         }
@@ -124,7 +145,6 @@ class XCube_MaxfilesizeValidator extends XCube_Validator
         if ($form->isNull()) {
             return true;
         }
-
         if (!$form instanceof \XCube_FileProperty) {
             return true;
         }

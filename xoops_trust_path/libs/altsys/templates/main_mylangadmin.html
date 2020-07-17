@@ -1,6 +1,8 @@
-<h2><{$smarty.const._MYLANGADMIN_H3_MODULE}> : <{$target_mname}> : <{$target_lang|escape}> : <{$target_file|escape}></h2>
-
 <div class="ui-dev-mode"><{$smarty.template}></div>
+
+<hr>
+
+<h2><{$smarty.const._MYLANGADMIN_H3_MODULE}> : <{$target_mname}> : <{$target_lang|escape}> : <{$target_file|escape}></h2>
 
 <div class="ui-card-full">
 	<form name="SelectLangFile" action="index.php" method="get">
@@ -40,7 +42,7 @@
 			<th><{$smarty.const._MYLANGADMIN_TH_CONSTANTNAME}></th>
 			<th>
 				<{$smarty.const._MYLANGADMIN_TH_DEFAULTVALUE}>
-				<{if $already_read}><br />(<{$smarty.const._MYLANGADMIN_MSG_NOTICE4ALREADYREAD}>)<{/if}>
+				<{if $already_read}><br>(<{$smarty.const._MYLANGADMIN_MSG_NOTICE4ALREADYREAD}>)<{/if}>
 			</th>
 			<th><{$smarty.const._MYLANGADMIN_TH_USERVALUE}></th>
 		</tr>
@@ -71,7 +73,7 @@
 	<tfoot>
 		<tr>
 			<td colspan="3">
-			<input type="submit" name="do_update" value="<{$smarty.const._MYLANGADMIN_BTN_UPDATE}>">  
+			<input type="submit" name="do_update" value="<{$smarty.const._MYLANGADMIN_BTN_UPDATE}>">
 			<input type="reset" value="<{$smarty.const._MYLANGADMIN_BTN_RESET}>">
 			<{$gticket_hidden}>
 			</td>

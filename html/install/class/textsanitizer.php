@@ -63,7 +63,7 @@ class textsanitizer
 
     public function &nl2Br($text)
     {
-        $ret = preg_replace('/(\015\012)|(\015)|(\012)/', '<br>', $text);
+        $ret = preg_replace("/(\015\012)|(\015)|(\012)/", '<br>', $text);
         return $ret;
     }
 

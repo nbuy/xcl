@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_ServiceManager.class.php,v 1.3 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -18,7 +18,7 @@ class XCube_ServiceUtils
 {
     public function isXSD($typeName)
     {
-        return ('string' === $typeName) || ('int' === $typeName);
+        return 'string' === $typeName || 'int' === $typeName;
     }
 }
 
@@ -40,7 +40,7 @@ class XCube_ServiceManager
     /**
      * Array of XCube_Service instances.
      *
-     * @var Array
+     * @var
      */
     public $mServices = [];
 
@@ -55,9 +55,8 @@ class XCube_ServiceManager
      * @var XCube_Delegate
      */
     public $mCreateServer;
-    // !Fix PHP7 NOTICE: deprecated constructor
+
     public function __construct()
-    //public function XCube_ServiceManager()
     {
         $this->mCreateClient = new XCube_Delegate();
         $this->mCreateClient->register('XCube_ServiceManager.CreateClient');

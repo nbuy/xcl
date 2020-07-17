@@ -62,5 +62,3 @@ $tpl->assign([
              ]
 ) ;
 $tpl->display( 'db:altsys_inc_mymenu.html' ) ;
-
-?>

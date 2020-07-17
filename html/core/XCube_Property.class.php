@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Property.class.php,v 1.7 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -22,9 +22,7 @@ class XCube_PropertyInterface
      * @brief Constructor.
      * @param string $name - A name of this property.
      */
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct($name)
-    //public function XCube_PropertyInterface($name)
     {
     }
 
@@ -154,11 +152,8 @@ class XCube_AbstractProperty extends XCube_PropertyInterface
      * @brief Constructor.
      * @param string $name - A name of this property.
      */
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct($name)
-    //public function XCube_AbstractProperty($name)
     {
-        // ! call parent::__construct() instead of parent::Controller()
         parent::__construct($name);
         //parent::XCube_PropertyInterface($name);
         $this->mName = $name;
@@ -206,7 +201,7 @@ class XCube_AbstractProperty extends XCube_PropertyInterface
      */
     public function isNull()
     {
-        return trim($this->mValue) === '';
+        return (trim($this->mValue) === '');
     }
 
     /**
@@ -286,13 +281,9 @@ class XCube_GenericArrayProperty extends XCube_PropertyInterface
      * @param string $classname - <T>
      * @param string $name      - A name of the property.
      */
-    // !Fix PHP7 NOTICE: deprecated constructor
-    public function __construct($classname, $name)
 
-    //public function XCube_GenericArrayProperty($classname, $name)
+    public function __construct($classname, $name)
     {
-        XCube_PropertyInterface::__construct($name);
-        //parent::__construct($name);
         $this->mPropertyClassName = $classname;
         $this->mName = $name;
     }
@@ -313,14 +304,14 @@ class XCube_GenericArrayProperty extends XCube_PropertyInterface
      */
     public function set($arg1, $arg2 = null)
     {
-        if (is_array($arg1) && ($arg2 === null)) {
+        if (is_array($arg1) && $arg2 === null) {
             $this->reset();
             foreach ($arg1 as $t_key => $t_value) {
                 $this->_set($t_key, $t_value);
             }
-        } elseif ((null === $arg1) && (null === $arg2)) {    //ex) all checkbox options are off
+        } elseif ($arg1===null && $arg2===null) {    //ex) all checkbox options are off
             $this->reset();
-        } elseif ((null !== $arg1) && (null !== $arg2)) {
+        } elseif ($arg1 !== null && $arg2 !== null) {
             $this->_set($arg1, $arg2);
         }
     }
@@ -333,12 +324,12 @@ class XCube_GenericArrayProperty extends XCube_PropertyInterface
      */
     public function add($arg1, $arg2 = null)
     {
-        if (is_array($arg1) && ($arg2 === null)) {
+        if (is_array($arg1) && $arg2 === null) {
             foreach ($arg1 as $t_key => $t_value) {
                 $this->_set($t_key, $t_value);
             }
-        } elseif ((null !== $arg1) && (null !== $arg2)) {
-            $this->_set($arg1, $arg2);
+        } elseif ($arg1 !== null && $arg2 !== null) {
+            $this->_set((string)$arg1, $arg2);
         }
     }
 
@@ -409,7 +400,7 @@ class XCube_GenericArrayProperty extends XCube_PropertyInterface
      */
     public function isNull()
     {
-        return count($this->mProperties) === 0;
+        return (0 === count($this->mProperties));
     }
 
     /**
@@ -460,11 +451,8 @@ class XCube_GenericArrayProperty extends XCube_PropertyInterface
  */
 class XCube_AbstractArrayProperty extends XCube_GenericArrayProperty
 {
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct($name)
-    //public function XCube_AbstractArrayProperty($name)
     {
-        // ! call parent::__construct() instead of parent::Controller()
         parent::__construct($this->mPropertyClassName, $name);
         //parent::XCube_GenericArrayProperty($this->mPropertyClassName, $name);
     }
@@ -489,13 +477,9 @@ class XCube_BoolProperty extends XCube_AbstractProperty
  */
 class XCube_BoolArrayProperty extends XCube_GenericArrayProperty
 {
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct($name)
-    //public function XCube_BoolArrayProperty($name)
     {
-        // ! call parent::__construct() instead of parent::Controller()
         parent::__construct('XCube_BoolProperty', $name);
-        //parent::XCube_GenericArrayProperty("XCube_BoolProperty", $name);
     }
 }
 
@@ -507,7 +491,7 @@ class XCube_IntProperty extends XCube_AbstractProperty
 {
     public function set($value)
     {
-        $this->mValue = ('' !== trim($value)) ?(int)$value:null;
+        $this->mValue = '' !== trim($value) ?(int)$value:null;
     }
 }
 
@@ -532,7 +516,7 @@ class XCube_FloatProperty extends XCube_AbstractProperty
 {
     public function set($value)
     {
-        $this->mValue = ('' !== trim($value)) ?(float)$value:null;
+        $this->mValue = '' !== trim($value) ?(float)$value:null;
     }
 }
 
@@ -564,8 +548,7 @@ class XCube_StringProperty extends XCube_AbstractProperty
         // 	die("Get control code :" . ord($matches[0][0]));
         // }
 
-        //$this->mValue = preg_replace("/[\\x00-\\x1f]/", '', $value);
-        $this->mValue = preg_replace('/[\\x00-\\x1F\\x7F\\x80-\\xFF]/', '', $value);
+        $this->mValue = preg_replace("/[\\x00-\\x1f]/", '', $value);
     }
 
     public function toNumber()
@@ -583,7 +566,7 @@ class XCube_StringArrayProperty extends XCube_GenericArrayProperty
 {
     public function __construct($name)
     {
-        parent::__construct('XCube_StringProperty', $name);;
+        parent::__construct('XCube_StringProperty', $name);
     }
 }
 
@@ -640,6 +623,7 @@ class XCube_FileProperty extends XCube_AbstractProperty
      * friend XCube_FileArrayProperty;
      */
     public $mIndex;
+
     public function __construct($name)
     {
         parent::__construct($name);
@@ -742,9 +726,6 @@ class XCube_ImageFileArrayProperty extends XCube_FileArrayProperty
 {
     public function __construct($name)
     {
-        XCube_FileArrayProperty::__construct($name);
-        // ! call parent::__construct() instead of parent::Controller()
         parent::__construct('XCube_ImageFileProperty', $name);
-        //parent::XCube_GenericArrayProperty("XCube_ImageFileProperty", $name);
     }
 }

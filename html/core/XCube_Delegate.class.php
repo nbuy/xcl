@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Delegate.class.php,v 1.9 2008/11/16 10:05:55 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -36,9 +36,7 @@ class XCube_Ref
      * @public Constructor.
      * @param mixed $obj
      */
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct(&$obj)
-    //public function XCube_Ref(&$obj)
     {
         $this->_mObject =& $obj;
     }
@@ -153,9 +151,7 @@ class XCube_Delegate
      *   $delegate =new XCube_Delegate("string", "string");
      * \endcode
      */
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct()
-    //public function XCube_Delegate()
     {
         if (func_num_args()) {
             $this->_setSignatures(func_get_args());
@@ -166,7 +162,7 @@ class XCube_Delegate
     /**
      * @private
      * @brief Set signatures for this delegate.
-     * @param Vector $args Array - std::vector<string>
+     * @param  $args Array - std::vector<string>
      * @return void
      *
      * By this method, this function will come to check arguments with following
@@ -175,7 +171,8 @@ class XCube_Delegate
     public function _setSignatures($args)
     {
         $this->_mSignatures =& $args;
-        foreach ($args as $i => $arg) {
+        foreach ($args as $i => $iValue) {
+            $arg = $iValue;
             $idx = strpos($arg, ' &');
             if (false !== $idx) {
                 $args[$i] = substr($arg, 0, $idx);
@@ -227,9 +224,10 @@ class XCube_Delegate
         $priority = XCUBE_DELEGATE_PRIORITY_NORMAL;
         $filepath = null;
 
-        if (!is_array($callback) && strpos($callback, '::') !== false && (2 === count($tmp = explode('::', $callback)))) {
-            $callback = $tmp;
-        }
+            //@gigamaster fixed to save memory
+            if (!is_array($callback) && strpos($callback, '::') !== false && 2 === count($tmp = explode('::', $callback))) {
+                $callback = $tmp;
+            }
 
         if (null !== $param2) {
             if (is_int($param2)) {
@@ -258,7 +256,7 @@ class XCube_Delegate
                 if (XCube_DelegateUtils::_compareCallback($callback, $delcallback)) {
                     unset($this->_mCallbacks[$priority][$idx]);
                 }
-                if (count($this->_mCallbacks[$priority]) === 0) {
+                if (0 === count($this->_mCallbacks[$priority])) {
                     unset($this->_mCallbacks[$priority]);
                 }
             }
@@ -291,7 +289,7 @@ class XCube_Delegate
             $this->register($this->_mLazyRegisterName);
         }
 
-        if (($hasSig = $this->_mHasCheckSignatures) && count($mSigs = &$this->_mSignatures) != $num) {
+        if (($hasSig = $this->_mHasCheckSignatures) && count($mSigs = &$this->_mSignatures) !== $num) {
             return false;
         }
 
@@ -310,25 +308,25 @@ class XCube_Delegate
                         break;
 
                     case 'bool':
-                        if ($arg !== null) {
+                        if (!empty($arg)) {
                             $args[$i] = $arg? true : false;
                         }
                         break;
 
                     case 'int':
-                        if ($arg !== null) {
+                        if (!empty($arg)) {
                             $args[$i] = (int)$arg;
                         }
                         break;
 
                     case 'float':
-                        if ($arg !== null) {
+                        if (!empty($arg)) {
                             $args[$i] = (float)$arg;
                         }
                         break;
 
                     case 'string':
-                        if ($arg !== null && !is_string($arg)) {
+                        if (!empty($arg) && !is_string($arg)) {
                             return false;
                         }
                         break;
@@ -362,7 +360,7 @@ class XCube_Delegate
      */
     public function isEmpty()
     {
-        return (count($this->_mCallbacks) === 0);
+        return (0 === count($this->_mCallbacks));
     }
 
     /**
@@ -413,9 +411,7 @@ class XCube_DelegateManager
      * @public
      * @brief Constructor.
      */
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct()
-    ///public function XCube_DelegateManager()
     {
     }
 
@@ -534,7 +530,7 @@ class XCube_DelegateManager
             return $this->_mDelegates[$name]->isEmpty();
         }
 
-        return isset($this->_mCallbacks[$name]) ? count ( $this -> _mCallbacks[ $name ] ) === 0 : false;
+        return isset($this->_mCallbacks[$name]) ? (0 === count($this->_mCallbacks[$name])) : false;
     }
 
     /**
@@ -561,9 +557,7 @@ class XCube_DelegateUtils
      * @private
      * @brief Private Construct. In other words, it's possible to create an instance of this class.
      */
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct()
-    //public function XCube_DelegateUtils()
     {
     }
 
@@ -680,7 +674,6 @@ class XCube_DelegateUtils
             call_user_func_array(['XCube_DelegateUtils', 'call'], $args);
             return $string;
         }
-
         return '';
     }
 
@@ -700,12 +693,12 @@ class XCube_DelegateUtils
         if (!is_array($callback1) && !is_array($callback2) && ($callback1 === $callback2)) {
             return true;
         }
-
         if (is_array($callback1) && is_array($callback2) && (gettype($callback1[0]) === gettype($callback2[0]))
-                                                               && $callback1[1] === $callback2[1]) {
+                                                               && ($callback1[1] === $callback2[1])) {
             if (!is_object($callback1[0]) && ($callback1[0] === $callback2[0])) {
                 return true;
-            } elseif (is_object($callback1[0]) && (get_class($callback1[0]) === get_class($callback2[0]))) {
+            }
+            if (is_object($callback1[0]) && (get_class($callback1[0]) === get_class($callback2[0]))) {
                 return true;
             }
         }

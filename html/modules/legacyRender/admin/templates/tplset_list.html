@@ -15,21 +15,21 @@
   <div class="tips"><{$smarty.const._AD_LEGACYRENDER_TIPS_TEMPLATE_MANAGE_2}></div>
 <{/if}>
 
-<div class="ui-card-full">
+<section class="filter">
 
 	<div class="legacyRender_TemplateSearch">
 	<form method="get" action="index.php"><{$smarty.const._AD_LEGACYRENDER_LANG_SEARCH_TEMPLATE}> :
-		<input type="hidden" name="action" value="TplfileList" />
-		<input type="text" name="tpl_file" />
-		<input class="formButton" type="submit" value="<{$smarty.const._SEARCH}>" />
+		<input type="hidden" name="action" value="TplfileList">
+		<input type="text" name="tpl_file">
+		<input class="formButton" type="submit" value="<{$smarty.const._SEARCH}>">
 	</form>
 	</div>
 
 	<ul class="toptab">
-		<li class="archive"><a href="./index.php?action=TplsetUpload"><{$smarty.const._AD_LEGACYRENDER_LANG_TPLSET_UPLOAD}></a></li>
+		<li class="archive ui-btn"><a href="./index.php?action=TplsetUpload"><{$smarty.const._AD_LEGACYRENDER_LANG_TPLSET_UPLOAD}></a></li>
 	</ul>
 
-</div>
+</section>
 
 <{if $actionForm->hasError()}>
 <div class="error">
@@ -48,18 +48,18 @@
 	<thead>
   <tr>
     <th><{$smarty.const._AD_LEGACYRENDER_LANG_TPLSET_ID}>
-      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.TPLSET_SORT_KEY_TPLSET_ID}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
-      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.TPLSET_SORT_KEY_TPLSET_ID}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a></th>
+      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.TPLSET_SORT_KEY_TPLSET_ID}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>"></a>
+      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.TPLSET_SORT_KEY_TPLSET_ID}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>"></a></th>
     <th><{$smarty.const._AD_LEGACYRENDER_LANG_TPLSET_NAME}>
       (<{$smarty.const._AD_LEGACYRENDER_LANG_TPLSET_DESC}>)
-      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.TPLSET_SORT_KEY_TPLSET_NAME}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
-      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.TPLSET_SORT_KEY_TPLSET_NAME}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a></th>
+      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.TPLSET_SORT_KEY_TPLSET_NAME}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>"></a>
+      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.TPLSET_SORT_KEY_TPLSET_NAME}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>"></a></th>
     <th><{$smarty.const._AD_LEGACYRENDER_LANG_TPLSET_CREDITS}>
-      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.TPLSET_SORT_KEY_TPLSET_CREDITS}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
-      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.TPLSET_SORT_KEY_TPLSET_CREDITS}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a></th>
+      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.TPLSET_SORT_KEY_TPLSET_CREDITS}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>"></a>
+      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.TPLSET_SORT_KEY_TPLSET_CREDITS}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>"></a></th>
     <th><{$smarty.const._AD_LEGACYRENDER_LANG_TPLSET_CREATED}>
-      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.TPLSET_SORT_KEY_TPLSET_CREATED}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
-      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.TPLSET_SORT_KEY_TPLSET_CREATED}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a></th>
+      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=<{$smarty.const.TPLSET_SORT_KEY_TPLSET_CREATED}>"><img src="<{"icons/up.png"|theme}>" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>"></a>
+      <a href="<{$pageNavi->renderUrlForSort()}>&amp;sort=-<{$smarty.const.TPLSET_SORT_KEY_TPLSET_CREATED}>"><img src="<{"icons/down.png"|theme}>" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>"></a></th>
     <th><{$smarty.const._AD_LEGACYRENDER_LANG_TEMPLATE}></th>
     <th><{$smarty.const._AD_LEGACYRENDER_LANG_CONTROL}></th>
 	</tr>
@@ -93,8 +93,8 @@
         <{else}>
           <form method="post" action="./index.php?action=TplsetList">
             <{xoops_token name=$actionForm->getTokenName() value=$actionForm->getToken()}>
-            <input type="hidden" name="tplset_name" value="<{$obj->getShow('tplset_name')}>" id="legacy_xoopsform_tplset_name_<{$obj->getShow('tplset_name')}>" />
-            <input type="submit" value="<{$smarty.const._SELECT}>" class="formButton" />
+            <input type="hidden" name="tplset_name" value="<{$obj->getShow('tplset_name')}>" id="legacy_xoopsform_tplset_name_<{$obj->getShow('tplset_name')}>">
+            <input type="submit" value="<{$smarty.const._SELECT}>" class="formButton">
           </form>
         <{/if}>
 
@@ -104,7 +104,7 @@
         <a href="index.php?action=TplsetClone&amp;tplset_id=<{$obj->get('tplset_id')}>" title="<{$smarty.const._CLONE}>">
           <img src="<{"icons/icon-file-duplicate.svg"|theme}>" class="svg">
         </a>
-        <br />
+        <br>
         <{if $obj->get('tplset_name') != "default"}>
           <a href="index.php?action=TplsetEdit&amp;tplset_id=<{$obj->get('tplset_id')}>" title="<{$smarty.const._EDIT}>">
             <img src="<{"icons/icon-file-edit.svg"|theme}>" class="svg">

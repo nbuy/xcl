@@ -146,43 +146,43 @@ class db_manager
         $reports = [];
         if (isset($this->s_tables['create'])) {
             foreach ($this->s_tables['create'] as $key => $val) {
-                $reports[] = _OKIMG . sprintf(_INSTALL_L45, '<b>$key</b>');
+                $reports[] = _OKIMG . sprintf(_INSTALL_L45, "<b>$key</b>");
             }
         }
         if (isset($this->s_tables['insert'])) {
             foreach ($this->s_tables['insert'] as $key => $val) {
-                $reports[] = _OKIMG . sprintf(_INSTALL_L119, $val, '<b>$key</b>');
+                $reports[] = _OKIMG . sprintf(_INSTALL_L119, $val, "<b>$key</b>");
             }
         }
         if (isset($this->s_tables['alter'])) {
             foreach ($this->s_tables['alter'] as $key => $val) {
-                $reports[] = _OKIMG . sprintf(_INSTALL_L133, '<b>$key</b>');
+                $reports[] = _OKIMG . sprintf(_INSTALL_L133, "<b>$key</b>");
             }
         }
         if (isset($this->s_tables['drop'])) {
             foreach ($this->s_tables['drop'] as $key => $val) {
-                $reports[] = _OKIMG . sprintf(_INSTALL_L163, '<b>$key</b>');
+                $reports[] = _OKIMG . sprintf(_INSTALL_L163, "<b>$key</b>");
             }
         }
-//        $content .= "<br />\n";	//< What's!?
+//        $content .= "<br>\n";	//< What's!?
         if (isset($this->f_tables['create'])) {
             foreach ($this->f_tables['create'] as $key => $val) {
-                $reports[] = _NGIMG . sprintf(_INSTALL_L118, '<b>$key</b>');
+                $reports[] = _NGIMG . sprintf(_INSTALL_L118, "<b>$key</b>");
             }
         }
         if (isset($this->f_tables['insert'])) {
             foreach ($this->f_tables['insert'] as $key => $val) {
-                $reports[] = _NGIMG . sprintf(_INSTALL_L120, $val, '<b>$key</b>');
+                $reports[] = _NGIMG . sprintf(_INSTALL_L120, $val, "<b>$key</b>");
             }
         }
         if (isset($this->f_tables['alter'])) {
             foreach ($this->f_tables['alter'] as $key => $val) {
-                $reports[] = _NGIMG . sprintf(_INSTALL_L134, '<b>$key</b>');
+                $reports[] = _NGIMG . sprintf(_INSTALL_L134, "<b>$key</b>");
             }
         }
         if (isset($this->f_tables['drop'])) {
             foreach ($this->f_tables['drop'] as $key => $val) {
-                $reports[] = _NGIMG . sprintf(_INSTALL_L164, '<b>$key</b>');
+                $reports[] = _NGIMG . sprintf(_INSTALL_L164, "<b>$key</b>");
             }
         }
         return $reports;

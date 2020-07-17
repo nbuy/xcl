@@ -1,12 +1,20 @@
 <?php
 /**
- *
- * @package Legacy
- * @version $Id: token.php,v 1.3 2008/09/25 15:12:42 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
- * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
- *
+ * *
+ *  * Token instance
+ *  *
+ *  * @package    Legacy
+ *  * @subpackage core
+ *  * @author     Original Authors: kilica
+ *  * @author     Other Authors
+ *  * @copyright  2005-2020 The XOOPSCube Project
+ *  * @license    Legacy : https://github.com/xoopscube/xcl/blob/master/GPL_V2.txt
+ *  * @license    Cube : https://github.com/xoopscube/xcl/blob/master/BSD_license.txt
+ *  * @version    Release: @package_230@
+ *  * @link       https://github.com/xoopscube/xcl
+ * *
  */
+
 
 define('XOOPS_TOKEN_TIMEOUT', 0);
 define('XOOPS_TOKEN_PREFIX', 'XOOPS_TOKEN_');
@@ -91,8 +99,6 @@ class XoopsToken
      */
     public function _generateToken()
     {
-        // !Fix Warning: A non-numeric value encountered
-        //srand(microtime()*100000);
         mt_srand ((int) microtime() * 10000 );
         return md5(XOOPS_SALT.$this->_name_.uniqid(mt_rand(), true ));
     }
@@ -165,7 +171,7 @@ class XoopsToken
     }
 
     /**
-     * If $token equals this token's string, true is returened.
+     * If $token equals this token's string, true is returned.
      *
      * @param null $token
      * @return  bool
@@ -191,7 +197,7 @@ class XoopsTokenHandler
     public $_prefix = '';
 
     /**
-     * Create XoopsToken instance, regist(keep to server), and returns it.
+     * Create XoopsToken instance, register (keep to server), and returns it.
      *
      * @access public
      * @param this $name    token's name string.
@@ -324,7 +330,7 @@ class XoopsSingleTokenHandler extends XoopsTokenHandler
  * This class publish a token of the different same name of a serial number
  * for the tab browser.
  */
-class XoopsMultiTokenHandler
+class XoopsMultiTokenHandler extends XoopsTokenHandler
 {
     /**
      * @access private
@@ -339,7 +345,7 @@ class XoopsMultiTokenHandler
         return $token;
     }
 
-    public function &fetch($name, $serial_number)
+    public function &fetch($name, $serial_number=null)
     {
         $ret = null;
         if (isset($_SESSION[XOOPS_TOKEN_MULTI_SESSION_STRING][$this->_prefix.$name][$serial_number])) {
@@ -358,7 +364,7 @@ class XoopsMultiTokenHandler
         unset($_SESSION[XOOPS_TOKEN_MULTI_SESSION_STRING][$this->_prefix.$token->_name_][$token->getSerialNumber()]);
     }
 
-    public function isRegistered($name, $serial_number)
+    public function isRegistered($name, $serial_number=null)
     {
         return isset($_SESSION[XOOPS_TOKEN_MULTI_SESSION_STRING][$this->_prefix.$name][$serial_number]);
     }
@@ -366,10 +372,9 @@ class XoopsMultiTokenHandler
     public function autoValidate($name, $clearIfValid=true)
     {
         $serial_number = $this->getRequestNumber($name);
-        if (null !== $serial_number) {
-            if ($token =& $this->fetch($name, $serial_number)) {
-                return $this->validate($token, $clearIfValid);
-            }
+
+        if ((null !== $serial_number) && $token =& $this->fetch($name, $serial_number)) {
+            return $this->validate($token, $clearIfValid);
         }
         return false;
     }

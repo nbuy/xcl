@@ -2,7 +2,7 @@
 
 require_once dirname(__DIR__) . '/include/main_functions.php';
 require_once dirname(__DIR__) . '/include/common_functions.php';
-require_once dirname(__DIR__) . '/class/pico.textsanitizer.php';
+require_once dirname(__DIR__) . '/class/PicoTextSanitizer.class.php';
 require_once dirname(__DIR__) . '/class/PicoUriMapper.class.php';
 require_once dirname(__DIR__) . '/class/PicoPermission.class.php';
 require_once dirname(__DIR__) . '/class/PicoModelCategory.class.php';
@@ -10,7 +10,9 @@ require_once dirname(__DIR__) . '/class/PicoModelContent.class.php';
 require_once XOOPS_TRUST_PATH . '/libs/altsys/class/AltsysBreadcrumbs.class.php';
 
 // add XOOPS_TRUST_PATH/PEAR/ into include_path
-if (!defined('PATH_SEPARATOR')) define('PATH_SEPARATOR', DIRECTORY_SEPARATOR == '/' ? ':' : ';');
+if (!defined('PATH_SEPARATOR')) {
+    define('PATH_SEPARATOR', DIRECTORY_SEPARATOR == '/' ? ':' : ';');
+}
 ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . XOOPS_TRUST_PATH . '/PEAR');
 
 // breadcrumbs

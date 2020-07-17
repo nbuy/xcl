@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: BlockListAction.class.php,v 1.3 2008/09/25 15:11:47 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -53,11 +53,11 @@ class Legacy_BlockListAction extends Legacy_AbstractListAction
 
         // naao added selectedMid filter
         $selectedMid = (int)$root->mContext->mRequest->getRequest('selmid') ;
-        if (0 != $selectedMid) {
+        if (0 !== $selectedMid) {
             $navi->addExtra('selmid', $selectedMid);
         }
         $selectedGid = (int)$root->mContext->mRequest->getRequest('selgid') ;
-        if (0 != $selectedGid) {
+        if (0 !== $selectedGid) {
             $navi->addExtra('selgid', $selectedGid);
         }
         return $navi;
@@ -137,7 +137,7 @@ class Legacy_BlockListAction extends Legacy_AbstractListAction
     public function execute(&$controller, &$xoopsUser)
     {
         $form_cancel = $controller->mRoot->mContext->mRequest->getRequest('_form_control_cancel');
-        if (null != $form_cancel) {
+        if (null !== $form_cancel) {
             return LEGACY_FRAME_VIEW_CANCEL;
         }
 
@@ -146,9 +146,9 @@ class Legacy_BlockListAction extends Legacy_AbstractListAction
 
         if ($this->mActionForm->hasError()) {
             return $this->_processConfirm($controller, $xoopsUser);
-        } else {
-            return $this->_processSave($controller, $xoopsUser);
         }
+
+        return $this->_processSave($controller, $xoopsUser);
     }
 
     public function _processConfirm(&$controller, &$xoopsUser)

@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Theme.class.php,v 1.4 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -83,7 +83,8 @@ class XCube_Theme
     public function loadManifesto($file)
     {
         if (file_exists($file)) {
-            $this->_mManifesto = (new XCube_IniHandler($file, true))->getAllConfig();
+            $iniHandler = new XCube_IniHandler($file, true);
+            $this->_mManifesto = $iniHandler->getAllConfig();
             $this->mName = isset($this->_mManifesto['Manifesto']['Name']) ? $this->_mManifesto['Manifesto']['Name'] : '';
             $this->mDepends = isset($this->_mManifesto['Manifesto']['Depends']) ? $this->_mManifesto['Manifesto']['Depends'] : '';
             $this->mVersion = isset($this->_mManifesto['Manifesto']['Version']) ? $this->_mManifesto['Manifesto']['Version'] : '';

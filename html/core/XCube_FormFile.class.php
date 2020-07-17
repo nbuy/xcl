@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_FormFile.class.php,v 1.3 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -14,7 +14,7 @@ define('XCUBE_FORMFILE_CHMOD', 0644);
 /**
  * WARNING:
  * This class is simple wrapper class for proccessing the file uploaded.
- * However, we have to examine the position of this class. We aims to simple file tree.
+ * However, we have to examine the position of this class. We aim to simple file tree.
  * This class is only helper. We think that Cube system shouldn't offer misc helper.
  *
  * We put this class in root/class for the progress of this project. But, we will move
@@ -34,9 +34,8 @@ class XCube_FormFile
     public $_mTmpFileName;
 
     public $mUploadFileFlag=false;
-    // !Fix PHP7 NOTICE: deprecated constructor
+
     public function __construct($name = null, $key = null)
-    //public function XCube_FormFile($name = null, $key = null)
     {
         $this->mName = $name;
         $this->mKey = $key;
@@ -48,7 +47,7 @@ class XCube_FormFile
     public function fetch()
     {
         if ($this->mName && isset($_FILES[$this->mName])) {
-            if ($this->mKey !== null) {
+            if (null !== $this->mKey) {
                 $this->setFileName($_FILES[$this->mName]['name'][$this->mKey]);
                 $this->setContentType($_FILES[$this->mName]['type'][$this->mKey]);
                 $this->setFileSize($_FILES[$this->mName]['size'][$this->mKey]);
@@ -82,7 +81,7 @@ class XCube_FormFile
 
     public function getFileData()
     {
-        // Now, implemeting.
+        // Now, implementing.
     }
 
     /**
@@ -111,7 +110,7 @@ class XCube_FormFile
     {
         $ret = null;
         $filename=$this->getFileName();
-        if (preg_match("/\.([a-z0-9.]+)$/i", $filename, $match)) {
+        if (preg_match("/\.([a-z0-9\.]+)$/i", $filename, $match)) {
             $ret=$match[1];
         }
 
@@ -227,7 +226,7 @@ class XCube_FormFile
     public function saveAs($file)
     {
         $destFile = '';
-        if (preg_match("#/$#", $file)) {
+        if (preg_match("#\/$#", $file)) {
             $destFile = $file . $this->getFileName();
         } elseif (is_dir($file)) {
             $destFile = $file . '/' . $this->getFileName();

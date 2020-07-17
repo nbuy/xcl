@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: xoops_version.php,v 1.13 2008/09/25 14:31:43 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -178,7 +178,7 @@ $modversion['blocks'][5]['name'] = _MI_LEGACY_BLOCK_SITEINFO_NAME;
 $modversion['blocks'][5]['description'] = _MI_LEGACY_BLOCK_SITEINFO_DESC;
 $modversion['blocks'][5]['show_func'] = 'b_legacy_siteinfo_show';
 $modversion['blocks'][5]['edit_func'] = 'b_legacy_siteinfo_edit';
-$modversion['blocks'][5]['options'] = '320|190|s_poweredby.gif|1';
+$modversion['blocks'][5]['options'] = '320|190|s_poweredby.png|1';
 $modversion['blocks'][5]['template'] = 'legacy_block_siteinfo.html';
 $modversion['blocks'][5]['show_all_module'] = true;
 

@@ -1,36 +1,23 @@
 <?php
-// $Id: banners.php,v 1.1 2007/05/15 02:34:30 minahito Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <https://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+/**
+ * *
+ *  * Client Banners
+ *  *
+ *  * Function to let your client login the stats
+ *  *
+ *  * @package    legacy
+ *  * @author     Original Authors: Kazumi Ono (aka onokazu)
+ *  * @author     Other Authors : Minahito
+ *  * @copyright  2000-2020 The XOOPSCube Project
+ *  * @license    Legacy : https://github.com/xoopscube/xcl/blob/master/GPL_V2.txt
+ *  * @license    Cube : https://github.com/xoopscube/xcl/blob/master/BSD_license.txt
+ *  * @version    Release: @package_230@
+ *  * @link       https://github.com/xoopscube/xcl
+ * *
+ */
 
 include 'mainfile.php';
 
-/********************************************/
-/* Function to let your client login to see */
-/* the stats                                */
-/********************************************/
 function clientlogin()
 {
     global $xoopsDB, $xoopsLogger, $xoopsConfig;
@@ -81,7 +68,7 @@ function bannerstats($login, $pass)
         echo "<style type='text/css'>
                          .b_td {color: #ffffff; background-color: #2F5376; padding: 3px; text-align: center;}
                   </style>
-            <h4 style='text-align:center;'><b>Current Active Banners for $name</b><br /></h4>
+            <h4 style='text-align:center;'><b>Current Active Banners for $name</b><br></h4>
             <table width='100%' border='0'><tr>
                 <td class='b_td'><b>ID</b></td>
                 <td class='b_td'><b>Imp. Made</b></td>
@@ -111,12 +98,12 @@ function bannerstats($login, $pass)
                 <td align='center'>$percent%</td>
                 <td align='center'><a href='banners.php?op=EmailStats&amp;login=$login&amp;pass=$pass&amp;cid=$cid&amp;bid=$bid&amp;".$token->getUrl()."'>E-mail Stats</a></td></tr>";
         }
-        echo '</table><br /><br /><div>Following are your running Banners in ' . htmlspecialchars($xoopsConfig['sitename']) . ' </div><br /><br />';
+        echo '</table><br><br><div>Following are your running Banners in ' . htmlspecialchars($xoopsConfig['sitename']) . ' </div><br><br>';
         $result = $xoopsDB->query('select bid, imageurl, clickurl, htmlbanner, htmlcode from ' . $xoopsDB->prefix('banner') . " where cid=$cid");
         while (list($bid, $imageurl, $clickurl, $htmlbanner, $htmlcode) = $xoopsDB->fetchRow($result)) {
             $numrows = $xoopsDB->getRowsNum($result);
             if ($numrows>1) {
-                echo '<hr /><br />';
+                echo '<hr /><br>';
             }
             if (!empty($htmlbanner) && !empty($htmlcode)) {
                 echo $myts->displayTarea($htmlcode);
@@ -133,12 +120,12 @@ function bannerstats($login, $pass)
                 }
             }
             $token =& XoopsMultiTokenHandler::quickCreate('banner_EmailStats');
-            echo"Banner ID: $bid<br />
-                Send <a href='banners.php?op=EmailStats&amp;login=$login&amp;cid=$cid&amp;bid=$bid&amp;pass=$pass&amp;".$token->getUrl()."'>E-Mail Stats</a> for this Banner<br />";
+            echo"Banner ID: $bid<br>
+                Send <a href='banners.php?op=EmailStats&amp;login=$login&amp;cid=$cid&amp;bid=$bid&amp;pass=$pass&amp;".$token->getUrl()."'>E-Mail Stats</a> for this Banner<br>";
             if (!$htmlbanner) {
                 $token =& XoopsMultiTokenHandler::quickCreate('banner_Change');
                 $clickurl = htmlspecialchars($clickurl, ENT_QUOTES);
-                echo "This Banner points to <a href='$clickurl'>this URL</a><br />
+                echo "This Banner points to <a href='$clickurl'>this URL</a><br>
                     <form action='banners.php' method='post'>
                     Change URL: <input class='textbox' type='text' name='url' size='50' maxlength='200' value='$clickurl' />
                     <input class='textbox' type='hidden' name='login' value='$login' />
@@ -152,9 +139,9 @@ function bannerstats($login, $pass)
         }
 
             /* Finnished Banners */
-            echo '<br />';
+            echo '<br>';
         if (!$result = $xoopsDB->query('select bid, impressions, clicks, datestart, dateend from ' . $xoopsDB->prefix('bannerfinish') . " where cid=$cid")) {
-            echo "<h4 style='text-align:center;'>Banners Finished for $name</h4><br />
+            echo "<h4 style='text-align:center;'>Banners Finished for $name</h4><br>
             <table width='100%' border='0'><tr>
             <td class='b_td'><b>ID</b></td>
             <td class='b_td'><b>Impressions</b></td>
@@ -194,7 +181,7 @@ function EmailStats($login, $cid, $bid, $pass)
             list($name, $email, $passwd) = $xoopsDB->fetchRow($result2);
             if ($pass == $passwd) {
                 if ('' == $email) {
-                    redirect_header('banners.php', 3, "There isn't an email associated with client " . $name . '.<br />Please contact the Administrator');
+                    redirect_header('banners.php', 3, "There isn't an email associated with client " . $name . '.<br>Please contact the Administrator');
                     exit();
                 } else {
                     if ($result = $xoopsDB->query('select bid, imptotal, impmade, clicks, imageurl, clickurl, date from ' . $xoopsDB->prefix('banner') . " where bid=$bid and cid=$cid")) {
@@ -275,90 +262,93 @@ function clickbanner($bid)
     }
     exit();
 }
+
 $op = '';
 if (!empty($_POST['op'])) {
     $op = $_POST['op'];
 } elseif (!empty($_GET['op'])) {
     $op = $_GET['op'];
 }
+
 $myts =& MyTextSanitizer::sGetInstance();
+
 switch ($op) {
-case 'click':
-    $bid = 0;
-    if (!empty($_GET['bid'])) {
-        $bid = (int)$_GET['bid'];
-    }
-    clickbanner($bid);
-    break;
-case 'login':
-    clientlogin();
-    break;
-case 'Ok':
-    if (!XoopsMultiTokenHandler::quickValidate('banner_Ok')) {
-        redirect_header('banners.php');
-        exit();
-    }
-    $login = $pass = '';
-    if (!empty($_GET['login'])) {
-        $login = $myts->stripslashesGPC(trim($_GET['login']));
-    }
-    if (!empty($_GET['pass'])) {
-        $pass = $myts->stripslashesGPC(trim($_GET['pass']));
-    }
-    if (!empty($_POST['login'])) {
-        $login = $myts->stripslashesGPC(trim($_POST['login']));
-    }
-    if (!empty($_POST['pass'])) {
-        $pass = $myts->stripslashesGPC(trim($_POST['pass']));
-    }
-    bannerstats($login, $pass);
-    break;
-case 'Change':
-    if (!XoopsMultiTokenHandler::quickValidate('banner_Change')) {
-        redirect_header('banners.php');
-        exit();
-    }
-    $login = $pass = $url = '';
-    $bid = $cid = 0;
-    if (!empty($_POST['login'])) {
-        $login = $myts->stripslashesGPC(trim($_POST['login']));
-    }
-    if (!empty($_POST['pass'])) {
-        $pass = $myts->stripslashesGPC(trim($_POST['pass']));
-    }
-    if (!empty($_POST['url'])) {
-        $url = $myts->stripslashesGPC(trim($_POST['url']));
-    }
-    if (!empty($_POST['bid'])) {
-        $bid = (int)$_POST['bid'];
-    }
-    if (!empty($_POST['cid'])) {
-        $cid = (int)$_POST['cid'];
-    }
-    change_banner_url_by_client($login, $pass, $cid, $bid, $url);
-    break;
-case 'EmailStats':
-    if (!XoopsMultiTokenHandler::quickValidate('banner_EmailStats')) {
-        redirect_header('banners.php');
-        exit();
-    }
-    $login = $pass = '';
-    $bid = $cid = 0;
-    if (!empty($_GET['login'])) {
-        $login = $myts->stripslashesGPC(trim($_GET['login']));
-    }
-    if (!empty($_GET['pass'])) {
-        $pass = $myts->stripslashesGPC(trim($_GET['pass']));
-    }
-    if (!empty($_GET['bid'])) {
-        $bid = (int)$_GET['bid'];
-    }
-    if (!empty($_GET['cid'])) {
-        $cid = (int)$_GET['cid'];
-    }
-    EmailStats($login, $cid, $bid, $pass);
-    break;
-default:
-    clientlogin();
-    break;
+    case 'click':
+        $bid = 0;
+        if (!empty($_GET['bid'])) {
+            $bid = (int)$_GET['bid'];
+        }
+        clickbanner($bid);
+        break;
+    case 'login':
+        clientlogin();
+        break;
+    case 'Ok':
+        if (!XoopsMultiTokenHandler::quickValidate('banner_Ok')) {
+            redirect_header('banners.php');
+            exit();
+        }
+        $login = $pass = '';
+        if (!empty($_GET['login'])) {
+            $login = $myts->stripslashesGPC(trim($_GET['login']));
+        }
+        if (!empty($_GET['pass'])) {
+            $pass = $myts->stripslashesGPC(trim($_GET['pass']));
+        }
+        if (!empty($_POST['login'])) {
+            $login = $myts->stripslashesGPC(trim($_POST['login']));
+        }
+        if (!empty($_POST['pass'])) {
+            $pass = $myts->stripslashesGPC(trim($_POST['pass']));
+        }
+        bannerstats($login, $pass);
+        break;
+    case 'Change':
+        if (!XoopsMultiTokenHandler::quickValidate('banner_Change')) {
+            redirect_header('banners.php');
+            exit();
+        }
+        $login = $pass = $url = '';
+        $bid = $cid = 0;
+        if (!empty($_POST['login'])) {
+            $login = $myts->stripslashesGPC(trim($_POST['login']));
+        }
+        if (!empty($_POST['pass'])) {
+            $pass = $myts->stripslashesGPC(trim($_POST['pass']));
+        }
+        if (!empty($_POST['url'])) {
+            $url = $myts->stripslashesGPC(trim($_POST['url']));
+        }
+        if (!empty($_POST['bid'])) {
+            $bid = (int)$_POST['bid'];
+        }
+        if (!empty($_POST['cid'])) {
+            $cid = (int)$_POST['cid'];
+        }
+        change_banner_url_by_client($login, $pass, $cid, $bid, $url);
+        break;
+    case 'EmailStats':
+        if (!XoopsMultiTokenHandler::quickValidate('banner_EmailStats')) {
+            redirect_header('banners.php');
+            exit();
+        }
+        $login = $pass = '';
+        $bid = $cid = 0;
+        if (!empty($_GET['login'])) {
+            $login = $myts->stripslashesGPC(trim($_GET['login']));
+        }
+        if (!empty($_GET['pass'])) {
+            $pass = $myts->stripslashesGPC(trim($_GET['pass']));
+        }
+        if (!empty($_GET['bid'])) {
+            $bid = (int)$_GET['bid'];
+        }
+        if (!empty($_GET['cid'])) {
+            $cid = (int)$_GET['cid'];
+        }
+        EmailStats($login, $cid, $bid, $pass);
+        break;
+    default:
+        clientlogin();
+        break;
 }

@@ -11,7 +11,17 @@
 
 <div class="ui-dev-mode"><{$smarty.template}></div>
 
-	<div class="tips"><{$smarty.const._AD_LEGACY_TIPS_MOD}></div>
+	<div class="tips">
+        <p><{$smarty.const._AD_LEGACY_TIPS_MOD}></p>
+        <div class="ui-flex-row">
+            <div class="ui-flex-column">
+                <!-- toggle display -->
+                <p><input class="switch" type="checkbox" id="module-filter" onclick="slideToggle('.module-filter', this)" value="0">
+                    <label for="module-filter"> Display module filter</label></p></div>
+            <div class="ui-flex-column"><a class="ui-btn ui-btn-small" href="index.php?action=InstallList"><{$smarty.const._AD_LEGACY_LANG_MODINSTALL}></a></div>
+        </div>
+
+    </div>
 
 	<{if $actionForm->hasError()}>
 	<div class="error">
@@ -23,11 +33,10 @@
 	</div>
 	<{/if}>
 
-
-
-
+<{*  display module filer *}>
+<div class="module-filter" style="display: none">
 <{ include file="./components/module-filter.html" }>
-
+</div>
 
 <{* ---------- ---------- ---------- ---------- ---------- UI-GRID-BLOCKS *}>
 <div class="ui-grid-blocks">
@@ -41,7 +50,7 @@
 </div><{* /ui-grid-blocks *}>
 
   <div class="foot">
-    <input type="submit" value="<{$smarty.const._AD_LEGACY_LANG_UPDATE}>" class="formButton">
+    <input class="button-update" type="submit" value="<{$smarty.const._AD_LEGACY_LANG_UPDATE}>">
   </div>
 
 </form>

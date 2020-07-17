@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: install_updateConfig_go.inc.php,v 1.3 2008/09/25 15:12:23 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -102,7 +102,7 @@ $dbm->insert('config', " VALUES (73,0,6,'fromuid','_MD_AM_MAILFROMUID','1','_MD_
 // default the default theme
 
 $time = time();
-$dbm->insert('tplset', " VALUES (1, 'legacy_default', 'Legacy 2.2 Default Theme', '', " . $time . ')'); //TODO check install tplset
+$dbm->insert('tplset', " VALUES (1, 'xcl_default', 'XCL 2.3.0 Default Theme', '', " . $time . ')'); //TODO check install tplset
 
 //  include_once './class/cachemanager.php';
 //    $cm = new cache_manager;

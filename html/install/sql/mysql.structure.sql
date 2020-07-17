@@ -366,6 +366,7 @@ CREATE TABLE modules (
   KEY trust_dirname (trust_dirname),
   KEY name (name(15))
 ) ENGINE=InnoDB AUTO_INCREMENT=2 ;
+
 # mid=1 is reserved for old XOOPS system module
 # --------------------------------------------------------
 
@@ -440,7 +441,7 @@ CREATE TABLE priv_msgs (
 # Table structure for table `ranks`
 #
 
-CREATE TABLE `ranks` (
+CREATE TABLE ranks (
   rank_id smallint(5) unsigned NOT NULL auto_increment,
   rank_title varchar(50) NOT NULL default '',
   rank_min mediumint(8) unsigned NOT NULL default '0',

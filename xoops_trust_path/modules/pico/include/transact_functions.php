@@ -185,21 +185,21 @@ function pico_sync_tags($mydirname)
 	$result = $db->query('SELECT content_id,tags FROM ' . $db->prefix($mydirname . '_contents'));
 	while (list($content_id, $tags) = $db->fetchRow($result)) {
 		foreach (explode(' ', $tags) as $tag) {
-			if ('' == trim($tag)) continue;
+			if ('' == trim($tag)) {
+                continue;
+            }
 			$all_tags_array[$tag][] = $content_id;
 		}
 	}
 
 	// delete/insert or update tags table
-	foreach ($all_tags_array as $tag => $content_ids) {
-		$label4sql = $db->quoteString($tag);
-		$content_ids4sql = implode(',', $content_ids);
-		$count = count($content_ids);
-		// !Fix SQL Error insert tags - Duplicate entry 'module' for key 'PRIMARY'
-		// reversed INSERT INTO with UPDATE
-		$result = $db->queryF(' UPDATE ' . $db->prefix($mydirname . '_tags') . " SET count = $count, content_ids ='$content_ids4sql', modified_time = UNIX_TIMESTAMP() WHERE label = $label4sql");
-		if (!$result) {
-			$db->queryF(' INSERT INTO ' . $db->prefix($mydirname . '_tags') . " SET label = $label4sql, weight = 0, count ='$count', content_ids= '$content_ids4sql', created_time = UNIX_TIMESTAMP(), modified_time= UNIX_TIMESTAMP()");
+	foreach( $all_tags_array as $tag => $content_ids ) {
+		$label4sql = $db->quoteString( $tag ) ;
+		$content_ids4sql = implode( ',' , $content_ids ) ;
+		$count = sizeof( $content_ids ) ;
+		$result = $db->queryF( "INSERT INTO ".$db->prefix($mydirname."_tags" )." SET label=$label4sql,weight=0,count='$count',content_ids='$content_ids4sql',created_time=UNIX_TIMESTAMP(),modified_time=UNIX_TIMESTAMP()" ) ;
+		if( ! $result ) {
+			$db->queryF( "UPDATE ".$db->prefix($mydirname."_tags" )." SET count=$count,content_ids='$content_ids4sql',modified_time=UNIX_TIMESTAMP() WHERE label=$label4sql" ) ;
 		}
 	}
 
@@ -607,8 +607,6 @@ function pico_makecontent($mydirname, $auto_approval = true, $isadminormod = fal
 	$db = XoopsDatabaseFactory::getDatabaseConnection();
 	$uid = is_object($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
 
-	// !Fix TODO - NOTICE: Only variables should be passed by reference
-	//$requests = pico_get_requests4content( $mydirname , $errors = array() , $auto_approval , $isadminormod ) ;
 	$errors = [];
 	$requests = pico_get_requests4content($mydirname, $errors, $auto_approval, $isadminormod);
 
@@ -658,9 +656,6 @@ function pico_updatecontent($mydirname, $content_id, $auto_approval = true, $isa
 
 	$db = XoopsDatabaseFactory::getDatabaseConnection();
 
-	// !Fix NOTICE: Only variables should be passed by reference
-
-	//$requests = pico_get_requests4content( $mydirname , $errors = array() , $auto_approval , $isadminormod , $content_id ) ;
 	$errors = [];
 	$requests = pico_get_requests4content($mydirname, $errors, $auto_approval, $isadminormod, $content_id);
 

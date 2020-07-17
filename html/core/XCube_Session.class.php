@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Session.class.php,v 1.4 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -34,9 +34,7 @@ class XCube_Session
      */
     public $mGetSessionCookiePath;
 
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct($sessionName='', $sessionExpire=0)
-    //public function XCube_Session($sessionName='', $sessionExpire=0)
     {
         $this->setParam($sessionName, $sessionExpire);
 
@@ -56,7 +54,11 @@ class XCube_Session
     {
         $allIniArray = ini_get_all();
 
-        $this->mSessionName = $sessionName !== '' ? $sessionName : $allIniArray['session.name']['global_value'];
+        if ('' !== $sessionName) {
+            $this->mSessionName = $sessionName;
+        } else {
+            $this->mSessionName = $allIniArray['session.name']['global_value'];
+        }
 
         if (!empty($sessionExpire)) {
             $this->mSessionLifetime = 60 * $sessionExpire;
@@ -73,7 +75,7 @@ class XCube_Session
         $this->mSetupSessionHandler->call();
 
         session_name($this->mSessionName);
-        session_set_cookie_params($this->mSessionLifetime, $this->_cookiePath(), ini_get('session.cookie_domain'), ini_get('session.cookie_secure'), ini_get('session.cookie_httponly'));
+        session_set_cookie_params($this->mSessionLifetime, $this->_cookiePath());
 
         session_start();
 
@@ -88,7 +90,10 @@ class XCube_Session
             if (isset($session_params['httponly'])) {
                 $session_cookie_params[] = $session_params['httponly'];
             }
-            setcookie($session_cookie_params, ini_get('session.cookie_lifetime'), ini_get('session.cookie_path'), ini_get('session.cookie_domain'), ini_get('session.cookie_secure'), ini_get('session.cookie_httponly'));
+            //!Todo check sameSite secure to replace with
+            // setcookie(...$session_cookie_params);
+            call_user_func_array('setcookie', $session_cookie_params);
+
         }
     }
 
@@ -103,9 +108,9 @@ class XCube_Session
         // (This case will occur when session config params are changed in preference screen.)
         $currentSessionName = session_name();
         if (isset($_COOKIE[$currentSessionName])) {
-            if (($currentSessionName !== $this->mSessionName) || $forceCookieClear) {
+            if ($forceCookieClear || ($currentSessionName !== $this->mSessionName)) {
                 // Clearing Session Cookie
-                setcookie($currentSessionName, '', time() - 86400, $this->_cookiePath(), ini_get('session.cookie_domain'), ini_get('session.cookie_secure'), ini_get('session.cookie_httponly'));
+                setcookie($currentSessionName, '', time() - 86400, $this->_cookiePath());
             }
         }
         session_destroy();
@@ -135,7 +140,7 @@ class XCube_Session
      */
     public function rename()
     {
-        if ($this->mSessionName !== session_name()) {
+        if (session_name() !== $this->mSessionName) {
             $oldSessionID = session_id();
             $oldSession = $_SESSION;
             $this->destroy();

@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Root.class.php,v 1.10 2008/11/20 16:05:57 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -120,9 +120,7 @@ class XCube_Root
     /**
      * @internal
      */
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct()
-    //public function XCube_Root()
     {
     }
 
@@ -159,7 +157,7 @@ class XCube_Root
     public function loadSiteConfig()
     {
         $n = func_num_args();
-        if ($n === 0) {
+        if (0 == $n) {
             die('FETAL: open error: site setting config.');
         }
 
@@ -185,9 +183,10 @@ class XCube_Root
     }
 
     /**
-     * @param Array$config
+     * Array
+     * @param $config
      * @return void
-     *@internal
+     * @internal
      * @public
      * @brief Sets site configs.
      */
@@ -239,30 +238,28 @@ class XCube_Root
     public function getSiteConfig()
     {
         //
-        // TODO Check keys with using 'isset'
+        // ! TODO Check keys with using 'isset'
         //
         $m = &$this->mSiteConfig;
         $n = func_num_args();
-        if ($n === 0) {
+        if (0 === $n) {
             return $m;
         }
-
-        if ($n === 1) {
+        if (1 === $n) {
             $a = func_get_arg(0);
             if (isset($m[$a])) {
                 return $m[$a];
             }
-        } elseif ($n === 2) {
+        } elseif (2 === $n) {
             list($a, $b) = func_get_args();
             if (isset($m[$a][$b])) {
                 return $m[$a][$b];
             }
-        } elseif ($n === 3) {
+        } elseif (3 === $n) {
             list($a, $b, $c) = func_get_args();
             if (isset($m[$a][$b])) {
                 return $m[$a][$b];
             }
-
             return $c; //return 3rd param as a default value;
         }
 
@@ -473,9 +470,10 @@ class XCube_Root
     }
 
     /**
+     * XCube_Context
      * @public
      * @brief Sets the HTTP-context object.
-     * @param XCube_Context $context
+     * @param $context
      * @return void
      */
     public function setContext(&$context)
@@ -484,9 +482,10 @@ class XCube_Root
     }
 
     /**
+     * XCube_Context
      * @public
      * @brief Gets a HTTP-context object.
-     * @return XCube_Context
+     * @return
      */
     public function &getContext()
     {
@@ -535,8 +534,8 @@ class XCube_Root
     {
         $ret = null;
 
-        if ($classPath !== null) {
-            if ($root === null) {
+        if (null !== $classPath) {
+            if (null === $root) {
                 $root = $this->mSiteConfig['Cube']['Root'];
             }
 

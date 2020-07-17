@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: SmilesListAction.class.php,v 1.3 2008/09/25 15:11:50 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -41,7 +41,7 @@ class Legacy_SmilesListAction extends Legacy_AbstractListAction
         $root =& XCube_Root::getSingleton();
         $perpage = $root->mContext->mRequest->getRequest($navi->mPrefix.'perpage');
 
-        if (isset($perpage) && 0 == (int)$perpage) {
+        if (isset($perpage) && 0 === (int)$perpage) {
             $navi->setPerpage(0);
         }
         return $navi;
@@ -78,7 +78,7 @@ class Legacy_SmilesListAction extends Legacy_AbstractListAction
     public function execute(&$controller, &$xoopsUser)
     {
         $form_cancel = $controller->mRoot->mContext->mRequest->getRequest('_form_control_cancel');
-        if (null != $form_cancel) {
+        if (null !== $form_cancel) {
             return LEGACY_FRAME_VIEW_CANCEL;
         }
 
@@ -91,7 +91,7 @@ class Legacy_SmilesListAction extends Legacy_AbstractListAction
             return $this->_processSave($controller, $xoopsUser);
         }
     }
-    
+
     public function _processConfirm(&$controller, &$xoopsUser)
     {
         $codeArr = $this->mActionForm->get('code');
@@ -136,7 +136,7 @@ class Legacy_SmilesListAction extends Legacy_AbstractListAction
         }//foreach
 
                 foreach (array_keys($codeArr) as $sid) {
-                    if (1 == $this->mActionForm->get('delete', $sid)) {
+                    if (1 === $this->mActionForm->get('delete', $sid)) {
                         $smiles =& $smilesHandler->get($sid);
                         if (is_object($smiles)) {
                             if (!$smilesHandler->delete($smiles)) {
@@ -159,7 +159,7 @@ class Legacy_SmilesListAction extends Legacy_AbstractListAction
         $render->setTemplateName('smiles_list_confirm.html');
         $render->setAttribute('smilesObjects', $this->mSmilesObjects);
         $render->setAttribute('actionForm', $this->mActionForm);
-        
+
         //
         // To support a template writer, this send the list of mid that
         // actionForm kept.

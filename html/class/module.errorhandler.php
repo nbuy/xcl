@@ -1,51 +1,31 @@
 <?php
-// $Id: module.errorhandler.php,v 1.1 2007/05/15 02:34:21 minahito Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <https://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author of File: Goghs (https://www.eqiao.com/)                             //
-################################################################################
+/**
+ * *
+ *  * Error Handler class
+ *  *
+ *  * @package    kernel
+ *  * @subpackage core
+ *  * @author     Original Authors: Goghs
+ *  * @author     Other Authors : Minahito
+ *  * @copyright  2000-2020 The XOOPSCube Project
+ *  * @license    Legacy : https://github.com/xoopscube/xcl/blob/master/GPL_V2.txt
+ *  * @license    Cube : https://github.com/xoopscube/xcl/blob/master/BSD_license.txt
+ *  * @version    Release: @package_230@
+ *  * @link       https://github.com/xoopscube/xcl
+ * *
+ */
 
 if (!defined('XOOPS_C_ERRORHANDLER_INCLUDED')) {
     define('XOOPS_C_ERRORHANDLER_INCLUDED', 1);
 
-    /**
-     * Error Handler class
-     *
-     * @package     kernel
-     * @subpackage  core
-     *
-     * @author      Goghs (https://www.eqiao.com/)
-     * @copyright   (c) 2000-2003 The Xoops Project - www.xoops.org
-     */
+
     class ErrorHandler
     {
         /**
          * Show an error message
          *
-         * @param   string $e_code Errorcode
-         * @param int      $pages  How many pages should the link take you back?
+         * @param string $e_code Errorcode
+         * @param int   $pages  How many pages should the link take you back?
          *
          * @global  $xoopsConfig
          **/
@@ -67,7 +47,7 @@ if (!defined('XOOPS_C_ERRORHANDLER_INCLUDED')) {
                 '0010' => 'Could not move selected topic to selected forum. Please go back and try again.',
                 '0011' => 'Could not lock the selected topic. Please go back and try again.',
                 '0012' => 'Could not unlock the selected topic. Please go back and try again.',
-                '0013' => 'Could not query the database. <br />Error: ' . htmlspecialchars($db->error(), ENT_QUOTES, _CHARSET),
+                '0013' => 'Could not query the database. <br>Error: ' . htmlspecialchars($db->error(), ENT_QUOTES, _CHARSET),
                 '0014' => 'No such user or post in the database.',
                 '0015' => 'Search Engine was unable to query the forums database.',
                 '0016' => 'That user does not exist. Please go back and search again.',
@@ -76,7 +56,7 @@ if (!defined('XOOPS_C_ERRORHANDLER_INCLUDED')) {
                 '0019' => "You must type a message to post. You can't post an empty message. Go back and enter a message.",
                 '0020' => 'Could not enter data into the database. Please go back and try again.',
                 '0021' => "Can't delete the selected message.",
-                '0022' => 'An error ocurred while querying the database.',
+                '0022' => 'An error occurred while querying the database.',
                 '0023' => 'Selected message was not found in the forum database.',
                 '0024' => "You can't reply to that message. It wasn't sent to you.",
                 '0025' => "You can't post a reply to this topic, it has been locked. Contact the administrator if you have any question.",
@@ -97,8 +77,8 @@ if (!defined('XOOPS_C_ERRORHANDLER_INCLUDED')) {
                 '1006' => 'Please enter value for State/Province.',
                 '1007' => 'Please enter value for Zipcode.',
                 '1008' => 'Please enter value for Description.',
-                '1009' => 'Vote for the selected resource only once.<br />All votes are logged and reviewed.',
-                '1010' => 'You cannot vote on the resource you submitted.<br />All votes are logged and reviewed.',
+                '1009' => 'Vote for the selected resource only once.<br>All votes are logged and reviewed.',
+                '1010' => 'You cannot vote on the resource you submitted.<br>All votes are logged and reviewed.',
                 '1011' => 'No rating selected - no vote tallied.',
                 '1013' => 'Please enter a search query.',
                 '1016' => 'Please enter value for URL.',
@@ -107,14 +87,15 @@ if (!defined('XOOPS_C_ERRORHANDLER_INCLUDED')) {
             ];
 
             $errorno = array_keys($errmsg);
-            if (!in_array($e_code, $errorno)) {
+            if (!in_array($e_code, $errorno, true)) {
                 $e_code = '9999';
             }
+            //TODO use module template
             include_once XOOPS_ROOT_PATH . '/header.php';
             //OpenTable();
-            echo '<div><b>' . htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES) . ' Error</b><br /><br />';
-            echo "Error Code: $e_code<br /><br /><br />";
-            echo "<b>ERROR:</b> $errmsg[$e_code]<br /><br /><br />";
+            echo '<div><b>' . htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES) . ' Error</b><br><br>';
+            echo "Error Code: $e_code<br><br><br>";
+            echo "<b>ERROR:</b> $errmsg[$e_code]<br><br><br>";
             echo "[ <a href='javascript:history.go(-".$pages.")'>Go Back</a> ]</div>";
             //CloseTable();
             include_once XOOPS_ROOT_PATH . '/footer.php';

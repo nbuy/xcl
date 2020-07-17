@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Controller.class.php,v 1.9 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -63,7 +63,7 @@ class XCube_Controller
     /**
      * Array of a procedure class object.
      *
-     * @var Array
+     * @var
      */
     public $_mBlockChain = [];
 
@@ -71,7 +71,7 @@ class XCube_Controller
     /**
      * Vector Array of XCube_ActionFilter class object.
      * @protected
-     * @var Array
+     * @var
      * @remarks
      *	   typedef std:vector<XCube_ActionFilter*> FilterList; \n
      *	   FilterList _mFilterChain; \n
@@ -115,7 +115,7 @@ class XCube_Controller
      *
      * @var XCube_Delegate
      */
-    public $mSetupUser;
+    public $mSetupUser = null;
 
     /**
      * Executes the main logic of the controller.
@@ -123,7 +123,7 @@ class XCube_Controller
      *
      * @var XCube_Delegate
      */
-    public $mExecute;
+    public $mExecute = null;
 
     /**
      * Make a instance of TextFilter.
@@ -131,10 +131,8 @@ class XCube_Controller
      *
      * @var XCube_Delegate
      */
-    public $mSetupTextFilter;
-    // !Fix PHP7 NOTICE: deprecated constructor
+    public $mSetupTextFilter = null;
     public function __construct()
-    //public function XCube_Controller()
     {
         $this->_mBlockChain = [];
         $this->_mFilterChain = [];
@@ -341,8 +339,6 @@ class XCube_Controller
      */
     public function _setupSession()
     {
-        // !Fix PHP7 NOTICE: Only variables should be passed by reference
-        //$this->mRoot->setSession(new XCube_Session());
         $session = new XCube_Session();
         $this->mRoot->setSession($session);
 
@@ -371,14 +367,14 @@ class XCube_Controller
     }
 
     /**
-     * FIXME.
+     * !FIXME.
      */
     public function _setupBlock()
     {
     }
 
     /**
-     * FIXME.
+     * !FIXME.
      */
     public function _processBlock()
     {
@@ -432,9 +428,9 @@ class XCube_Controller
      */
     public function _processPreload($path)
     {
-        $path .= '/';
+        $path = $path . '/';
 
-        if (is_dir($path) && ($files = glob($path . '/*.class.php', GLOB_NOSORT))) {
+        if (is_dir($path) && ($files = glob($path.'/*.class.php'))) {
             foreach ($files as $file) {
                 require_once $file;
                 $className = basename($file, '.class.php');
@@ -473,8 +469,8 @@ class XCube_Controller
 
     /**
      * Creates an instance of the permission manager and returns it.
-     *
-     * @return XCube_PermissionManager
+     * XCube_PermissionManager Object
+     * @return
      */
     public function &_createPermissionManager()
     {
@@ -490,15 +486,15 @@ class XCube_Controller
 
     /**
      * Creates an instance of the role manager and returns it.
-     *
-     * @return XCube_RoleManager
+     * XCube_RoleManager
+     * @return Object
      */
     public function &_createRoleManager()
     {
         $chunkName = $this->mRoot->getSiteConfig('Cube', 'RoleManager');
 
         //
-        // FIXME: Access private method.
+        // !FIXME: Access private method.
         //
         $manager =& $this->mRoot->_createInstance($this->mRoot->getSiteConfig($chunkName, 'class'), $this->mRoot->getSiteConfig($chunkName, 'path'));
 

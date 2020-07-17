@@ -61,10 +61,9 @@ class setting_manager
 
             //
             // Generate prefix
-            // !Fix A non well formed numeric value
-            mt_srand((int)microtime() * 10000);
+            mt_srand ( (double)microtime () * 1000000 );
             do {
-                $this->prefix = substr(md5(mt_rand(1, 6)), 0, 6);
+                $this->prefix = substr(md5( random_int(1, 6)), 0, 6);
             } while (!preg_match('/^[a-z]/', $this->prefix));
 
             $this->salt = substr(md5(mt_rand()), 5, 8);
@@ -79,7 +78,7 @@ class setting_manager
                 : dirname($_SERVER['SCRIPT_NAME']);
 
             // "
-            $filepath = str_replace(array('\\', '/install'), array('/', ''), $filepath);
+            $filepath = str_replace(['\\', '/install'], ['/', ''], $filepath);
             if ('/' === substr($filepath, 0, 1)) {
                 $filepath = substr($filepath, 1);
             }
