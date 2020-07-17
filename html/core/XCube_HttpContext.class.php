@@ -3,13 +3,13 @@
  *
  * @package XCube
  * @version $Id: XCube_HttpContext.class.php,v 1.4 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
 
-define("XCUBE_CONTEXT_TYPE_DEFAULT", "web_browser");
-define("XCUBE_CONTEXT_TYPE_WEB_SERVICE", "web_service");
+define('XCUBE_CONTEXT_TYPE_DEFAULT', 'web_browser');
+define('XCUBE_CONTEXT_TYPE_WEB_SERVICE', 'web_service');
 
 /**
  * Encapsulates major HTTP specific information about a HTTP request.
@@ -19,25 +19,25 @@ class XCube_HttpContext
     /**
      * Hashmap that can be used to organize and share data. Use setAttribute()
      * and get Attribute() to access this member property. But, direct access
-     * is allowed, because PHP4 is unpossible to handle reference well.
-     *
-     * @var Array
+     * is allowed, because it is impossible to handle reference well on older PHP versions.
+     * Array
+     * @var
      * @access protected
      */
-    public $mAttributes = array();
-    
+    public $mAttributes = [];
+
     /**
      * The object which enables to read the request values.
      *
      * @access XCube_AbstractRequest
      */
-    public $mRequest = null;
-    
+    public $mRequest;
+
     /**
      * @var XCube_Principal
      */
-    public $mUser = null;
-    
+    public $mUser;
+
     /**
      * String which expresses the type of the current request.
      * @var string
@@ -50,18 +50,17 @@ class XCube_HttpContext
      *
      * @access private
      */
-    public $mThemeName = null;
-    // !Fix PHP7 NOTICE: deprecated constructor
+    public $mThemeName;
+
     public function __construct()
-    //public function XCube_HttpContext()
     {
     }
-    
+
     /**
      * Sets $value with $key to attributes. Use direct access to $mAttributes
      * if references are must, because PHP4 can't handle reference in the
      * signature of this member function.
-     * 
+     *
      * @param string $key
      * @param mixed $value
      */
@@ -72,7 +71,7 @@ class XCube_HttpContext
 
     /**
      * Gets a value indicating whether the value specified by $key exists.
-     * 
+     *
      * @param string $key
      * @return mixed
      */
@@ -80,11 +79,11 @@ class XCube_HttpContext
     {
         return isset($this->mAttributes[$key]);
     }
-    
+
     /**
      * Gets a value of attributes with $key. If the value specified by $key
      * doesn't exist in attributes, gets null.
-     * 
+     *
      * @param string $key
      * @return mixed
      */
@@ -102,7 +101,7 @@ class XCube_HttpContext
     {
         $this->mRequest =& $request;
     }
-    
+
     /**
      * Gets the object which has a interface of XCube_AbstractRequest.
      *
@@ -115,18 +114,18 @@ class XCube_HttpContext
 
     /**
      * Sets the object which has a interface of XCube_Principal.
-     *
-     * @param XCube_AbstractPrincipal $principal
+     * XCube_AbstractPrincipal
+     * @param  $principal
      */
     public function setUser(&$principal)
     {
         $this->mUser =& $principal;
     }
-    
+
     /**
      * Gets the object which has a interface of XCube_Principal.
      *
-     * @return XCube_AbstractPrincipal
+     * @return \XCube_Principal
      */
     public function &getUser()
     {
@@ -135,18 +134,18 @@ class XCube_HttpContext
 
     /**
      * Set the theme name.
-     * 
-     * @param $theme string
+     *
+     * @param string $theme
      * @deprecated
      */
     public function setThemeName($theme)
     {
         $this->mThemeName = $theme;
     }
-    
+
     /**
      * Return the theme name.
-     * 
+     *
      * @return string
      * @deprecated
      */
@@ -180,10 +179,8 @@ class XCube_AbstractRequest
 class XCube_HttpRequest extends XCube_AbstractRequest
 {
     /**
-     * Gets a value of the current HTTP request. The return value doesn't
-     * include quotes which are appended by magic_quote_gpc, even if it's
-     * active.
-     * 
+     * Gets a value of the current HTTP request.
+     *
      * @param string $key
      * @return mixed
      */
@@ -192,37 +189,19 @@ class XCube_HttpRequest extends XCube_AbstractRequest
         if (!isset($_GET[$key]) && !isset($_POST[$key])) {
             return null;
         }
-        
-        $value = isset($_GET[$key]) ? $_GET[$key] : $_POST[$key];
-        
-        if (!get_magic_quotes_gpc()) {
-            return $value;
-        }
-        
-        if (is_array($value)) {
-            return $this->_getArrayRequest($value);
-        }
-        
-        return stripslashes($value);
+        return isset($_GET[$key]) ? $_GET[$key] : $_POST[$key];
     }
-    
+
     /**
      * Supports getRequest().
-     *
+     * Array
      * @private
-     * @param Array $arr
-     * @return Array
+     * @param  $arr
+     * @return array
      */
     public function _getArrayRequest($arr)
     {
-        foreach (array_keys($arr) as $t_key) {
-            if (is_array($arr[$t_key])) {
-                $arr[$t_key] = $this->_getArrayRequest($arr[$t_key]);
-            } else {
-                $arr[$t_key] = stripslashes($arr[$t_key]);
-            }
-        }
-        
+        //trigger_error("assume magic_quotes_gpc is off", E_USER_NOTICE);
         return $arr;
     }
 }
@@ -234,12 +213,12 @@ class XCube_GenericRequest extends XCube_AbstractRequest
 {
     /**
      * Hash map which stores registered values.
-     * @var Array
+     * Array
+     * @var
      */
-    public $mAttributes = array();
-    // !Fix PHP7 NOTICE: deprecated constructor
-    public function __construct($arr = null)  
-    //public function XCube_GenericRequest($arr = null)
+    public $mAttributes = [];
+
+    public function __construct($arr = null)
     {
         if (is_array($arr)) {
             $this->mAttributes = $arr;
@@ -251,7 +230,7 @@ class XCube_GenericRequest extends XCube_AbstractRequest
         if (!isset($this->mAttributes[$key])) {
             return null;
         }
-        
+
         return $this->mAttributes[$key];
     }
 }

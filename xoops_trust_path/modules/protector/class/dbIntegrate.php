@@ -7,7 +7,7 @@ class protectorDbIntegrate
     public function __construct($link)
     {
         $this->link = $link;
-        if (is_object($link) && get_class($link) === 'mysqli') {
+        if (is_object($link) && $link instanceof \mysqli) {
             $this->api = 'mysqli';
         }
     }
@@ -27,13 +27,13 @@ class protectorDbIntegrate
                     return false;
                 }
             default:
-                return mysql_field_flags($result, $field_offset);
+                return mysqli_field_flags($result, $field_offset);
         }
     }
     
     public function FetchField($result, $field_offset)
     {
-        $type_hash = array(
+        $type_hash = [
             1=>'tinyint',
             2=>'smallint',
             3=>'int',
@@ -51,7 +51,7 @@ class protectorDbIntegrate
             253=>'varchar',
             254=>'char',
             246=>'decimal'
-        );
+        ];
         switch ($this->api) {
             case 'mysqli':
                 $res = mysqli_fetch_field_direct($result, $field_offset);
@@ -60,7 +60,7 @@ class protectorDbIntegrate
                 }
                 return $res;
             default:
-                return mysql_fetch_field($result, $field_offset);
+                return mysqli_fetch_field($result, $field_offset);
         }
     }
 }

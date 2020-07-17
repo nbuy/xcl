@@ -33,7 +33,7 @@
  *            array(
  *                'driver' => 'LocalFileSystem',
  *                'path'   => '/path/to/files/',
- *                'URL'    => 'https://localhost/to/files/'
+ *                'URL'    => 'http://localhost/to/files/'
  *                'plugin' => array(
  *                    'AutoResize' => array(
  *                        'enable'         => true,       // For control by volume driver
@@ -84,6 +84,10 @@ class elFinderPluginAutoResize extends elFinderPlugin
 
     public function onUpLoadPreSave(&$thash, &$name, $src, $elfinder, $volume)
     {
+        if (!$src) {
+            return false;
+        }
+
         $opts = $this->getCurrentOpts($volume);
 
         if (!$this->iaEnabled($opts, $elfinder)) {

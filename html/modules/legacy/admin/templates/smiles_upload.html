@@ -1,10 +1,13 @@
-<div class="adminnavi">
+<div class="adminnavi" aria-label="breadcrumb">
   <a href="./index.php"><{$smarty.const._MI_LEGACY_NAME}></a>
   &raquo;&raquo; <a href="./index.php?action=SmilesList"><{$smarty.const._MI_LEGACY_MENU_SMILES_MANAGE}></a>
-  &raquo;&raquo; <span class="adminnaviTitle"><{$smarty.const._AD_LEGACY_LANG_SMILES_UPLOAD}></span>
+  &raquo;&raquo; <span class="adminnaviTitle" aria-current="page"><{$smarty.const._AD_LEGACY_LANG_SMILES_UPLOAD}></span>
 </div>
 
-<h3 class="admintitle"><{$smarty.const._AD_LEGACY_LANG_SMILES_UPLOAD}></h3>
+
+<h2 class="admintitle"><{$smarty.const._AD_LEGACY_LANG_SMILES_UPLOAD}></h2>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <div class="tips">
   <{$smarty.const._AD_LEGACY_TIPS_SMILES_UPLOAD}>
@@ -36,8 +39,8 @@
     </tr>
     <tr>
       <td class="foot" colspan="2">
-        <input class="formButton" type="submit" value="<{$smarty.const._AD_LEGACY_LANG_UPLOAD}>" />
-        <input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel" />
+        <input class="button-upload" type="submit" value="<{$smarty.const._AD_LEGACY_LANG_UPLOAD}>">
+        <input class="button-cancel" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel">
       </td>
     </tr>
   </table>

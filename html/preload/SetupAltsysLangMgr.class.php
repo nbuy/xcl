@@ -18,16 +18,18 @@ class SetupAltsysLangMgr extends XCube_ActionFilter
     {
         $this->mController->mCreateLanguageManager->add('SetupAltsysLangMgr::createLanguageManager');
     }
+
     
-    public function createLanguageManager(&$langManager, $languageName)
+    public static function createLanguageManager(&$langManager, $languageName)
+
     {
         $langManager = new AltsysLangMgr_LanguageManager();
     }
 }
 
 
-require_once XOOPS_ROOT_PATH . "/core/XCube_LanguageManager.class.php";
-require_once XOOPS_ROOT_PATH . "/modules/legacy/kernel/Legacy_LanguageManager.class.php";
+require_once XOOPS_ROOT_PATH . '/core/XCube_LanguageManager.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/legacy/kernel/Legacy_LanguageManager.class.php';
 
 class AltsysLangMgr_LanguageManager extends Legacy_LanguageManager
 {
@@ -66,7 +68,7 @@ class AltsysLangMgr_LanguageManager extends Legacy_LanguageManager
                 $this->theme_lang_checked = true ;
             }
         }
-        
+
         // read normal
         $this->langman->read($fileBodyName.'.php', $dirname) ;
     }
@@ -74,7 +76,7 @@ class AltsysLangMgr_LanguageManager extends Legacy_LanguageManager
     public function loadPageTypeMessageCatalog($type)
     {
         // I dare not to use langman...
-        if (strpos($type, '.') === false && $this->langman->my_language) {
+        if (false === strpos($type, '.') && $this->langman->my_language) {
             $mylang_file = $this->langman->my_language.'/'.$this->mLanguageName.'/'.$type.'.php' ;
             if (file_exists($mylang_file)) {
                 require_once $mylang_file ;
@@ -97,8 +99,8 @@ class AltsysLangMgr_LanguageManager extends Legacy_LanguageManager
         //
         // Now, if XOOPS_USE_MULTIBYTES isn't defined, set zero to it.
         //
-        if (!defined("XOOPS_USE_MULTIBYTES")) {
-            define("XOOPS_USE_MULTIBYTES", 0);
+        if (!defined('XOOPS_USE_MULTIBYTES')) {
+            define('XOOPS_USE_MULTIBYTES', 0);
         }
     }
 }

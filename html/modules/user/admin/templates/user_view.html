@@ -4,16 +4,21 @@
   &raquo;&raquo; <span class="adminnaviTitle"><{$smarty.const._AD_USER_LANG_USER_VIEW}></span>
 </div>
 
-<h3 class="admintitle"><{$smarty.const._AD_USER_LANG_USER_VIEW}> (<{$object->getShow('uname')}>)</h3>
+<h2 class="admintitle"><{$smarty.const._AD_USER_LANG_USER_VIEW}> (<{$object->getShow('uname')}>)</h2>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <div class="tips">
   <{$smarty.const._AD_USER_TIPS_RECOUNT_POSTS}>
 </div>
 
 <table class="outer">
+	<thead>
   <tr>
     <th colspan="2"><{$smarty.const._AD_USER_LANG_USER_VIEW}></th>
-  </tr>
+	</tr>
+</thead>
+<tbody>
   <tr>
     <td class="head"><{$smarty.const._MD_USER_LANG_UID}></td>
     <td class="<{cycle values='odd,even'}>">
@@ -24,9 +29,9 @@
     <td class="head"><{$smarty.const._MD_USER_LANG_USER_AVATAR}></td>
     <td class="<{cycle values='odd,even'}>">
       <{if $object->get('user_avatar') != "blank.gif" }>
-        <img src="<{$smarty.const.XOOPS_UPLOAD_URL}>/<{$object->getShow('user_avatar')}>" alt="Avatar" title="Avatar" />
+        <img src="<{$smarty.const.XOOPS_UPLOAD_URL}>/<{$object->getShow('user_avatar')}>" alt="Avatar" title="Avatar">
       <{else}>
-        <img src="<{$smarty.const.XOOPS_URL}>/modules/user/images/no_avatar.gif" alt="No Avatar" title="No Avatar" />
+        <img src="<{$smarty.const.XOOPS_URL}>/modules/user/images/no_avatar.gif" alt="No Avatar" title="No Avatar">
       <{/if}>
     </td>
   </tr>
@@ -46,7 +51,7 @@
     <td class="head"><{$smarty.const._MD_USER_LANG_RANK}></td>
     <td class="<{cycle values='odd,even'}>">
       <{if $rank}>
-        <img src="<{$smarty.const.XOOPS_UPLOAD_URL}>/<{$rank->getShow('rank_image')}>" alt="<{$rank->getShow('rank_title')}>" title="<{$rank->getShow('rank_title')}>" />
+        <img src="<{$smarty.const.XOOPS_UPLOAD_URL}>/<{$rank->getShow('rank_image')}>" alt="<{$rank->getShow('rank_title')}>" title="<{$rank->getShow('rank_title')}>">
         <{$rank->getShow('rank_title')}>
       <{/if}>
     </td>
@@ -79,7 +84,7 @@
     <td class="head"><{$smarty.const._MD_USER_LANG_POSTS}></td>
     <td class="<{cycle values='odd,even'}>">
       <form action="./index.php?action=UserView" method="post">
-      <{$object->getShow('posts')}>
+          <span class="badge"><{$object->getShow('posts')}></span>
         <{xoops_token form=$actionForm}>
         <{xoops_input type=hidden name=uid value=$actionForm->get('uid')}>
         <input class='formButton' type='submit' value='<{$smarty.const._AD_USER_LANG_RECOUNT}>' />
@@ -182,5 +187,6 @@
       <{$object->getShow('bio')}>
     </td>
   </tr>
-  <{legacy_profile uid=$object->getShow('uid')}>
+	<{legacy_profile uid=$object->getShow('uid')}>
+</tbody>
 </table>

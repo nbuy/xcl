@@ -18,18 +18,20 @@ elFinder.prototype.commands.netmount = function() {
 	this.handlers = {
 		load : function() {
 			var fm = self.fm;
-			self.drivers = fm.netDrivers;
-			if (self.drivers.length) {
-				requestAnimationFrame(function() {
-					$.each(self.drivers, function() {
-						var d = self.options[this];
-						if (d) {
-							hasMenus = true;
-							if (d.integrateInfo) {
-								fm.trigger('helpIntegration', Object.assign({cmd: 'netmount'}, d.integrateInfo));
+			if (fm.cookieEnabled) {
+				fm.one('open', function() {
+					self.drivers = fm.netDrivers;
+					if (self.drivers.length) {
+						$.each(self.drivers, function() {
+							var d = self.options[this];
+							if (d) {
+								hasMenus = true;
+								if (d.integrateInfo) {
+									fm.trigger('helpIntegration', Object.assign({cmd: 'netmount'}, d.integrateInfo));
+								}
 							}
-						}
-					});
+						});
+					}
 				});
 			}
 		}
@@ -48,7 +50,7 @@ elFinder.prototype.commands.netmount = function() {
 						inputs.protocol.trigger('change', 'winfocus');
 					},
 					inputs = {
-						protocol : $('<select/>')
+						protocol : $('<select></select>')
 						.on('change', function(e, data){
 							var protocol = this.value;
 							content.find('.elfinder-netmount-tr').hide();
@@ -57,15 +59,12 @@ elFinder.prototype.commands.netmount = function() {
 							if (typeof o[protocol].select == 'function') {
 								o[protocol].select(fm, e, data);
 							}
-							requestAnimationFrame(function() {
-								content.find('input:text.elfinder-tabstop:visible:first').trigger('focus');
-							});
 						})
 						.addClass('ui-corner-all')
 					},
 					opts = {
 						title          : fm.i18n('netMountDialogTitle'),
-						resizable      : false,
+						resizable      : true,
 						modal          : true,
 						destroyOnClose : false,
 						open           : function() {
@@ -81,7 +80,8 @@ elFinder.prototype.commands.netmount = function() {
 					doMount = function() {
 						var protocol = inputs.protocol.val(),
 							data = {cmd : 'netmount', protocol: protocol},
-							cur = o[protocol];
+							cur = o[protocol],
+							mnt2res;
 						$.each(content.find('input.elfinder-netmount-inputs-'+protocol), function(name, input) {
 							var val, elm;
 							elm = $(input);
@@ -96,15 +96,20 @@ elFinder.prototype.commands.netmount = function() {
 								data[input.name] = val;
 							}
 						});
-	
+
 						if (!data.host) {
 							return fm.trigger('error', {error : 'errNetMountHostReq', opts : {modal: true}});
 						}
-	
+
+						if (data.mnt2res) {
+							mnt2res = true;
+						}
+
 						fm.request({data : data, notify : {type : 'netmount', cnt : 1, hideCnt : true}})
 							.done(function(data) {
 								var pdir;
 								if (data.added && data.added.length) {
+									mnt2res && inputs.protocol.trigger('change', 'reset');
 									if (data.added[0].phash) {
 										if (pdir = fm.file(data.added[0].phash)) {
 											if (! pdir.dirs) {
@@ -128,7 +133,7 @@ elFinder.prototype.commands.netmount = function() {
 	
 						self.dialog.elfinderdialog('close');
 					},
-					form = $('<form autocomplete="off"/>').on('keydown', 'input', function(e) {
+					form = $('<form autocomplete="off"></form>').on('keydown', 'input', function(e) {
 						var comp = true,
 							next;
 						if (e.keyCode === $.ui.keyCode.ENTER) {
@@ -146,11 +151,11 @@ elFinder.prototype.commands.netmount = function() {
 							}
 						}
 					}),
-					hidden  = $('<div/>'),
+					hidden  = $('<div></div>'),
 					dialog;
 
-				content = $('<table class="elfinder-info-tb elfinder-netmount-tb"/>')
-					.append($('<tr/>').append($('<td>'+fm.i18n('protocol')+'</td>')).append($('<td/>').append(inputs.protocol)));
+				content = $('<table class="elfinder-info-tb elfinder-netmount-tb"></table>')
+					.append($('<tr></tr>').append($('<td>'+fm.i18n('protocol')+'</td>')).append($('<td></td>').append(inputs.protocol)));
 
 				$.each(self.drivers, function(i, protocol) {
 					if (o[protocol]) {
@@ -159,7 +164,7 @@ elFinder.prototype.commands.netmount = function() {
 							input.attr('name', name);
 							if (input.attr('type') != 'hidden') {
 								input.addClass('ui-corner-all elfinder-netmount-inputs-'+protocol);
-								content.append($('<tr/>').addClass('elfinder-netmount-tr elfinder-netmount-tr-'+protocol).append($('<td>'+fm.i18n(name)+'</td>')).append($('<td/>').append(input)));
+								content.append($('<tr></tr>').addClass('elfinder-netmount-tr elfinder-netmount-tr-'+protocol).append($('<td>'+fm.i18n(name)+'</td>')).append($('<td></td>').append(input)));
 							} else {
 								input.addClass('elfinder-netmount-inputs-'+protocol);
 								hidden.append(input);
@@ -172,6 +177,7 @@ elFinder.prototype.commands.netmount = function() {
 				content.append(hidden);
 				
 				content.find('.elfinder-netmount-tr').hide();
+				content.find('.elfinder-netmount-tr-' + self.drivers[0]).show();
 
 				opts.buttons[fm.i18n('btnMount')] = doMount;
 
@@ -181,12 +187,11 @@ elFinder.prototype.commands.netmount = function() {
 				
 				content.find('select,input').addClass('elfinder-tabstop');
 				
-				dialog = self.fmDialog(form.append(content), opts);
-				dialogNode = dialog.closest('.ui-dialog');
-				dialog.ready(function(){
+				dialog = self.fmDialog(form.append(content), opts).ready(function() {
 					inputs.protocol.trigger('change');
 					dialog.elfinderdialog('posInit');
 				});
+				dialogNode = dialog.closest('.ui-dialog');
 				return dialog;
 			},
 			dialogNode;
@@ -202,12 +207,27 @@ elFinder.prototype.commands.netmount = function() {
 
 	self.fm.bind('netmount', function(e) {
 		var d = e.data || null,
-			o = self.options;
+			o = self.options,
+			done = function() {
+				if (o[d.protocol] && typeof o[d.protocol].done == 'function') {
+					o[d.protocol].done(self.fm, d);
+					content.find('select,input').addClass('elfinder-tabstop');
+					self.dialog.elfinderdialog('tabstopsInit');
+				}
+			};
 		if (d && d.protocol) {
-			if (o[d.protocol] && typeof o[d.protocol].done == 'function') {
-				o[d.protocol].done(self.fm, d);
-				content.find('select,input').addClass('elfinder-tabstop');
-				self.dialog.elfinderdialog('tabstopsInit');
+			if (d.mode && d.mode === 'redirect') {
+				// To support of third-party cookie blocking (ITP) on CORS
+				// On iOS and iPadOS 13.4 and Safari 13.1 on macOS, the session cannot be continued when redirecting OAuth in CORS mode
+				self.fm.request({
+					data : {cmd : 'netmount', protocol : d.protocol, host: d.host, user : 'init', pass : 'return', options: d.options}, 
+					preventDefault : true
+				}).done(function(data) {
+					d = JSON.parse(data.body);
+					done();
+				});
+			} else {
+				done();
 			}
 		}
 	});

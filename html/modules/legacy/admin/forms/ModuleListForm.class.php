@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: ModuleListForm.class.php,v 1.4 2008/09/25 15:11:11 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -12,7 +12,7 @@ if (!defined('XOOPS_ROOT_PATH')) {
     exit();
 }
 
-require_once XOOPS_ROOT_PATH."/core/XCube_ActionForm.class.php";
+require_once XOOPS_ROOT_PATH . '/core/XCube_ActionForm.class.php';
 
 class Legacy_ModuleListForm extends XCube_ActionForm
 {
@@ -24,13 +24,13 @@ class Legacy_ModuleListForm extends XCube_ActionForm
     {
         //
         //
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            return "module.legacy.ModuleSettingsForm.TOKEN";
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+            return 'module.legacy.ModuleSettingsForm.TOKEN';
         } else {
             return null;
         }
     }
-    
+
     /***
      * For displaying the confirm-page, don't show CSRF error.
      * Always return null.
@@ -39,7 +39,7 @@ class Legacy_ModuleListForm extends XCube_ActionForm
     {
         return null;
     }
-    
+
     public function prepare()
     {
         // set properties
@@ -49,14 +49,14 @@ class Legacy_ModuleListForm extends XCube_ActionForm
 
         // set fields
         $this->mFieldProperties['name']=new XCube_FieldProperty($this);
-        $this->mFieldProperties['name']->setDependsByArray(array('required', 'maxlength'));
-        $this->mFieldProperties['name']->addMessage("required", _MD_LEGACY_ERROR_REQUIRED, _AD_LEGACY_LANG_NAME, "140");
-        $this->mFieldProperties['name']->addMessage("maxlength", _MD_LEGACY_ERROR_MAXLENGTH, _AD_LEGACY_LANG_NAME, "140");
-        $this->mFieldProperties['name']->addVar("maxlength", 140);
+        $this->mFieldProperties['name']->setDependsByArray(['required', 'maxlength']);
+        $this->mFieldProperties['name']->addMessage('required', _MD_LEGACY_ERROR_REQUIRED, _AD_LEGACY_LANG_NAME, '140');
+        $this->mFieldProperties['name']->addMessage('maxlength', _MD_LEGACY_ERROR_MAXLENGTH, _AD_LEGACY_LANG_NAME, '140');
+        $this->mFieldProperties['name']->addVar('maxlength', 140);
 
         $this->mFieldProperties['weight']=new XCube_FieldProperty($this);
-        $this->mFieldProperties['weight']->setDependsByArray(array('required', 'min'));
-        $this->mFieldProperties['weight']->addMessage("min", _AD_LEGACY_ERROR_MIN, _AD_LEGACY_LANG_WEIGHT, "0");
-        $this->mFieldProperties['weight']->addVar("min", 0);
+        $this->mFieldProperties['weight']->setDependsByArray(['required', 'min']);
+        $this->mFieldProperties['weight']->addMessage('min', _AD_LEGACY_ERROR_MIN, _AD_LEGACY_LANG_WEIGHT, '0');
+        $this->mFieldProperties['weight']->addVar('min', 0);
     }
 }

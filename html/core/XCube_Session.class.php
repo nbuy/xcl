@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Session.class.php,v 1.4 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -26,17 +26,15 @@ class XCube_Session
      * @public
      * @brief [READ ONLY] XCube_Delegate
      */
-    public $mSetupSessionHandler = null;
+    public $mSetupSessionHandler;
 
     /**
      * @public
      * @brief [READ ONLY] XCube_Delegate
      */
-    public $mGetSessionCookiePath = null;
+    public $mGetSessionCookiePath;
 
-    // !Fix PHP7 NOTICE: deprecated constructor
     public function __construct($sessionName='', $sessionExpire=0)
-    //public function XCube_Session($sessionName='', $sessionExpire=0)
     {
         $this->setParam($sessionName, $sessionExpire);
 
@@ -46,20 +44,22 @@ class XCube_Session
         $this->mGetSessionCookiePath = new XCube_Delegate();
         $this->mGetSessionCookiePath->register('XCube_Session.GetSessionCookiePath');
     }
-    
+
     /**
      * @public
+     * @param string $sessionName
+     * @param int    $sessionExpire
      */
     public function setParam($sessionName='', $sessionExpire=0)
     {
         $allIniArray = ini_get_all();
 
-        if ($sessionName !='') {
+        if ('' !== $sessionName) {
             $this->mSessionName = $sessionName;
         } else {
             $this->mSessionName = $allIniArray['session.name']['global_value'];
         }
-        
+
         if (!empty($sessionExpire)) {
             $this->mSessionLifetime = 60 * $sessionExpire;
         } else {
@@ -83,19 +83,23 @@ class XCube_Session
             // Refresh lifetime of Session Cookie
             $session_params = session_get_cookie_params();
             !$session_params['domain'] and $session_params['domain'] = null;
-            $session_cookie_params = array(
+            $session_cookie_params = [
                 $this->mSessionName, session_id(), time() + $this->mSessionLifetime, $this->_cookiePath(),
                 $session_params['domain'], $session_params['secure']
-                );
+            ];
             if (isset($session_params['httponly'])) {
                 $session_cookie_params[] = $session_params['httponly'];
             }
+            //!Todo check sameSite secure to replace with
+            // setcookie(...$session_cookie_params);
             call_user_func_array('setcookie', $session_cookie_params);
+
         }
     }
 
     /**
      * @public
+     * @param bool $forceCookieClear
      */
     public function destroy($forceCookieClear = false)
     {
@@ -104,7 +108,7 @@ class XCube_Session
         // (This case will occur when session config params are changed in preference screen.)
         $currentSessionName = session_name();
         if (isset($_COOKIE[$currentSessionName])) {
-            if ($forceCookieClear || ($currentSessionName != $this->mSessionName)) {
+            if ($forceCookieClear || ($currentSessionName !== $this->mSessionName)) {
                 // Clearing Session Cookie
                 setcookie($currentSessionName, '', time() - 86400, $this->_cookiePath());
             }
@@ -125,7 +129,7 @@ class XCube_Session
         $oldSession = $_SESSION;
         session_id($newSessionID);
         $this->start();
-        $_SESSION = array();
+        $_SESSION = [];
         foreach (array_keys($oldSession) as $key) {
             $_SESSION[$key] = $oldSession[$key];
         }
@@ -136,13 +140,13 @@ class XCube_Session
      */
     public function rename()
     {
-        if (session_name() != $this->mSessionName) {
+        if (session_name() !== $this->mSessionName) {
             $oldSessionID = session_id();
             $oldSession = $_SESSION;
             $this->destroy();
             session_id($oldSessionID);
             $this->start();
-            $_SESSION = array();
+            $_SESSION = [];
             foreach (array_keys($oldSession) as $key) {
                 $_SESSION[$key] = $oldSession[$key];
             }

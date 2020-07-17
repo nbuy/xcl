@@ -4,9 +4,13 @@
   &raquo;&raquo; <span class="adminnaviTitle"><{$smarty.const._AD_USER_LANG_GROUP_PROPERTY}></span>
 </div>
 
-<h3 class="admintitle"><{$smarty.const._AD_USER_LANG_GROUP_PROPERTY}> ( <{$group->getShow('name')}> )</h3>
+
+<h2 class="admintitle"><{$smarty.const._AD_USER_LANG_GROUP_PROPERTY}> ( <{$group->getShow('name')}> )</h2>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <table class="outer">
+    <thead>
   <tr>
     <th>&nbsp;</th>
     <th><{$smarty.const._AD_USER_LANG_GROUP_GID}></th>
@@ -16,29 +20,43 @@
     <th><{$smarty.const._AD_USER_LANG_GROUP_AMMO}></th>
     <th><{$smarty.const._AD_USER_LANG_CONTROL}></th>
   </tr>
+</thead>
+<tbody>
   <tr class="odd">
-    <td class="user_list_image"><img src="<{"icons/group.png"|theme}>" alt="<{$smarty.const._AD_USER_LANG_GROUP}>" title="<{$smarty.const._AD_USER_LANG_GROUP}>" /></td>
+    <td class="user_list_image"><i title="<{$smarty.const._AD_USER_LANG_GROUP}>">  <img src="<{"icons/icon-user-group.svg"|theme}>" class="svg"></i></td>
     <td class="user_list_id"><{$group->getShow('groupid')}></td>
     <td class="user_list_title"><{$group->getShow('name')}></td>
     <td class="user_list_description"><{$group->getShow('description')}></td>
     <td class="user_list_type"><{$group->getShow('group_type')}></td>
     <td class="user_list_number"><{$group->getUserCount()|xoops_escape}></td>
     <td class="user_list_control">
-      <a href="index.php?action=GroupEdit&amp;groupid=<{$group->getShow('groupid')}>"><img src="<{"icons/edit.png"|theme}>" alt="<{$smarty.const._EDIT}>" title="<{$smarty.const._EDIT}>" /></a>
+      <a href="index.php?action=GroupEdit&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._EDIT}>">
+        <img src="<{"icons/icon-user-edit.svg"|theme}>" class="svg">
+      </a>
       <{if $group->get('groupid') > $smarty.const.XOOPS_GROUP_ANONYMOUS }>
-        <a href="index.php?action=GroupDelete&amp;groupid=<{$group->getShow('groupid')}>"><img src="<{"icons/delete.png"|theme}>" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" /></a>
+        <a href="index.php?action=GroupDelete&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._DELETE}>" class="red">
+          <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
+        </a>
       <{/if}>
-      <a href="index.php?action=GroupProperty&amp;groupid=<{$group->getShow('groupid')}>"><img src="<{"icons/property.png"|theme}>" alt="<{$smarty.const._AD_USER_LANG_GROUP_PROPERTY}>" title="<{$smarty.const._AD_USER_LANG_GROUP_PROPERTY}>" /></a>
-      <a href="index.php?action=GroupPerm&amp;groupid=<{$group->getShow('groupid')}>"><img src="<{"icons/permission.png"|theme}>" alt="<{$smarty.const._AD_USER_LANG_GROUP_PERMISSION}>" title="<{$smarty.const._AD_USER_LANG_GROUP_PERMISSION}>" /></a>
-      <a href="index.php?action=GroupMember&amp;groupid=<{$group->getShow('groupid')}>"><img src="<{"icons/members.png"|theme}>" alt="<{$smarty.const._AD_USER_LANG_GROUP_ASSIGN}>" title="<{$smarty.const._AD_USER_LANG_GROUP_ASSIGN}>" /></a>
+      <a href="index.php?action=GroupProperty&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._AD_USER_LANG_GROUP_PROPERTY}>">
+        <img src="<{"icons/icon-user-check.svg"|theme}>" class="svg">
+      </a>
+      <a href="index.php?action=GroupPerm&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._AD_USER_LANG_GROUP_PERMISSION}>">
+        <img src="<{"icons/icon-user-permission.svg"|theme}>" class="svg">
+      </a>
+      <a href="index.php?action=GroupMember&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._AD_USER_LANG_GROUP_ASSIGN}>">
+        <img src="<{"icons/icon-user-assign.svg"|theme}>" class="svg">
+      </a>
     </td>
   </tr>
+</tbody>
 </table>
 
-<hr />
-<h4 class="admintitle"><{$smarty.const._AD_USER_LANG_GROUP_ASSIN_MEMBERS}></h4>
+<hr>
+<h3 class="admintitle"><{$smarty.const._AD_USER_LANG_GROUP_ASSIN_MEMBERS}></h3>
 
 <table class="outer">
+    <thead>
   <tr>
     <th>&nbsp;</th>
     <th><{$smarty.const._MD_USER_LANG_UID}></th>
@@ -50,9 +68,11 @@
     <th><{$smarty.const._MD_USER_LANG_LEVEL}></th>
     <th><{$smarty.const._AD_USER_LANG_CONTROL}></th>
   </tr>
+  </thead>
+  <tbody>
   <{foreach from=$users item=user }>
     <tr class="<{cycle values="odd,even"}>">
-      <td class="user_list_image"><img src="<{"icons/user.png"|theme}>" alt="<{$smarty.const._AD_USER_LANG_USER}>" title="<{$smarty.const._AD_USER_LANG_USER}>" /></td>
+      <td class="user_list_image"><i title="<{$smarty.const._AD_USER_LANG_USER}>"><img src="<{"icons/icon-user-group.svg"|theme}>" class="svg"></i></td>
       <td class="user_list_id"><{$user->getShow('uid')}></td>
       <td class="user_list_title"><{$user->getShow('uname')}></td>
       <td class="user_list_name"><{$user->getShow('name')}></td>
@@ -61,13 +81,18 @@
       <td class="user_list_number"><{$user->getShow('posts')}></td>
       <td class="user_list_order"><{$user->getShow('level')}></td>
       <td class="user_list_control">
-        <a href="./index.php?action=UserEdit&amp;uid=<{$user->getShow('uid')}>"><img src="<{"icons/edit.png"|theme}>" alt="<{$smarty.const._EDIT}>" title="<{$smarty.const._EDIT}>" /></a> 
+        <a href="./index.php?action=UserEdit&amp;uid=<{$user->getShow('uid')}>" title="<{$smarty.const._EDIT}>">
+
+        </a>
         <{if $user->get('uid') != 1 }>
-          <a href="index.php?action=UserDelete&amp;uid=<{$user->getShow('uid')}>"><img src="<{"icons/delete.png"|theme}>" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" /></a>
+          <a href="index.php?action=UserDelete&amp;uid=<{$user->getShow('uid')}>" title="<{$smarty.const._DELETE}>" class="red">
+            <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
+          </a>
         <{/if}>
       </td>
     </tr>
   <{/foreach}>
+</tbody>
 </table>
 
 <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
@@ -78,9 +103,12 @@
 <h5 class="admintitle"><{$smarty.const._AD_USER_LANG_PERM_MODULE_ACCESS}></h5>
 <{if $systemPermissions }>
 <table class="outer">
+    <thead>
   <tr class="head">
     <th colspan="4"><{$smarty.const._AD_USER_LANG_PERM_SYSTEM_PERM_MODULE}></th>
   </tr>
+</thead>
+<tbody>
   <tr>
   <{foreach item=perm from=$systemPermissions key="perm_key" name="SysPer"}>
     <td class="head" style="width:35%;">&nbsp;<{$perm->mItem->getName()|xoops_escape}></td>
@@ -97,13 +125,17 @@
         <{cycle values=",</tr><tr>" name="SysPer"}>
       <{/if}>
   <{/foreach}>
+</tbody>
 </table>
-<br />
+<br>
 <{/if}>
 <table class="outer">
+    <thead>
   <tr>
     <th colspan="4"><{$smarty.const._AD_USER_LANG_PERM_GROUP_PERM_MODULE}></th>
   </tr>
+</thead>
+<tbody>
   <tr>
   <{foreach item=perm from=$modulePermissions name="ModPer"}>
     <td class="head" style="width:25%;">&nbsp;<{$perm->mItem->getName()|xoops_escape}></td>
@@ -126,13 +158,15 @@
         <{cycle values=",</tr><tr>" name="ModPer"}>
       <{/if}>
   <{/foreach}>
+</tbody>
 </table>
 
-<br />
+<br>
 <h5 class="admintitle"><{$smarty.const._AD_USER_LANG_PERM_BLOCK_ACCESS}></h5>
 
 <{foreach key=i item=permissions from=$blockPermissions}>
 <table class="outer">
+<thead>
   <tr>
     <th colspan="4"><{$smarty.const._AD_USER_LANG_PERM_GROUP_PERM_BLOCK}>
       <{if $i == 0}>( <{$smarty.const._LEFT}> )
@@ -142,6 +176,8 @@
       <{elseif $i == 3}>( <{$smarty.const._CENTER}>-<{$smarty.const._RIGHT}> )
       <{/if}></th>
   </tr>
+</thead>
+<tbody>
   <tr>
   <{foreach item=perm from=$permissions name=$i}>
     <td class="head" style="width:35%;">&nbsp;
@@ -161,6 +197,8 @@
       <{cycle values=",</tr><tr>" name=$i}>
   <{/foreach}>
   </tr>
+</tbody>
 </table>
-<br />
+<br>
 <{/foreach}>
+

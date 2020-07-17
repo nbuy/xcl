@@ -16,7 +16,7 @@ function b_pico_tags_show( $options )
 	global $pico_blocks_tags_order_options ;
 
 	// options
-	$mytrustdirname = basename(dirname(dirname(__FILE__))) ;
+	$mytrustdirname = basename(dirname(__DIR__));
 	$mydirname = empty( $options[0] ) ? $mytrustdirname : $options[0] ;
 	$limit = empty( $options[1] ) ? 10 : intval( $options[1] ) ;
 	$listorder = in_array( @$options[2] , $pico_blocks_tags_order_options ) ? $options[2] : 'count DESC' ;
@@ -30,26 +30,26 @@ function b_pico_tags_show( $options )
 	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance();
 
 	// sql
-	$sql = "SELECT label,count FROM ".$db->prefix($mydirname."_tags")." ORDER BY $sqlorder LIMIT $limit" ;
-	$result = $db->query( $sql ) ;
-	if( $sqlorder != $listorder ) {
-		$labels4sql = array() ;
-		while( list( $label , ) = $db->fetchRow( $result ) ) {
-			$labels4sql[] = "'".addslashes($label)."'" ;
+	$sql = 'SELECT label,count FROM ' . $db->prefix($mydirname . '_tags') . " ORDER BY $sqlorder LIMIT $limit";
+	$result = $db->query($sql);
+	if ($sqlorder != $listorder) {
+		$labels4sql = [];
+		while (list($label,) = $db->fetchRow($result)) {
+			$labels4sql[] = "'" . addslashes($label) . "'";
 		}
-		$sql = "SELECT label,count FROM ".$db->prefix($mydirname."_tags")." WHERE label IN (".implode(",",$labels4sql).") ORDER BY $listorder" ;
-		$result = $db->query( $sql ) ;
+		$sql = 'SELECT label,count FROM ' . $db->prefix($mydirname . '_tags') . ' WHERE label IN (' . implode(',', $labels4sql) . ") ORDER BY $listorder";
+		$result = $db->query($sql);
 	}
 
 	// tags4assign
-	$tags = array() ;
-	$rank = 0 ;
-	while( list( $label , $count ) = $db->fetchRow( $result ) ) {
-		$tags[ $label ] = array( 
-			'label' => $label ,
-			'count' => $count ,
-			'rank' => $rank ++ ,
-		) ;
+	$tags = [];
+	$rank = 0;
+	while (list($label, $count) = $db->fetchRow($result)) {
+		$tags[$label] = [
+			'label' => $label,
+			'count' => $count,
+			'rank' => $rank++,
+        ];
 	}
 	//ksort( $tags , SORT_STRING ) ;
 	$tags4assign = array_values( $tags ) ;
@@ -64,38 +64,40 @@ function b_pico_tags_show( $options )
 	$constpref = '_MB_' . strtoupper( $mydirname ) ;
 
 	// make an array named 'block'
-	$block = array( 
-		'mytrustdirname' => $mytrustdirname ,
-		'mydirname' => $mydirname ,
-		'mod_url' => XOOPS_URL.'/modules/'.$mydirname ,
-		'mod_imageurl' => XOOPS_URL.'/modules/'.$mydirname.'/'.$configs['images_dir'] ,
-		'mod_config' => $configs ,
-		'limit' => $limit ,
-		'listorder' => $listorder ,
-		'sqlorder' => $sqlorder ,
-		'tagsnum' => sizeof( $tags4assign ) ,
-		'tags' => $tags4assign ,
-	) ;
+	$block = [
+        'mytrustdirname' => $mytrustdirname,
+        'mydirname' => $mydirname,
+        'mod_url' => XOOPS_URL . '/modules/' . $mydirname,
+        'mod_imageurl' => XOOPS_URL . '/modules/' . $mydirname . '/' . $configs['images_dir'],
+        'mod_config' => $configs,
+        'limit' => $limit,
+        'listorder' => $listorder,
+        'sqlorder' => $sqlorder,
+        'tagsnum' => count($tags4assign),
+        'tags' => $tags4assign,
+    ];
 
 	if( empty( $options['disable_renderer'] ) ) {
 		// render it
-		require_once XOOPS_ROOT_PATH.'/class/template.php' ;
-		$tpl = new XoopsTpl() ;
-		$tpl->assign( 'block' , $block ) ;
-		$ret['content'] = $tpl->fetch( $this_template ) ;
-		return $ret ;
+		require_once XOOPS_ROOT_PATH . '/class/template.php';
+		$tpl = new XoopsTpl();
+		$tpl->assign('block', $block);
+		$ret['content'] = $tpl->fetch($this_template);
+		return $ret;
 	} else {
 		// just assign it
 		return $block ;
 	}
 }
 
+
+
 function b_pico_tags_edit( $options )
 {
 	global $pico_blocks_tags_order_options ;
 
 	// options
-	$mytrustdirname = basename(dirname(dirname(__FILE__))) ;
+	$mytrustdirname = basename(dirname(__DIR__));
 	$mydirname = empty( $options[0] ) ? $mytrustdirname : $options[0] ;
 	$limit = empty( $options[1] ) ? 10 : intval( $options[1] ) ;
 	$listorder = in_array( @$options[2] , $pico_blocks_tags_order_options ) ? $options[2] : 'count DESC' ;
@@ -106,13 +108,15 @@ function b_pico_tags_edit( $options )
 
 	require_once XOOPS_ROOT_PATH.'/class/template.php' ;
 	$tpl = new XoopsTpl() ;
-	$tpl->assign( array(
-		'mydirname' => $mydirname ,
-		'limit' => $limit ,
-		'listorder' => $listorder ,
-		'sqlorder' => $sqlorder ,
-		'order_options' => $pico_blocks_tags_order_options ,
-		'this_template' => $this_template ,
-	) ) ;
+	$tpl->assign( 
+	    [
+		'mydirname' => $mydirname,
+		'limit' => $limit,
+		'listorder' => $listorder,
+		'sqlorder' => $sqlorder,
+		'order_options' => $pico_blocks_tags_order_options,
+		'this_template' => $this_template,
+        ]
+	) ;
 	return $tpl->fetch( 'db:'.$mydirname.'_blockedit_tags.html' ) ;
 }

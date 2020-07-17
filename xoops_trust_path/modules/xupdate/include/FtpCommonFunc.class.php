@@ -20,12 +20,12 @@ class Xupdate_FtpCommonFunc
     public $exploredDirPath;
     public $downloadUrlFormat;
 
-    public $nextlink = "";
+    public $nextlink = '';
 
     public $target_key;
     public $target_type;
 
-    public $options = array();
+    public $options = [];
 
     protected $download_file;
     protected $exploredPreloadPath;
@@ -37,7 +37,7 @@ class Xupdate_FtpCommonFunc
         $this->mModule =& $this->mRoot->mContext->mModule;
         $this->mAsset =& $this->mModule->mAssetManager;
 
-        $this->Xupdate = new Xupdate_Root ;// Xupdate instance
+        $this->Xupdate = new Xupdate_Root();// Xupdate instance
         $this->Ftp =& $this->Xupdate->Ftp ;        // FTP instance
         $this->Func =& $this->Xupdate->func ;        // Functions instance
         $this->content =& $this->Func->content;
@@ -59,14 +59,15 @@ class Xupdate_FtpCommonFunc
     /**
      * _cleanup
      *
-     * @return	void
-     **/
+     * @param $dir
+     * @return    void
+     */
     public function _cleanup($dir)
     {
         if ($handle = opendir($dir)) {
-            $this->Ftp->appendMes('removing directory: '.$dir.'<br />');
+            $this->Ftp->appendMes('removing directory: '.$dir.'<br>');
             while (false !== ($item = readdir($handle))) {
-                if ($item !== "." && $item !== "..") {
+                if ('.' !== $item && '..' !== $item) {
                     if (is_dir("$dir/$item")) {
                         $this->_cleanup("$dir/$item");
                     } else {
@@ -90,15 +91,15 @@ class Xupdate_FtpCommonFunc
     public function _set_error_log($msg)
     {
         if ($msg) {
-            $this->Ftp->appendMes('<span style="color:red;">'.$msg.'</span><br />');
-            $this->content.= '<span style="color:red;">'.$msg.'</span><br />';
+            $this->Ftp->appendMes('<span style="color:red;">'.$msg.'</span><br>');
+            $this->content.= '<span style="color:red;">'.$msg.'</span><br>';
         }
     }
     
     /**
      * Check exists & writable ExploredDirPath
      * @param  string  $target_key
-     * @return string | boolean
+     * @return string | bool
      */
     public function checkExploredDirPath($target_key)
     {
@@ -115,7 +116,7 @@ class Xupdate_FtpCommonFunc
     /**
      * is_xupdate_excutable
      *
-     * @return boolean
+     * @return bool
      */
     protected function is_xupdate_excutable()
     {
@@ -137,21 +138,22 @@ class Xupdate_FtpCommonFunc
     {
         file_put_contents(_MD_XUPDATE_SYS_LOCK_FILE, $stage);
     }
-    
+
     /**
      * _check_file_upload_result
      *
      * @param array  $result
      * @param string $where
-     * @return boolean
+     * @param bool   $allow_empty
+     * @return bool
      */
     protected function _check_file_upload_result($result, $where, $allow_empty = false)
     {
         if (is_bool($result)) {
-            $result = array('ok' => $result, 'ng' => array());
+            $result = ['ok' => $result, 'ng' => []];
         }
-        if ($result['ok'] === false || !$allow_empty && !$result['ok']) {
-            $this->Ftp->appendMes('fail upload '.$where.'<br />');
+        if (false === $result['ok'] || !$allow_empty && !$result['ok']) {
+            $this->Ftp->appendMes('fail upload '.$where.'<br>');
             return false;
         } elseif (is_numeric($result['ok'])) {
             $desc = '';
@@ -168,10 +170,10 @@ class Xupdate_FtpCommonFunc
             if ($un_upload) {
                 $desc .= ', upload: ' . ($result['ok'] - $un_upload);
             }
-            $this->Ftp->appendMes('succeeded '.$result['ok'].' files into '.$where.'.'.$desc.'<br />');
+            $this->Ftp->appendMes('succeeded '.$result['ok'].' files into '.$where.'.'.$desc.'<br>');
         }
         if ($result['ng']) {
-            $this->_set_error_log(_MI_XUPDATE_ERR_NOT_UPLOADED.': ' . join('<br />'._MI_XUPDATE_ERR_NOT_UPLOADED.': ', $result['ng']));
+            $this->_set_error_log(_MI_XUPDATE_ERR_NOT_UPLOADED.': ' . implode('<br>' . _MI_XUPDATE_ERR_NOT_UPLOADED . ': ', $result['ng']));
         }
         return true;
     }

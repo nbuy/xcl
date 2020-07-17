@@ -1,5 +1,10 @@
-<h3><{$smarty.const._MD_MESSAGE_SETTINGS}></h3>
-<br />
+
+<{* Dev-Mode Toggle *}>
+<div class="ui-dev-mode"><{$smarty.template}></div>
+
+
+<h2><{$smarty.const._MD_MESSAGE_SETTINGS}></h2>
+<br>
 <form action="index.php?action=settings" method="post">
 <table class="outer">
 <tr>
@@ -35,7 +40,7 @@
 <td class="even">
 <{xoops_input type=text name=blacklist value=$mActionForm->get('blacklist') maxlength=255 size=60}>
 <a href="index.php?action=blacklist"><{$smarty.const._MD_MESSAGE_SETTINGS_MSG18}></a>
-<br /><{$smarty.const._MD_MESSAGE_SETTINGS_MSG11}>
+<br><{$smarty.const._MD_MESSAGE_SETTINGS_MSG11}>
 </td>
 </tr>
 
@@ -43,3 +48,5 @@
 </table>
 <{xoops_token form=$mActionForm}>
 </form>
+
+

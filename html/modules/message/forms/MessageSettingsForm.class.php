@@ -11,18 +11,16 @@ require_once XOOPS_MODULE_PATH.'/legacy/class/Legacy_Validator.class.php';
 
 class MessageSettingsForm extends XCube_ActionForm
 {
-    public function __construct()
-    {
-        // ! call parent::__construct() instead of parent::Controller()
-        parent::__construct();
-        //parent::XCube_ActionForm();
-    }
-  
+//    public function __construct()
+//    {
+//        parent::__construct();
+//    }
+
     public function getTokenName()
     {
         return 'module.message.Settings.TOKEN';
     }
-  
+
     public function prepare()
     {
         $this->mFormProperties['usepm'] = new XCube_BoolProperty('usepm');
@@ -31,22 +29,24 @@ class MessageSettingsForm extends XCube_ActionForm
         $this->mFormProperties['pagenum'] = new XCube_IntProperty('pagenum');
         $this->mFormProperties['blacklist'] = new XCube_StringProperty('blacklist');
     }
-  
+
     public function fetchBlacklist()
     {
         $blacklist = $this->get('blacklist');
-        if ($blacklist == "") {
+        if ('' == $blacklist) {
             return;
-        } elseif (strpos($blacklist, ',') !== false) {
+        }
+
+        if (false !== strpos($blacklist, ',')) {
             $lists = explode(',', $blacklist);
             $lists = array_map('intval', $lists);
             $lists = array_unique($lists);
             $this->set('blacklist', implode(',', $lists));
         } else {
-            $this->set('blacklist', intval($blacklist));
+            $this->set('blacklist', (int)$blacklist);
         }
     }
-  
+
     public function update(&$obj)
     {
         $root = XCube_Root::getSingleton();
@@ -57,7 +57,7 @@ class MessageSettingsForm extends XCube_ActionForm
         $obj->set('pagenum', $this->get('pagenum'));
         $obj->set('blacklist', $this->get('blacklist'));
     }
-  
+
     public function load(&$obj)
     {
         $this->set('usepm', $obj->get('usepm'));

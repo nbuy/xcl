@@ -63,46 +63,49 @@ class AbstractXoopsObject
     public function setNew()
     {
     }
-    
+
     public function unsetNew()
     {
     }
 
     /**
-     * @return bool
+     * @return void
      */
     public function isNew()
     {
     }
-    
+
     public function initVar($key, $data_type, $default, $required, $size)
     {
     }
-    
+
     /**
      * You should use this method to initilize object's properties.
      * This method may not trigger setDirty().
-     * @param $values array
+     * @param array $values
      */
     public function assignVars($values)
     {
     }
-    
+
     /**
      * You should use this method to change object's properties.
      * This method may trigger setDirty().
+     * @param $key
+     * @param $value
      */
     public function set($key, $value)
     {
     }
-    
+
     public function get($key)
     {
     }
-    
+
     /**
      * Return html string for template.
      * You can call get() method to get pure value.
+     * @param $key
      */
     public function getShow($key)
     {
@@ -126,7 +129,7 @@ class XoopsObject extends AbstractXoopsObject
      * @var array
      * @access protected
      **/
-    public $vars = array();
+    public $vars = [];
 
     /**
     * variables cleaned for store in DB
@@ -134,7 +137,7 @@ class XoopsObject extends AbstractXoopsObject
     * @var array
     * @access protected
     */
-    public $cleanVars = array();
+    public $cleanVars = [];
 
     /**
     * is it a newly created object?
@@ -158,14 +161,14 @@ class XoopsObject extends AbstractXoopsObject
     * @var array
     * @access private
     */
-    public $_errors = array();
+    public $_errors = [];
 
     /**
     * additional filters registered dynamically by a child class object
     *
     * @access private
     */
-    public $_filters = array();
+    public $_filters = [];
 
     /**
     * constructor
@@ -173,7 +176,7 @@ class XoopsObject extends AbstractXoopsObject
     * normally, this is called from child classes only
     * @access public
     */
-    public function XoopsObject()
+    public function __construct()
     {
     }
 
@@ -217,19 +220,19 @@ class XoopsObject extends AbstractXoopsObject
     /**#@-*/
 
     /**
-    * initialize variables for the object
-    *
-    * @access public
-    * @param string $key
-    * @param int $data_type  set to one of XOBJ_DTYPE_XXX constants (set to XOBJ_DTYPE_OTHER if no data type ckecking nor text sanitizing is required)
-    * @param mixed
-    * @param bool $required  require html form input?
-    * @param int $maxlength  for XOBJ_DTYPE_TXTBOX type only
-    * @param string $option  does this data have any select options?
-    */
+     * initialize variables for the object
+     *
+     * @access public
+     * @param string $key
+     * @param int    $data_type set to one of XOBJ_DTYPE_XXX constants (set to XOBJ_DTYPE_OTHER if no data type ckecking nor text sanitizing is required)
+     * @param null   $value
+     * @param bool   $required  require html form input?
+     * @param int    $maxlength for XOBJ_DTYPE_TXTBOX type only
+     * @param string $options
+     */
     public function initVar($key, $data_type, $value = null, $required = false, $maxlength = null, $options = '')
     {
-        $this->vars[$key] = array('value' => $value, 'required' => $required, 'data_type' => $data_type, 'maxlength' => $maxlength, 'changed' => false, 'options' => $options);
+        $this->vars[$key] = ['value' => $value, 'required' => $required, 'data_type' => $data_type, 'maxlength' => $maxlength, 'changed' => false, 'options' => $options];
     }
 
     /**
@@ -248,11 +251,11 @@ class XoopsObject extends AbstractXoopsObject
     }
 
     /**
-    * assign values to multiple variables in a batch
-    *
-    * @access private
-    * @param array $var_array associative array of values to assign
-    */
+     * assign values to multiple variables in a batch
+     *
+     * @access private
+     * @param $var_arr
+     */
     public function assignVars($var_arr)
     {
         $vars = &$this->vars;
@@ -297,16 +300,17 @@ class XoopsObject extends AbstractXoopsObject
     }
 
     /**
-    * Assign values to multiple variables in a batch
-    *
-    * Meant for a CGI contenxt:
-    * - prefixed CGI args are considered save
-    * - avoids polluting of namespace with CGI args
-    *
-    * @access private
-    * @param array $var_arr associative array of values to assign
-    * @param string $pref prefix (only keys starting with the prefix will be set)
-    */
+     * Assign values to multiple variables in a batch
+     *
+     * Meant for a CGI contenxt:
+     * - prefixed CGI args are considered save
+     * - avoids polluting of namespace with CGI args
+     *
+     * @access private
+     * @param array  $var_arr associative array of values to assign
+     * @param string $pref    prefix (only keys starting with the prefix will be set)
+     * @param bool   $not_gpc
+     */
     public function setFormVars($var_arr=null, $pref='xo_', $not_gpc=false)
     {
         $len = strlen($pref);
@@ -367,10 +371,10 @@ class XoopsObject extends AbstractXoopsObject
                 $ts =& MyTextSanitizer::sGetInstance();
                 $vars =&$this->vars;
                 $html = !empty($vars['dohtml']['value']) ? 1 : 0;
-                $xcode = (!isset($vars['doxcode']['value']) || $vars['doxcode']['value'] == 1) ? 1 : 0;
-                $smiley = (!isset($vars['dosmiley']['value']) || $vars['dosmiley']['value'] == 1) ? 1 : 0;
-                $image = (!isset($vars['doimage']['value']) || $vars['doimage']['value'] == 1) ? 1 : 0;
-                $br = (!isset($vars['dobr']['value']) || $vars['dobr']['value'] == 1) ? 1 : 0;
+                $xcode = (!isset($vars['doxcode']['value']) || 1 == $vars['doxcode']['value']) ? 1 : 0;
+                $smiley = (!isset($vars['dosmiley']['value']) || 1 == $vars['dosmiley']['value']) ? 1 : 0;
+                $image = (!isset($vars['doimage']['value']) || 1 == $vars['doimage']['value']) ? 1 : 0;
+                $br = (!isset($vars['dobr']['value']) || 1 == $vars['dobr']['value']) ? 1 : 0;
                 return $ts->displayTarea($ret, $html, $smiley, $xcode, $image, $br);
             case 'e':
             case 'edit':
@@ -381,10 +385,10 @@ class XoopsObject extends AbstractXoopsObject
                 $ts =& MyTextSanitizer::sGetInstance();
                 $vars =&$this->vars;
                 $html = !empty($vars['dohtml']['value']) ? 1 : 0;
-                $xcode = (!isset($vars['doxcode']['value']) || $vars['doxcode']['value'] == 1) ? 1 : 0;
-                $smiley = (!isset($vars['dosmiley']['value']) || $vars['dosmiley']['value'] == 1) ? 1 : 0;
-                $image = (!isset($vars['doimage']['value']) || $vars['doimage']['value'] == 1) ? 1 : 0;
-                $br = (!isset($vars['dobr']['value']) || $vars['dobr']['value'] == 1) ? 1 : 0;
+                $xcode = (!isset($vars['doxcode']['value']) || 1 == $vars['doxcode']['value']) ? 1 : 0;
+                $smiley = (!isset($vars['dosmiley']['value']) || 1 == $vars['dosmiley']['value']) ? 1 : 0;
+                $image = (!isset($vars['doimage']['value']) || 1 == $vars['doimage']['value']) ? 1 : 0;
+                $br = (!isset($vars['dobr']['value']) || 1 == $vars['dobr']['value']) ? 1 : 0;
                 return $ts->previewTarea($ret, $html, $smiley, $xcode, $image, $br);
             case 'f':
             case 'formpreview':
@@ -414,14 +418,14 @@ class XoopsObject extends AbstractXoopsObject
                 return $ret;
             }
         default:
-            if ($var['options'] != '' && $ret != '') {
+            if ('' != $var['options'] && '' != $ret) {
                 switch (strtolower($format)) {
                 case 's':
                 case 'show':
                     $selected = explode('|', $ret);
                     $options = explode('|', $var['options']);
                     $i = 1;
-                    $ret = array();
+                    $ret = [];
                     foreach ($options as $op) {
                         if (in_array($i, $selected)) {
                             $ret[] = $op;
@@ -445,7 +449,7 @@ class XoopsObject extends AbstractXoopsObject
     {
         return $this->getVar($key, 's');
     }
-    
+
     /**
      * Sets $value to $key property. This method calls setVar(), but make
      * not_gpc true for the compatibility with XoopsSimpleObject.
@@ -459,11 +463,17 @@ class XoopsObject extends AbstractXoopsObject
 
     public function get($key)
     {
-        return $this->vars[$key]['value'];
+        // ! Fix PHP7 Undefined index, variable not initialized with Null coalesce operator @gigamaster
+        // The coalesce, or ??, operator is added, which returns the result of its first operand if it exists and is not NULL,
+        // or else its second operand. This means the $_GET['mykey'] ?? "" is completely safe and will not raise an E_NOTICE.
+        //  https://wiki.php.net/rfc/isset_ternary
+        return $this->vars[$key]['value'] ?? '';
     }
 
     /**
      * Return value as raw.
+     * @param $key
+     * @return
      * @deprecated
      */
     public function getProperty($key)
@@ -476,7 +486,7 @@ class XoopsObject extends AbstractXoopsObject
      */
     public function getProperties()
     {
-        $ret=array();
+        $ret= [];
         foreach (array_keys($this->vars) as $key) {
             $ret[$key]=$this->vars[$key]['value'];
         }
@@ -500,12 +510,12 @@ class XoopsObject extends AbstractXoopsObject
                 $cleanv = is_string($cleanv) ? trim($cleanv) : $cleanv;
                 switch ($v['data_type']) {
                 case XOBJ_DTYPE_TXTBOX:
-                    if ($v['required'] && $cleanv != '0' && $cleanv == '') {
+                    if ($v['required'] && '0' != $cleanv && '' == $cleanv) {
                         $this->setErrors("$k is required.");
                         break;
                     }
                     if (isset($v['maxlength']) && strlen($cleanv) > (int)$v['maxlength']) {
-                        $this->setErrors("$k must be shorter than ".(int)$v['maxlength']." characters.");
+                        $this->setErrors("$k must be shorter than ".(int)$v['maxlength'] . ' characters.');
                         break;
                     }
                     if (!$v['not_gpc']) {
@@ -515,7 +525,7 @@ class XoopsObject extends AbstractXoopsObject
                     }
                     break;
                 case XOBJ_DTYPE_TXTAREA:
-                    if ($v['required'] && $cleanv != '0' && $cleanv == '') {
+                    if ($v['required'] && '0' != $cleanv && '' == $cleanv) {
                         $this->setErrors("$k is required.");
                         break;
                     }
@@ -546,12 +556,12 @@ class XoopsObject extends AbstractXoopsObject
                     break;
 
                 case XOBJ_DTYPE_EMAIL:
-                    if ($v['required'] && $cleanv == '') {
+                    if ($v['required'] && '' == $cleanv) {
                         $this->setErrors("$k is required.");
                         break;
                     }
-                    if ($cleanv != '' && !preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+([\.][a-z0-9-]+)+$/i", $cleanv)) {
-                        $this->setErrors("Invalid Email");
+                    if ('' != $cleanv && !preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+([\.][a-z0-9-]+)+$/i", $cleanv)) {
+                        $this->setErrors('Invalid Email');
                         break;
                     }
                     if (!$v['not_gpc']) {
@@ -559,11 +569,11 @@ class XoopsObject extends AbstractXoopsObject
                     }
                     break;
                 case XOBJ_DTYPE_URL:
-                    if ($v['required'] && $cleanv == '') {
+                    if ($v['required'] && '' == $cleanv) {
                         $this->setErrors("$k is required.");
                         break;
                     }
-                    if ($cleanv != '' && !preg_match("/^http[s]*:\/\//i", $cleanv)) {
+                    if ('' != $cleanv && !preg_match("/^http[s]*:\/\//i", $cleanv)) {
                         $cleanv = 'https://' . $cleanv;
                     }
                     if (!$v['not_gpc']) {
@@ -637,7 +647,7 @@ class XoopsObject extends AbstractXoopsObject
     /**
      * add an error
      *
-     * @param string $value error to add
+     * @param $err_str
      * @access public
      */
     public function setErrors($err_str)
@@ -667,10 +677,10 @@ class XoopsObject extends AbstractXoopsObject
         $ret = '<h4>Errors</h4>';
         if (!empty($this->_errors)) {
             foreach ($this->_errors as $error) {
-                $ret .= $error.'<br />';
+                $ret .= $error.'<br>';
             }
         } else {
-            $ret .= 'None<br />';
+            $ret .= 'None<br>';
         }
         return $ret;
     }
@@ -705,7 +715,7 @@ class XoopsObjectHandler
      * @param object $db reference to the {@link XoopsDatabase} object
      * @access protected
      */
-    public function XoopsObjectHandler(&$db)
+    public function __construct(&$db)
     {
         $this->db =& $db;
     }

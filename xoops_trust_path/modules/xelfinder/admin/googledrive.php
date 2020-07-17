@@ -1,81 +1,83 @@
 <?php
 
 $php54up = false;
+$vendor =false;
 
 if ($php54up = version_compare(PHP_VERSION, '5.4.0', '>=')) {
-	require $mytrustdirpath . '/plugins/vendor/autoload.php';
-
-	$selfURL = XOOPS_MODULE_URL . '/' . $mydirname . '/admin/index.php?page=googledrive';
-	$sessTokenKey = $mydirname . 'AdminGoogledriveToken';
-	$sessClientKey = $mydirname . 'AdminGoogledriveClientKey';
-	$client = null;
-	$clientId = $clientSecret = '';
-	$config = $xoopsModuleConfig;
-	
-	if (! empty($_POST['json'])) {
-		$json = @json_decode($_POST['json'], true);
-		if ($json && isset($json['web'])) {
-			$clientId = @$json['web']['client_id'];
-			$clientSecret = @$json['web']['client_secret'];
-		}
-	}
-	if (! empty($_POST['ClientId']) && ! empty($_POST['ClientSecret'])) {
-		$clientId = trim($_POST['ClientId']);
-		$clientSecret = trim($_POST['ClientSecret']);
-	} else {
-		if (isset($config['googleapi_id'])) {
-			$clientId = $config['googleapi_id'];
-		}
-		if (isset($config['googleapi_secret'])) {
-			$clientSecret = $config['googleapi_secret'];
-		}
-	}
-
-	if ($clientId && $clientSecret) {
-		$_SESSION[$sessClientKey] = array (
-			'ClientId' => $clientId,
-			'ClientSecret' => $clientSecret
-		);
-	} elseif (isset($_SESSION[$sessClientKey])) {
-		$clientId = $_SESSION[$sessClientKey]['ClientId'];
-		$clientSecret = $_SESSION[$sessClientKey]['ClientSecret'];
-	}
-
-	if (! empty($_SESSION[$sessClientKey]) && !isset($_GET ['start'])) {
+	if (include_once $mytrustdirpath . '/plugins/vendor/autoload.php') {
+		$vendor = true;
+		$selfURL = XOOPS_MODULE_URL . '/' . $mydirname . '/admin/index.php?page=googledrive';
+		$sessTokenKey = $mydirname . 'AdminGoogledriveToken';
+		$sessClientKey = $mydirname . 'AdminGoogledriveClientKey';
+		$client = null;
+		$clientId = $clientSecret = '';
+		$config = $xoopsModuleConfig;
 		
-		$client = new \Google_Client();
-		$client->setClientId($_SESSION[$sessClientKey]['ClientId']);
-		$client->setClientSecret($_SESSION[$sessClientKey]['ClientSecret']);
-		$client->setRedirectUri($selfURL);
-		
-		$service = new \Google_Service_Drive($client);
-		if (isset($_GET['code'])) {
-			$client->authenticate($_GET['code']);
-			$_SESSION[$sessTokenKey] = $client->getAccessToken();
+		if (! empty($_POST['json'])) {
+			$json = @json_decode($_POST['json'], true);
+			if ($json && isset($json['web'])) {
+				$clientId = @$json['web']['client_id'];
+				$clientSecret = @$json['web']['client_secret'];
+			}
 		}
-		
-		if (isset($_SESSION[$sessTokenKey]) && isset($_SESSION[$sessTokenKey]['access_token'])) {
-			$client->setAccessToken($_SESSION[$sessTokenKey]);
+		if (! empty($_POST['ClientId']) && ! empty($_POST['ClientSecret'])) {
+			$clientId = trim($_POST['ClientId']);
+			$clientSecret = trim($_POST['ClientSecret']);
+		} else {
+			if (isset($config['googleapi_id'])) {
+				$clientId = $config['googleapi_id'];
+			}
+			if (isset($config['googleapi_secret'])) {
+				$clientSecret = $config['googleapi_secret'];
+			}
+		}
+
+		if ($clientId && $clientSecret) {
+			$_SESSION[$sessClientKey] = [
+				'ClientId' => $clientId,
+				'ClientSecret' => $clientSecret
+            ];
+		} elseif (isset($_SESSION[$sessClientKey])) {
+			$clientId = $_SESSION[$sessClientKey]['ClientId'];
+			$clientSecret = $_SESSION[$sessClientKey]['ClientSecret'];
+		}
+
+		if (! empty($_SESSION[$sessClientKey]) && !isset($_GET ['start'])) {
+			
+			$client = new \Google_Client();
+			$client->setClientId($_SESSION[$sessClientKey]['ClientId']);
+			$client->setClientSecret($_SESSION[$sessClientKey]['ClientSecret']);
+			$client->setRedirectUri($selfURL);
+			
+			$service = new \Google_Service_Drive($client);
+			if (isset($_GET['code'])) {
+				$client->authenticate($_GET['code']);
+				$_SESSION[$sessTokenKey] = $client->getAccessToken();
+			}
+			
+			if (isset($_SESSION[$sessTokenKey]) && isset($_SESSION[$sessTokenKey]['access_token'])) {
+				$client->setAccessToken($_SESSION[$sessTokenKey]);
+			}
 		}
 	}
 }
 
 xoops_cp_header();
-include dirname(__FILE__) . '/mymenu.php';
+include __DIR__ . '/mymenu.php';
 
 echo '<h3>' . xelfinderAdminLang('GOOGLEDRIVE_GET_TOKEN') . '</h3>';
 
-if ($php54up) {
+if ($php54up && $vendor) {
 	$form = true;
 	if ($client) {
 		if (empty($_POST) && $client->getAccessToken()) {
 			try {
 				$aToken = $client->getAccessToken();
-				$token = array (
+				$token = [
 					'client_id' => $client->getClientId(),
 					'client_secret' => $client->getClientSecret(),
 					'access_token' => $aToken['access_token']
-				);
+                ];
 				if (isset($aToken['refresh_token'])) {
 					unset($token['access_token']);
 					$token['refresh_token'] = $aToken['refresh_token'];
@@ -107,7 +109,7 @@ if ($php54up) {
 			if (! empty($_POST['revoke'])) {
 				$client->revokeToken();
 			}
-			$scopes = array();
+			$scopes = [];
 			foreach($_POST['scopes'] as $scope) {
 				switch ($scope) {
 					case 'DRIVE' :
@@ -137,7 +139,7 @@ if ($php54up) {
 	<li>Make Project in Google Developers Console (<a href="https://console.developers.google.com/apis/dashboard" target="_brank">console.developers.google.com/apis/dashboard</a>)</li>
 	<li>Enable Drive API</li>
 	<li>Make Authentication  infomation (Type of Web Server & User data)</li>
-	<li>Make OAuth 2.0 Client<br />(Redirect URI: <?php echo $selfURL; ?> )</li>
+	<li>Make OAuth 2.0 Client<br>(Redirect URI: <?php echo $selfURL; ?> )</li>
 	<li>Get JSON and Paste it next TextArea</li>
 	<li>And Click "Get authentication link"</li>
 	<li>Then Approve this app in your account</li>
@@ -150,7 +152,7 @@ if ($php54up) {
 	<p><strong>OR</strong></p>
 	<p>
 		ClientId: <input type="text" name="ClientId" style="width: 50em"
-			value="<?php echo htmlspecialchars($clientId); ?>"><br />
+			value="<?php echo htmlspecialchars($clientId); ?>"><br>
 	</p>
 	<p>
 		ClientSecret: <input type="text" name="ClientSecret"
@@ -182,6 +184,10 @@ if ($php54up) {
 </form>
 <?php
 	}
+} else if ($php54up) {
+?>
+<p>GoogleDrive Driver needs to perform "<a href="./index.php?page=vendorup"><?php echo xelfinderAdminLang('ADMENU_VENDORUPDATE') ?></a>". Run it to see the contents of this menu.</p>
+<?php
 } else {
 ?>
 <p>GoogleDrive Driver Require PHP >= 5.4 . Your PHP version is <?php echo PHP_VERSION; ?> .</p>

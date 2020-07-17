@@ -55,7 +55,7 @@ class Xupdate_FtpThemeFinderInstall extends Xupdate_FtpCommonZipArchive
     public function execute()
     {
         $result = true;
-        if ($this->Xupdate->params['is_writable']['result'] === true) {
+        if (true === $this->Xupdate->params['is_writable']['result']) {
             if (! $exploredDirPath = $this->checkExploredDirPath($this->target_key)) {
                 $this->_set_error_log(_MI_XUPDATE_ERR_MAKE_EXPLOREDDIR . ': ' .$this->target_key);
                 return false;
@@ -68,13 +68,13 @@ class Xupdate_FtpThemeFinderInstall extends Xupdate_FtpCommonZipArchive
             $downloadUrl = $this->Func->_getDownloadUrl($this->target_key, $this->downloadUrlFormat);
             $this->download_file = $this->target_key . (preg_match('/\btar\b/i', $downloadUrl)? '.tar.gz' : '.zip');
             
-            $this->content.= _MI_XUPDATE_PROG_FILE_GETTING . '<br />';
+            $this->content.= _MI_XUPDATE_PROG_FILE_GETTING . '<br>';
             if ($this->Func->_downloadFile($this->target_key, $downloadUrl, $this->download_file, $this->downloadedFilePath)) {
                 $downloadDirPath = realpath($this->Xupdate->params['temp_path']);
                 $this->exploredDirPath = $exploredDirPath;
-                if ($this->_unzipFile()==true) {
+                if (true == $this->_unzipFile()) {
                     // ToDo port , timeout
-                    if ($this->Ftp->isConnected() || $this->Ftp->app_login()==true) {
+                    if ($this->Ftp->isConnected() || true == $this->Ftp->app_login()) {
                         if (!$this->uploadFiles()) {
                             $this->_set_error_log('Ftp uploadFiles false');
                             $result = false;
@@ -92,7 +92,7 @@ class Xupdate_FtpThemeFinderInstall extends Xupdate_FtpCommonZipArchive
                 $result = false;
             }
             
-            $this->content.= _MI_XUPDATE_PROG_CLEANING_UP . '<br />';
+            $this->content.= _MI_XUPDATE_PROG_CLEANING_UP . '<br>';
             $this->_cleanup($exploredDirPath);
 
             if ($this->Ftp->isConnected()) {
@@ -104,7 +104,7 @@ class Xupdate_FtpThemeFinderInstall extends Xupdate_FtpCommonZipArchive
             //@unlink( $downloadPath );
             @unlink($this->downloadedFilePath);
 
-            $this->content.= _MI_XUPDATE_PROG_COMPLETED . '<br /><br />';
+            $this->content.= _MI_XUPDATE_PROG_COMPLETED . '<br><br>';
             
             @ unlink(_MD_XUPDATE_SYS_LOCK_FILE);
         } else {
@@ -141,10 +141,10 @@ class Xupdate_FtpThemeFinderInstall extends Xupdate_FtpCommonZipArchive
     {
         //$this->Ftp->connect();
 
-        $this->Ftp->appendMes('start uploading..<br />');
-        $this->content.= _MI_XUPDATE_PROG_UPLOADING . '<br />';
+        $this->Ftp->appendMes('start uploading..<br>');
+        $this->content.= _MI_XUPDATE_PROG_UPLOADING . '<br>';
 
-        if ($this->target_type !== 'Theme') {
+        if ('Theme' !== $this->target_type) {
             return false;
         }
 
@@ -156,7 +156,7 @@ class Xupdate_FtpThemeFinderInstall extends Xupdate_FtpCommonZipArchive
             return false;
         }
 
-        $this->Ftp->appendMes('end uploaded success<br />');
+        $this->Ftp->appendMes('end uploaded success<br>');
         return true;
     }
 

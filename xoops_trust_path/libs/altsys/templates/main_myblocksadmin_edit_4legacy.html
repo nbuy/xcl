@@ -1,28 +1,12 @@
-<a href="?mode=admin&amp;lib=altsys&amp;page=myblocksadmin&amp;dirname=<{$target_dirname}>"><{$smarty.const._MD_A_MYBLOCKSADMIN_BLOCKADMIN}></a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;<{$form_title}><br /><br />
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
-<h3 style='text-align:<{$smarty.const._GLOBAL_LEFT}>;'><{$target_mname}></h3>
+<!-- <div class="adminnavi ui-breadcrumbs">
+<a href="?mode=admin&amp;lib=altsys&amp;page=myblocksadmin&amp;dirname=<{$target_dirname}>"><{$smarty.const._MD_A_MYBLOCKSADMIN_BLOCKADMIN}></a> <span>&raquo;&raquo;</span> <{$form_title}>
+</div> -->
 
-<style>
-	td.blockposition	{width:135px;white-space:nowrap;}
-	div.blockposition	{float:<{$smarty.const._GLOBAL_LEFT}>;border:solid 1px #333333;padding:1px;}
-	div.unselected		{background-color:#FFFFFF;}
-	div.selected		{background-color:#00FF00;}
-	div.disabled		{background-color:#FF0000;}
-	input[type='radio'] {margin:2px;}
-	input[type='text'] {min-width:0%;}
-	label				{display:inline;}
-</style>
+<hr>
 
-<{if $common_fck_installed}>
-<script type="text/javascript" src="<{$xoops_url}>/common/fckeditor/fckeditor.js"></script>
-<script type="text/javascript"><!--
-	function fckeditor_exec() {
-		var oFCKeditor = new FCKeditor( "textarea_content" , "100%" , "500" , "Default" );
-		oFCKeditor.BasePath = "<{$xoops_url}>/common/fckeditor/";
-		oFCKeditor.ReplaceTextarea();
-	}
-// --></script>
-<{/if}>
+<h2><{$target_mname}></h2>
 
 <form name="blockform" id="blockform" action="?mode=admin&amp;lib=altsys&amp;page=myblocksadmin&amp;dirname=<{$target_dirname}>&amp;bid=<{$block.bid}>" method="post">
 
@@ -39,19 +23,19 @@
 	<tr>
 		<td class="head"><{$smarty.const._MD_A_MYBLOCKSADMIN_TITLE}></td>
 		<td class="even">
-			<input type="text" name="titles[<{$block.bid}>]" value="<{$block.title_raw|escape}>" size="40" />
+			<input type="text" name="titles[<{$block.bid}>]" value="<{$block.title_raw|escape}>" size="40">
 		</td>
 	</tr>
 	<tr>
 		<td class="head"><{$smarty.const._MD_A_MYBLOCKSADMIN_SIDE}></td>
-		<td class="even">
+		<td class="even ui-block-side">
 			<{$block.cell_position}>
 		</td>
 	</tr>
 	<tr>
 		<td class="head"><{$smarty.const._MD_A_MYBLOCKSADMIN_WEIGHT}></td>
 		<td class="even">
-			<input type="text" name="weights[<{$block.bid}>]" value="<{$block.weight}>" size="3" maxlength="5" style="text-align:<{$smarty.const._GLOBAL_RIGHT}>;" />
+			<input type="text" name="weights[<{$block.bid}>]" value="<{$block.weight}>" size="3" maxlength="5">
 		</td>
 	</tr>
 	<tr>
@@ -66,28 +50,20 @@
 	<{if $block.is_custom}>
 
 		<tr>
-			<td class="head"><{$smarty.const._MD_A_MYBLOCKSADMIN_CONTENT}></td>
+			<td class="head"> <{$smarty.const._MD_A_MYBLOCKSADMIN_CONTENT}></td>
 			<td class="even">
 				<{if $xoops_cube_legacy}>
+
 					<{if $block.ctype == 'P'}>
-						<textarea name="contents[<{$block.bid}>]" id="textarea_content" class="none" cols="80" rows="20"><{$block.content_raw|escape}></textarea>
-						<{if ! $common_fck_installed}><br /><{$smarty.const._MD_A_MYBLOCKSADMIN_NOTICE4COMMONFCK}><{/if}>
-					<{elseif  $block.ctype == 'H' && $common_fck_installed}>
-						<textarea name="contents[<{$block.bid}>]" id="textarea_content" class="html"><{$block.content_raw|escape}></textarea>
-						<script>fckeditor_exec();</script>
+						<textarea name="contents[<{$block.bid}>]" id="textarea_content" style="width: 100%;" rows="20"><{$block.content_raw|escape}></textarea>
+
 					<{elseif $block.ctype == 'H' || empty($block.ctype) }>
 						<{xoops_dhtmltarea cols=74 rows=15 name="contents[`$block.bid`]" id="textarea_content" value="`$block.content_raw`" class=html editor=html}>
 					<{else}>
 						<{xoops_dhtmltarea cols=74 rows=15 name="contents[`$block.bid`]" id="textarea_content" value="`$block.content_raw`" myckeditor=true class=bbcode editor=bbcode}>
 					<{/if}>
-				<{else}>
-					<{if $block.ctype == 'P' || ! $common_fck_installed}>
-						<textarea name="contents[<{$block.bid}>]" id="textarea_content" cols="80" rows="20"><{$block.content_raw|escape}></textarea>
-						<{if ! $common_fck_installed}><br /><{$smarty.const._MD_A_MYBLOCKSADMIN_NOTICE4COMMONFCK}><{/if}>
-					<{else}>
-						<textarea name="contents[<{$block.bid}>]" id="textarea_content"><{$block.content_raw|escape}></textarea>
-						<script>fckeditor_exec();</script>
-					<{/if}>
+
+
 				<{/if}>
 			</td>
 		</tr>
@@ -128,7 +104,7 @@
 			</select>
 		</td>
 	</tr>
-	<tr>
+	<tr class="foot">
 		<td class="head"></td>
 		<td class="even">
 			<{if $block.is_custom}>
@@ -143,8 +119,7 @@
 </form>
 
 <{if $block.content_preview}>
-	<div class="myblocksadmin_preview">
+	<div class="ui-block-admin-preview">
 		<{$block.content_preview}>
 	</div>
 <{/if}>
-

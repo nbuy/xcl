@@ -1,15 +1,15 @@
 <?php
 
-require_once dirname(dirname(__FILE__)).'/include/main_functions.php' ;
-require_once dirname(dirname(__FILE__)).'/include/common_functions.php' ;
-require_once dirname(dirname(__FILE__)).'/include/transact_functions.php' ;
-require_once dirname(dirname(__FILE__)).'/include/import_functions.php' ;
-require_once dirname(dirname(__FILE__)).'/include/history_functions.php' ;
-require_once dirname(dirname(__FILE__)).'/class/pico.textsanitizer.php' ;
-require_once dirname(dirname(__FILE__)).'/class/gtickets.php' ;
-require_once XOOPS_ROOT_PATH.'/class/pagenav.php' ;
-$myts =& PicoTextSanitizer::sGetInstance() ;
-$db = XoopsDatabaseFactory::getDatabaseConnection() ;
+require_once dirname(__DIR__) . '/include/main_functions.php';
+require_once dirname(__DIR__) . '/include/common_functions.php';
+require_once dirname(__DIR__) . '/include/transact_functions.php';
+require_once dirname(__DIR__) . '/include/import_functions.php';
+require_once dirname(__DIR__) . '/include/history_functions.php';
+require_once dirname(__DIR__) . '/class/PicoTextSanitizer.class.php';
+require_once dirname(__DIR__) . '/class/gtickets.php';
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+$myts = &PicoTextSanitizer::sGetInstance();
+$db = XoopsDatabaseFactory::getDatabaseConnection();
 
 $allowed_orders = array( 'count ASC' , 'count DESC' , 'weight ASC' , 'weight DESC' , 'label ASC' , 'label DESC' ) ;
 
@@ -24,15 +24,17 @@ if( ! empty( $_POST['tags_update'] ) ) {
 	}
 
 	foreach( array_keys( $_POST['labels'] ) as $old_label ) {
-		if( empty( $_POST['labels'][ $old_label ] ) ) continue ;
+		if( empty( $_POST['labels'][ $old_label ] ) ) {
+            continue;
+        }
 		$new_label = $myts->stripSlashesGPC( $_POST['labels'][ $old_label ] ) ;
-		$weight = intval( $_POST['weights'][ $old_label ] ) ;
+		$weight = (int)$_POST['weights'][$old_label];
 		$db->query( "UPDATE ".$db->prefix($mydirname."_tags")." SET label=".$db->quoteString($new_label).",weight='$weight' WHERE label=".$db->quoteString($old_label) ) ;
 
-		if( $new_label != $old_label ) {
+		if( $new_label !== $old_label ) {
 			// update tags field in contents table
 			$old_label4sql = $db->quoteString($old_label);
-			$old_label4sql = substr($old_label4sql, 1, strlen($old_label4sql)-2);
+			$old_label4sql = substr($old_label4sql, 1, -1);
 			$result = $db->query( "SELECT content_id,tags FROM ".$db->prefix($mydirname."_contents WHERE tags LIKE '%".$old_label4sql."%'") ) ;
 			while( list( $content_id , $tags ) = $db->fetchRow( $result ) ) {
 				$tags_array = array_flip( explode( ' ' , $tags ) ) ;
@@ -59,10 +61,12 @@ if( ! empty( $_POST['tags_delete'] ) && ! empty( $_POST['action_selects'] ) ) {
 	}
 
 	foreach( $_POST['action_selects'] as $label => $value ) {
-		if( empty( $value ) ) continue ;
+		if( empty( $value ) ) {
+            continue;
+        }
 		$label = $myts->stripSlashesGPC( $label ) ;
 		$label4sql = $db->quoteString($label);
-		$label4sql = substr($label4sql, 1, strlen($label4sql)-2);
+		$label4sql = substr($label4sql, 1, -1);
 		$db->query( "DELETE FROM ".$db->prefix($mydirname."_tags")." WHERE label='".$label4sql."'" ) ;
 
 		// update tags field in contents table
@@ -82,17 +86,18 @@ if( ! empty( $_POST['tags_delete'] ) && ! empty( $_POST['action_selects'] ) ) {
 	exit ;
 }
 
+
 //
 // form stage
 //
 
 // requests for form
-$pos = empty( $_GET['pos'] ) ? 0 : intval( $_GET['pos'] ) ;
-$num = empty( $_GET['num'] ) ? 30 : intval( $_GET['num'] ) ;
-$order = in_array( @$_GET['order'] , $allowed_orders ) ? $_GET['order'] : $allowed_orders[0] ;
+$pos = empty( $_GET['pos'] ) ? 0 : (int)$_GET['pos'];
+$num = empty( $_GET['num'] ) ? 30 : (int)$_GET['num'];
+$order = in_array(@$_GET['order'], $allowed_orders, true) ? $_GET['order'] : $allowed_orders[0] ;
 
 // pre query
-list( $hit ) = $db->fetchRow( $db->query( "SELECT COUNT(*) FROM ".$db->prefix($mydirname."_tags") ) ) ;
+[$hit] = $db->fetchRow($db->query("SELECT COUNT(*) FROM " . $db->prefix($mydirname . "_tags")));
 
 // pagenav
 $pagenav = '' ;
@@ -109,7 +114,7 @@ while( $tag_row = $db->fetchArray( $trs ) ) {
 	$ors = $db->query( "SELECT content_id,vpath,subject FROM ".$db->prefix($mydirname."_contents")." WHERE content_id IN (".$tag_row['content_ids'].") LIMIT 10" ) ;
 	while( $content_row = $db->fetchArray( $ors ) ) {
 		$contents4assign[] = array(
-			'id' => intval( $content_row['content_id'] ) ,
+			'id' => (int)$content_row['content_id'],
 			'link' => pico_common_make_content_link4html( $xoopsModuleConfig , $content_row ) ,
 			'subject' => $myts->makeTboxData4Show( $content_row['subject'] , 1 , 1 ) ,
 		) + $content_row ;
@@ -123,12 +128,13 @@ while( $tag_row = $db->fetchArray( $trs ) ) {
 	$tags4assign[] = $tag4assign + $tag_row ;
 }
 
+
 //
 // display stage
 //
 
 xoops_cp_header();
-include dirname(__FILE__).'/mymenu.php' ;
+include __DIR__ .'/mymenu.php' ;
 $tpl = new XoopsTpl() ;
 $tpl->assign( array(
 	'mydirname' => $mydirname ,

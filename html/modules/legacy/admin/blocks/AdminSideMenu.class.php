@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: AdminSideMenu.class.php,v 1.3 2008/09/25 15:12:44 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -21,30 +21,30 @@ define('LEGACY_ADMINMENU_CACHEPREFIX', XOOPS_CACHE_PATH.'/'.urlencode(XOOPS_URL)
  *
  * [ASSIGN]
  *	Array of module objects.
- * 
+ *
  * @package legacy
  */
 class Legacy_AdminSideMenu extends Legacy_AbstractBlockProcedure
 {
-    public $mModules = array();
-    
+    public $mModules = [];
+
     /**
      * protected, but read OK.
-     * 
+     *
      * @access protected
      */
-    public $mCurrentModule = null;
+    public $mCurrentModule;
 
     public function getName()
     {
-        return "sidemenu";
+        return 'sidemenu';
     }
 
     public function getTitle()
     {
-        return "TEST: AdminSideMenu";
+        return 'TEST: AdminSideMenu';
     }
-    
+
     public function getEntryIndex()
     {
         return 0;
@@ -58,16 +58,16 @@ class Legacy_AdminSideMenu extends Legacy_AbstractBlockProcedure
     public function execute()
     {
         $root =& XCube_Root::getSingleton();
-        
-        // load message catalog of legacy for _AD_LEGACY_LANG_NO_SETTING, even if the current module is not Legacy.
+
+        // load admin message catalog of legacy for _AD_LEGACY_LANG_NO_SETTING, even if the current module is not Legacy.
         $langMgr =& $root->mLanguageManager;
         $langMgr->loadModuleAdminMessageCatalog('legacy');
-        //
+        // load info message catalog
         $langMgr->loadModinfoMessageCatalog('legacy');
-        
+
         $controller =& $root->mController;
         $user =& $root->mContext->mXoopsUser;
-        $groups = implode(",", $user->getGroups());
+        $groups = implode(',', $user->getGroups());
         $cachePath = LEGACY_ADMINMENU_CACHEPREFIX . md5(XOOPS_SALT . "($groups)". $langMgr->mLanguageName).'.html';
         $render =& $this->getRenderTarget();
         if (file_exists($cachePath)) {
@@ -75,24 +75,22 @@ class Legacy_AdminSideMenu extends Legacy_AbstractBlockProcedure
             return;
         }
         $render->setAttribute('legacy_module', 'legacy');
-        
+
         $this->mCurrentModule =& $controller->mRoot->mContext->mXoopsModule;
-        
-        if ($this->mCurrentModule->get('dirname') == 'legacy') {
-            if (xoops_getrequest('action') == "help") {
-                $moduleHandler =& xoops_gethandler('module');
-                $t_module =& $moduleHandler->getByDirname(xoops_gethandler('legacy'));
-                if (is_object($t_module)) {
-                    $this->mCurrentModule =& $t_module;
-                }
+
+        if (('legacy' === $this->mCurrentModule->get('dirname')) && 'help' === xoops_getrequest('action')) {
+            $moduleHandler =& xoops_gethandler('module');
+            $t_module =& $moduleHandler->getByDirname(xoops_gethandler('legacy'));
+            if (is_object($t_module)) {
+                $this->mCurrentModule =& $t_module;
             }
         }
-        
+
         $db=&$controller->getDB();
 
-        $mod = $db->prefix("modules");
-        $perm = $db->prefix("group_permission");
-        
+        $mod = $db->prefix('modules');
+        $perm = $db->prefix('group_permission');
+
         //
         // Users who are belong to ADMIN GROUP have every permissions, so we have to prepare two kinds of SQL.
         //
@@ -107,9 +105,9 @@ class Legacy_AdminSideMenu extends Legacy_AbstractBlockProcedure
 
 
         $result=$db->query($sql);
-        
+
         $handler =& xoops_gethandler('module');
-        
+
         while (list($weight, $mid) = $db->fetchRow($result)) {
             $xoopsModule = & $handler->get($mid);
             $module =& Legacy_Utils::createModule($xoopsModule, false);
@@ -118,8 +116,8 @@ class Legacy_AdminSideMenu extends Legacy_AbstractBlockProcedure
             unset($module);
         }
         //
-        $tpl = $db->prefix("tplfile");
-        $tpl_modules = array();
+        $tpl = $db->prefix('tplfile');
+        $tpl_modules = [];
         $sql = "SELECT DISTINCT tpl_module FROM ${tpl}";
         $result = $db->query($sql);
         while ($row = $db->fetchArray($result)) {
@@ -131,9 +129,9 @@ class Legacy_AdminSideMenu extends Legacy_AbstractBlockProcedure
         $render->setTemplateName('legacy_admin_block_sidemenu.html');
         $render->setAttribute('modules', $this->mModules);
         $render->setAttribute('currentModule', $this->mCurrentModule);
-        
+
         $renderSystem =& $root->getRenderSystem($this->getRenderSystemName());
-        
+
         $renderSystem->renderBlock($render);
         file_put_contents($cachePath, $render->mRenderBuffer);
     }

@@ -1,7 +1,7 @@
 <div class="adminnavi">
   <a href="./index.php"><{$smarty.const._MI_USER_NAME}></a>
   &raquo;&raquo; <a href="./index.php?action=RanksList"><{$smarty.const._AD_USER_LANG_RANK_LIST}></a>
-  &raquo;&raquo; 
+  &raquo;&raquo;
   <{if $actionForm->get('rank_id') }>
     <span class="adminnaviTitle"><{$smarty.const._AD_USER_LANG_RANK_EDIT}></span>
   <{else}>
@@ -9,11 +9,14 @@
   <{/if}>
 </div>
 
+
 <{if $actionForm->get('rank_id') }>
-  <h3 class="admintitle"><{$smarty.const._AD_USER_LANG_RANK_EDIT}></h3>
+  <h2 class="admintitle"><{$smarty.const._AD_USER_LANG_RANK_EDIT}></h2>
 <{else}>
-  <h3 class="admintitle"><{$smarty.const._AD_USER_LANG_RANK_NEW}></h3>
+  <h2 class="admintitle"><{$smarty.const._AD_USER_LANG_RANK_NEW}></h2>
 <{/if}>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <{if $actionForm->hasError()}>
 <div class="error">
@@ -66,13 +69,13 @@
     <tr>
       <td class="head"><{$smarty.const._AD_USER_LANG_RANK_IMAGE}></td>
       <td class="<{cycle values="odd,even"}>">
-        <input type="file" name="rank_image" size="30" />
+        <input type="file" name="rank_image" size="30">
       </td>
     </tr>
     <tr>
       <td colspan="2" class="foot">
-        <input class="formButton" type="submit" value="<{$smarty.const._SUBMIT}>" />
-        <input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel" />
+        <input class="formButton" type="submit" value="<{$smarty.const._SUBMIT}>">
+        <input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel">
       </td>
     </tr>
   </table>

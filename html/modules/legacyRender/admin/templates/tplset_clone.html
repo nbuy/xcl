@@ -4,7 +4,10 @@
   &raquo;&raquo; <span class="adminnaviTitle"><{$smarty.const._AD_LEGACYRENDER_LANG_TEMPLATE_SET_CLONE}></span>
 </div>
 
-<h3 class="admintitle"><{$smarty.const._AD_LEGACYRENDER_LANG_TEMPLATE_SET_CLONE}></h3>
+
+<h2 class="admintitle"><{$smarty.const._AD_LEGACYRENDER_LANG_TEMPLATE_SET_CLONE}></h2>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <{if $actionForm->hasError()}>
 <div class="error">
@@ -26,7 +29,7 @@
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACYRENDER_LANG_TPLSET_NAME}></td>
       <td class="<{cycle values="odd,even"}>">
-        <b><{$object->getShow('tplset_name')}></b> &raquo; &raquo; 
+        <b><{$object->getShow('tplset_name')}></b> &raquo; &raquo;
        <{xoops_input type=text name=tplset_name value=$actionForm->get('tplset_name') size=30 maxlength=50}>
       </td>
     </tr>
@@ -44,8 +47,8 @@
     </tr>
     <tr>
       <td colspan="2" class="foot">
-        <input class="formButton" type="submit" value="<{$smarty.const._CLONE}>" />
-        <input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel" />
+        <input class="formButton" type="submit" value="<{$smarty.const._CLONE}>">
+        <input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel">
       </td>
     </tr>
   </table>

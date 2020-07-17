@@ -3,27 +3,28 @@
  *
  * @package XCube
  * @version $Id: XCube_RenderCache.class.php,v 1.3 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
 
 class XCube_RenderCache
 {
-    public $mCacheId = null;
-    public $mResourceName = null;
-    
-    public function XCube_RenderCache()
+    public $mCacheId;
+    public $mResourceName;
+
+    public function __construct()
     {
     }
 
     /**
-     * @return bool
+     * @param null $cachetime
+     * @return void
      */
     public function isCache($cachetime = null)
     {
     }
-    
+
     /**
      * @return bool
      */
@@ -31,19 +32,19 @@ class XCube_RenderCache
     {
         return true;
     }
-    
+
     public function setResourceName($name)
     {
         $this->mResourceName = $name;
     }
-    
+
     /**
      * @return string
      */
     public function getCacheId()
     {
     }
-    
+
     /**
      * @return string
      */
@@ -55,7 +56,7 @@ class XCube_RenderCache
     {
         if ($this->enableCache()) {
             $filename = $this->_getFileName();
-            $fp = fopen($filename, "wb");
+            $fp = fopen($filename, 'wb');
             fwrite($fp, $renderTarget->getResult());
             fclose($fp);
         }
@@ -67,11 +68,11 @@ class XCube_RenderCache
             return file_get_contents($this->_getFileName());
         }
     }
-    
+
     public function clear()
     {
     }
-    
+
     public function reset()
     {
         $this->mResourceName = null;

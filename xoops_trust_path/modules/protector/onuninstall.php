@@ -1,6 +1,6 @@
 <?php
 
-eval(' function xoops_module_uninstall_'.$mydirname.'( $module ) { return protector_onuninstall_base( $module , "'.$mydirname.'" ) ; } ') ;
+eval(' function xoops_module_uninstall_'.$mydirname . '( $module ) { return protector_onuninstall_base( $module , \'' . $mydirname . '\' ) ; } ') ;
 
 
 if (! function_exists('protector_onuninstall_base')) {
@@ -14,10 +14,10 @@ if (! function_exists('protector_onuninstall_base')) {
     if (defined('XOOPS_CUBE_LEGACY')) {
         $root =& XCube_Root::getSingleton();
         $root->mDelegateManager->add('Legacy.Admin.Event.ModuleUninstall.' . ucfirst($mydirname) . '.Success', 'protector_message_append_onuninstall') ;
-        $ret = array() ;
+        $ret = [];
     } else {
         if (! is_array($ret)) {
-            $ret = array() ;
+            $ret = [];
         }
     }
 
@@ -25,18 +25,18 @@ if (! function_exists('protector_onuninstall_base')) {
         $mid = $module->getVar('mid') ;
 
     // TABLES (loading mysql.sql)
-    $sql_file_path = dirname(__FILE__).'/sql/mysql.sql' ;
+    $sql_file_path = __DIR__ . '/sql/mysql.sql' ;
         $prefix_mod = $db->prefix() . '_' . $mydirname ;
         if (file_exists($sql_file_path)) {
-            $ret[] = "SQL file found at <b>".htmlspecialchars($sql_file_path)."</b>.<br  /> Deleting tables...<br />";
+            $ret[] = 'SQL file found at <b>' . htmlspecialchars($sql_file_path) . '</b>.<br > Deleting tables...<br>';
             $sql_lines = file($sql_file_path) ;
             foreach ($sql_lines as $sql_line) {
                 if (preg_match('/^CREATE TABLE \`?([a-zA-Z0-9_-]+)\`? /i', $sql_line, $regs)) {
                     $sql = 'DROP TABLE '.addslashes($prefix_mod.'_'.$regs[1]);
                     if (!$db->query($sql)) {
-                        $ret[] = '<span style="color:#ff0000;">ERROR: Could not drop table <b>'.htmlspecialchars($prefix_mod.'_'.$regs[1]).'<b>.</span><br />';
+                        $ret[] = '<span style="color:#ff0000;">ERROR: Could not drop table <b>'.htmlspecialchars($prefix_mod.'_'.$regs[1]).'<b>.</span><br>';
                     } else {
-                        $ret[] = 'Table <b>'.htmlspecialchars($prefix_mod.'_'.$regs[1]).'</b> dropped.<br />';
+                        $ret[] = 'Table <b>'.htmlspecialchars($prefix_mod.'_'.$regs[1]).'</b> dropped.<br>';
                     }
                 }
             }
@@ -50,9 +50,9 @@ if (! function_exists('protector_onuninstall_base')) {
         $ret[] = 'Deleting templates...' ;
         for( $i = 0 ; $i < $tcount ; $i ++ ) {
             if( ! $tplfile_handler->delete( $templates[$i] ) ) {
-                $ret[] = '<span style="color:#ff0000;">ERROR: Could not delete template '.$templates[$i]->getVar('tpl_file','s').' from the database. Template ID: <b>'.$templates[$i]->getVar('tpl_id','s').'</b></span><br />';
+                $ret[] = '<span style="color:#ff0000;">ERROR: Could not delete template '.$templates[$i]->getVar('tpl_file','s').' from the database. Template ID: <b>'.$templates[$i]->getVar('tpl_id','s').'</b></span><br>';
             } else {
-                $ret[] = 'Template <b>'.$templates[$i]->getVar('tpl_file','s').'</b> deleted from the database. Template ID: <b>'.$templates[$i]->getVar('tpl_id','s').'</b><br />';
+                $ret[] = 'Template <b>'.$templates[$i]->getVar('tpl_file','s').'</b> deleted from the database. Template ID: <b>'.$templates[$i]->getVar('tpl_id','s').'</b><br>';
             }
         }
     }

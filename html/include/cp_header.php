@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
  *
  * @package Legacy
  * @version $Id: cp_header.php,v 1.3 2008/09/25 15:12:45 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -21,19 +21,19 @@ if (!defined('XOOPS_ROOT_PATH')) {
      * If you use open_basedir in php.ini and use file_exists for file outside open_basedir path,
      * you will not be warned at log and file_exists returns false even if file really exists.
      */
-    if (!file_exists("../../../mainfile.php")) {
-        if (!file_exists("../../mainfile.php")) {
+    if (!file_exists('../../../mainfile.php')) {
+        if (!file_exists('../../mainfile.php')) {
             exit();
-        } else {
-            require_once "../../mainfile.php";
         }
+
+        require_once '../../mainfile.php';
     } else {
-        require_once "../../../mainfile.php";
+        require_once '../../../mainfile.php';
     }
 }
 
 if (!defined('XOOPS_CPFUNC_LOADED')) {
-    require_once XOOPS_ROOT_PATH . "/include/cp_functions.php";
+    require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
 }
 
 //
@@ -43,7 +43,7 @@ if (!defined('XOOPS_CPFUNC_LOADED')) {
 //
 $root =& XCube_Root::getSingleton();
 
-require_once XOOPS_ROOT_PATH . "/modules/legacy/kernel/Legacy_AdminControllerStrategy.class.php";
+require_once XOOPS_ROOT_PATH . '/modules/legacy/kernel/Legacy_AdminControllerStrategy.class.php';
 $strategy =new Legacy_AdminControllerStrategy($root->mController);
 
 $root->mController->setStrategy($strategy);
@@ -53,4 +53,3 @@ $root->mController->_mStrategy->setupModuleLanguage();    //< Umm...
 //
 // TODO
 //
-;

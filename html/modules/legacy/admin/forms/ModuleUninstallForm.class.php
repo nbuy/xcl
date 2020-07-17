@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: ModuleUninstallForm.class.php,v 1.3 2008/09/25 15:11:20 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -12,13 +12,13 @@ if (!defined('XOOPS_ROOT_PATH')) {
     exit();
 }
 
-require_once XOOPS_ROOT_PATH . "/core/XCube_ActionForm.class.php";
+require_once XOOPS_ROOT_PATH . '/core/XCube_ActionForm.class.php';
 
 class Legacy_ModuleUninstallForm extends XCube_ActionForm
 {
     public function getTokenName()
     {
-        return "module.legacy.ModuleUninstallForm.TOKEN." . $this->get('dirname');
+        return 'module.legacy.ModuleUninstallForm.TOKEN.' . $this->get('dirname');
     }
 
     public function prepare()

@@ -9,9 +9,7 @@ class LegacyRenderBannerObject extends XoopsSimpleObject
     public $mClient = null;
     public $_mClientLoadedFlag = false;
 
-    // !Fix deprecated constructor for PHP 7.x
     public function __construct()
-    // public function LegacyRenderBannerObject()
     {
         static $initVars;
         if (isset($initVars)) {
@@ -33,7 +31,7 @@ class LegacyRenderBannerObject extends XoopsSimpleObject
 
     public function loadBannerclient()
     {
-        if ($this->_mClientLoadedFlag == false) {
+        if (false == $this->_mClientLoadedFlag) {
             $handler =& xoops_getmodulehandler('bannerclient', 'legacyRender');
             $this->mClient =& $handler->get($this->get('cid'));
             $this->_mClientLoadedFlag = true;
@@ -43,7 +41,7 @@ class LegacyRenderBannerObject extends XoopsSimpleObject
 
 class LegacyRenderBannerHandler extends XoopsObjectGenericHandler
 {
-    public $mTable = "banner";
-    public $mPrimary = "bid";
-    public $mClass = "LegacyRenderBannerObject";
+    public $mTable = 'banner';
+    public $mPrimary = 'bid';
+    public $mClass = 'LegacyRenderBannerObject';
 }

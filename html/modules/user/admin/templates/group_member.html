@@ -4,9 +4,13 @@
   &raquo;&raquo; <span class="adminnaviTitle"><{$smarty.const._AD_USER_LANG_GROUP_ASSIGN}></span>
 </div>
 
-<h3 class="admintitle"><{$smarty.const._AD_USER_LANG_GROUP_ASSIGN}> ( <{$group->getShow('name')}> )</h3>
+
+<h2 class="admintitle"><{$smarty.const._AD_USER_LANG_GROUP_ASSIGN}> ( <{$group->getShow('name')}> )</h2>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <table class="outer">
+    <thead>
   <tr>
     <th>&nbsp;</th>
     <th><{$smarty.const._AD_USER_LANG_GROUP_GID}></th>
@@ -16,23 +20,36 @@
     <th><{$smarty.const._AD_USER_LANG_GROUP_AMMO}></th>
     <th><{$smarty.const._AD_USER_LANG_CONTROL}></th>
   </tr>
+</thead>
+<tbody>
   <tr class="odd">
-    <td class="user_list_image"><img src="<{"icons/group.png"|theme}>" alt="<{$smarty.const._AD_USER_LANG_GROUP}>" title="<{$smarty.const._AD_USER_LANG_GROUP}>" /></td>
+    <td class="user_list_image"><i title="<{$smarty.const._AD_USER_LANG_GROUP}>"><img src="<{"icons/icon-user-group.svg"|theme}>" class="svg"></i></td>
     <td class="user_list_id"><{$group->getShow('groupid')}></td>
     <td class="user_list_title"><{$group->getShow('name')}></td>
     <td class="user_list_description"><{$group->getShow('description')}></td>
     <td class="user_list_type"><{$group->getShow('group_type')}></td>
     <td class="user_list_number"><{$group->getUserCount()|xoops_escape}></td>
     <td class="user_list_control">
-      <a href="index.php?action=GroupEdit&amp;groupid=<{$group->getShow('groupid')}>"><img src="<{"icons/edit.png"|theme}>" alt="<{$smarty.const._EDIT}>" title="<{$smarty.const._EDIT}>" /></a>
+      <a href="index.php?action=GroupEdit&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._EDIT}>">
+        <img src="<{"icons/icon-user-edit.svg"|theme}>" class="svg">
+      </a>
       <{if $group->get('groupid') > $smarty.const.XOOPS_GROUP_ANONYMOUS }>
-        <a href="index.php?action=GroupDelete&amp;groupid=<{$group->getShow('groupid')}>"><img src="<{"icons/delete.png"|theme}>" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" /></a>
+        <a href="index.php?action=GroupDelete&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._DELETE}>" class="red">
+          <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
+        </a>
       <{/if}>
-      <a href="index.php?action=GroupProperty&amp;groupid=<{$group->getShow('groupid')}>"><img src="<{"icons/property.png"|theme}>" alt="<{$smarty.const._AD_USER_LANG_GROUP_PROPERTY}>" title="<{$smarty.const._AD_USER_LANG_GROUP_PROPERTY}>" /></a>
-      <a href="index.php?action=GroupPerm&amp;groupid=<{$group->getShow('groupid')}>"><img src="<{"icons/permission.png"|theme}>" alt="<{$smarty.const._AD_USER_LANG_GROUP_PERMISSION}>" title="<{$smarty.const._AD_USER_LANG_GROUP_PERMISSION}>" /></a>
-      <a href="index.php?action=GroupMember&amp;groupid=<{$group->getShow('groupid')}>"><img src="<{"icons/members.png"|theme}>" alt="<{$smarty.const._AD_USER_LANG_GROUP_ASSIGN}>" title="<{$smarty.const._AD_USER_LANG_GROUP_ASSIGN}>" /></a>
+      <a href="index.php?action=GroupProperty&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._AD_USER_LANG_GROUP_PROPERTY}>">
+        <img src="<{"icons/icon-user-check.svg"|theme}>" class="svg">
+      </a>
+      <a href="index.php?action=GroupPerm&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._AD_USER_LANG_GROUP_PERMISSION}>">
+        <img src="<{"icons/icon-user-permission.svg"|theme}>" class="svg">
+      </a>
+      <a href="index.php?action=GroupMember&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._AD_USER_LANG_GROUP_ASSIGN}>">
+        <img src="<{"icons/icon-user-assign.svg"|theme}>" class="svg">
+      </a>
     </td>
   </tr>
+</tbody>
 </table>
 
 <hr />
@@ -53,11 +70,12 @@
 
 <form method="post" action="">
 <{xoops_token name=$tokenName value=$tokenValue}>
-<input type="hidden" name="perpage" value="<{$pageNavi->getPerpage()}>" />
-<input type="hidden" name="start" value="<{$pageNavi->getStart()}>" />
-<input type="hidden" name="noperpage" value="<{$noPageNavi->getPerpage()}>" />
-<input type="hidden" name="nostart" value="<{$noPageNavi->getStart()}>" />
+<input type="hidden" name="perpage" value="<{$pageNavi->getPerpage()}>">
+<input type="hidden" name="start" value="<{$pageNavi->getStart()}>">
+<input type="hidden" name="noperpage" value="<{$noPageNavi->getPerpage()}>">
+<input type="hidden" name="nostart" value="<{$noPageNavi->getStart()}>">
 <table class="outer">
+    <thead>
   <tr>
     <th><{$smarty.const._MD_USER_LANG_ASSIGN}></th>
     <th>&nbsp;</th>
@@ -70,10 +88,14 @@
     <th><{$smarty.const._MD_USER_LANG_LEVEL}></th>
     <th><{$smarty.const._AD_USER_LANG_CONTROL}></th>
   </tr>
+</thead>
+<tbody>
   <{foreach from=$noUsers item=user }>
     <tr class="<{cycle values="odd,even"}>">
-      <td class="user_list_select"><input type="checkbox" name="uid[<{$user->getShow('uid')}>]" value="1" /></td>
-      <td class="user_list_image"><img src="<{"icons/user.png"|theme}>" alt="<{$smarty.const._AD_USER_LANG_USER}>" title="<{$smarty.const._AD_USER_LANG_USER}>" /></td>
+      <td class="user_list_select">
+        <input type="checkbox" name="uid[<{$user->getShow('uid')}>]" value="1">
+      </td>
+      <td class="user_list_image"><i title="<{$smarty.const._AD_USER_LANG_USER}>">  <img src="<{"icons/icon-user-group.svg"|theme}>" class="svg"></i></td>
       <td class="user_list_id"><{$user->getShow('uid')}></td>
       <td class="user_list_title"><{$user->getShow('uname')}></td>
       <td class="user_list_name"><{$user->getShow('name')}></td>
@@ -82,33 +104,42 @@
       <td class="user_list_number"><{$user->getShow('posts')}></td>
       <td class="user_list_order"><{$user->getShow('level')}></td>
       <td class="user_list_control">
-        <a href="./index.php?action=UserEdit&amp;uid=<{$user->getShow('uid')}>"><img src="<{"icons/edit.png"|theme}>" alt="<{$smarty.const._EDIT}>" title="<{$smarty.const._EDIT}>" /></a>
+        <a href="./index.php?action=UserEdit&amp;uid=<{$user->getShow('uid')}>" title="<{$smarty.const._EDIT}>">
+          <img src="<{"icons/icon-user-edit.svg"|theme}>" class="svg">
+        </a>
         <{if $user->get('uid') != 1 }>
-          <a href="index.php?action=UserDelete&amp;uid=<{$user->getShow('uid')}>"><img src="<{"icons/delete.png"|theme}>" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" /></a>
+          <a href="index.php?action=UserDelete&amp;uid=<{$user->getShow('uid')}>" title="<{$smarty.const._DELETE}>" class="red">
+            <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
+          </a>
         <{/if}>
       </td>
     </tr>
   <{/foreach}>
+</tbody>
+<tbody>
   <tr>
     <td class="foot" colspan="10">
-      <input type="submit" value="<{$smarty.const._MD_USER_LANG_ASSIGN}>" class="formButton" />
+      <input type="submit" value="<{$smarty.const._MD_USER_LANG_ASSIGN}>" class="button-assign">
     </td>
   </tr>
+</tbody>
 </table>
 </form>
 
 <div class="pagenavi"><{xoops_pagenavi pagenavi=$noPageNavi}></div>
 
-<hr />
-<h4 class="admintitle"><{$smarty.const._AD_USER_LANG_GROUP_ASSIN_MEMBERS}></h4>
+<hr>
+
+<h3 class="admintitle"><{$smarty.const._AD_USER_LANG_GROUP_ASSIN_MEMBERS}></h3>
 
 <form  method="post" action="">
 <{xoops_token name=$tokenName value=$tokenValue}>
-<input type="hidden" name="perpage" value="<{$pageNavi->getPerpage()}>" />
-<input type="hidden" name="start" value="<{$pageNavi->getStart()}>" />
-<input type="hidden" name="noperpage" value="<{$noPageNavi->getPerpage()}>" />
-<input type="hidden" name="nostart" value="<{$noPageNavi->getStart()}>" />
+<input type="hidden" name="perpage" value="<{$pageNavi->getPerpage()}>">
+<input type="hidden" name="start" value="<{$pageNavi->getStart()}>">
+<input type="hidden" name="noperpage" value="<{$noPageNavi->getPerpage()}>">
+<input type="hidden" name="nostart" value="<{$noPageNavi->getStart()}>">
 <table class="outer">
+    <thead>
   <tr>
     <th><{$smarty.const._MD_USER_LANG_UNASSIGN}></th>
     <th>&nbsp;</th>
@@ -121,10 +152,14 @@
     <th><{$smarty.const._MD_USER_LANG_LEVEL}></th>
     <th><{$smarty.const._AD_USER_LANG_CONTROL}></th>
   </tr>
+</thead>
+<tbody>
   <{foreach from=$users item=user }>
     <tr class="<{cycle values="odd,even"}>">
-      <td class="user_list_select"><input type="checkbox" name="uid[<{$user->getShow('uid')}>]" value="2" /></td>
-      <td class="user_list_image"><img src="<{"icons/user.png"|theme}>" alt="<{$smarty.const._AD_USER_LANG_USER}>" title="<{$smarty.const._AD_USER_LANG_USER}>" /></td>
+      <td class="user_list_select">
+        <input type="checkbox" name="uid[<{$user->getShow('uid')}>]" value="2">
+      </td>
+      <td class="user_list_image"><i title="<{$smarty.const._AD_USER_LANG_USER}>">  <img src="<{"icons/icon-user-group.svg"|theme}>" class="svg"></i></td>
       <td class="user_list_id"><{$user->getShow('uid')}></td>
       <td class="user_list_title"><{$user->getShow('uname')}></td>
       <td class="user_list_name"><{$user->getShow('name')}></td>
@@ -133,18 +168,25 @@
       <td class="user_list_number"><{$user->getShow('posts')}></td>
       <td class="user_list_order"><{$user->getShow('level')}></td>
       <td class="user_list_control">
-        <a href="index.php?action=UserEdit&amp;uid=<{$user->getShow('uid')}>&amp;op=modifyUser"><img src="<{"icons/edit.png"|theme}>" alt="<{$smarty.const._EDIT}>" title="<{$smarty.const._EDIT}>" /></a> 
+        <a href="index.php?action=UserEdit&amp;uid=<{$user->getShow('uid')}>&amp;op=modifyUser" title="<{$smarty.const._EDIT}>">
+
+        </a>
         <{if $user->get('uid') != 1 }>
-          <a href="index.php?action=UserDelete&amp;uid=<{$user->getShow('uid')}>"><img src="<{"icons/delete.png"|theme}>" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>" /></a>
+          <a href="index.php?action=UserDelete&amp;uid=<{$user->getShow('uid')}>" title="<{$smarty.const._DELETE}>" class="red">
+            <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
+          </a>
         <{/if}>
       </td>
     </tr>
   <{/foreach}>
+</tbody>
+<tfoot>
   <tr>
     <td class="foot" colspan="10">
-      <input type="submit" value="<{$smarty.const._MD_USER_LANG_UNASSIGN}>" class="formButton" />
+      <input class="button-unassign" type="submit" value="<{$smarty.const._MD_USER_LANG_UNASSIGN}>">
     </td>
   </tr>
+</tfoot>
 </table>
 </form>
 

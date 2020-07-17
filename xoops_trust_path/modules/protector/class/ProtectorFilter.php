@@ -5,13 +5,13 @@ class ProtectorFilterAbstract
 {
     public $protector = null ;
 
-    public function ProtectorFilterAbstract()
+    public function __construct()
     {
         $this->protector =& Protector::getInstance() ;
         $lang = empty($GLOBALS['xoopsConfig']['language']) ? @$this->protector->_conf['default_lang'] : $GLOBALS['xoopsConfig']['language'] ;
-        @include_once dirname(dirname(__FILE__)).'/language/'.$lang.'/main.php' ;
+        @include_once dirname(__DIR__) . '/language/' . $lang . '/main.php' ;
         if (! defined('_MD_PROTECTOR_YOUAREBADIP')) {
-            include_once dirname(dirname(__FILE__)).'/language/english/main.php' ;
+            include_once dirname(__DIR__) . '/language/english/main.php' ;
         }
     }
 
@@ -38,11 +38,11 @@ class ProtectorFilterHandler
     public $filters_base = '' ;
     public $filters_byconfig = '' ;
 
-    public function ProtectorFilterHandler()
+    public function __construct()
     {
-        $this->protector =& Protector::getInstance() ;
-        $this->filters_base = dirname(dirname(__FILE__)).'/filters_enabled' ;
-        $this->filters_byconfig = dirname(dirname(__FILE__)).'/filters_byconfig' ;
+        $this->protector = Protector::getInstance() ;
+        $this->filters_base = dirname(__DIR__) . '/filters_enabled' ;
+        $this->filters_byconfig = dirname(__DIR__) . '/filters_byconfig' ;
     }
 
     public static function &getInstance()
@@ -59,23 +59,23 @@ class ProtectorFilterHandler
     {
         $ret = 0 ;
 
-        $filters = array() ;
+        $filters = [];
 
         // parse $protector->_conf['filters']
         foreach (preg_split('/[\s\n,]+/', $this->protector->_conf['filters']) as $file) {
-            if (substr($file, -4) != '.php') {
+            if ('.php' != substr($file, -4)) {
                 $file .= '.php' ;
             }
-            if (strncmp($file, $type.'_', strlen($type) + 1) === 0) {
-                $filters[] = array( 'file' => $file , 'base' => $this->filters_byconfig ) ;
+            if (0 === strncmp($file, $type . '_', strlen($type) + 1)) {
+                $filters[] = ['file' => $file, 'base' => $this->filters_byconfig];
             }
         }
 
         // search from filters_enabled/
         $dh = opendir($this->filters_base) ;
-        while (($file = readdir($dh)) !== false) {
-            if (strncmp($file, $type.'_', strlen($type) + 1) === 0) {
-                $filters[] = array( 'file' => $file , 'base' => $this->filters_base ) ;
+        while (false !== ($file = readdir($dh))) {
+            if (0 === strncmp($file, $type . '_', strlen($type) + 1)) {
+                $filters[] = ['file' => $file, 'base' => $this->filters_base];
             }
         }
         closedir($dh) ;

@@ -1,21 +1,21 @@
 <?php
 
 require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
-require_once dirname(dirname(__FILE__)).'/class/gtickets.php';
+require_once dirname(__DIR__) . '/class/gtickets.php';
 (method_exists('MyTextSanitizer', 'sGetInstance') and $myts = &MyTextSanitizer::sGetInstance()) || $myts = &MyTextSanitizer::getInstance();
 $db = &Database::getInstance();
 
 // GET vars
-$pos = empty($_GET[ 'pos' ]) ? 0 : intval($_GET[ 'pos' ]);
-$num = empty($_GET[ 'num' ]) ? 20 : intval($_GET[ 'num' ]);
+$pos = empty($_GET[ 'pos' ]) ? 0 : (int)$_GET['pos'];
+$num = empty($_GET[ 'num' ]) ? 20 : (int)$_GET['num'];
 
 // Table Name
 $log_table = $db->prefix($mydirname.'_log');
 
 // Protector object
-require_once dirname(dirname(__FILE__)).'/class/protector.php';
+require_once dirname(__DIR__) . '/class/protector.php';
 $db = &Database::getInstance();
-$protector = &Protector::getInstance($db->conn);
+$protector = Protector::getInstance($db->conn);
 $conf = $protector->getConf();
 
 // transaction stage
@@ -27,20 +27,20 @@ if (!empty($_POST['action'])) {
         redirect_header(XOOPS_URL.'/', 3, $xoopsGTicket->getErrors());
     }
 
-    if ($_POST['action'] == 'update_ips') {
+    if ('update_ips' == $_POST['action']) {
         $error_msg = '';
 
-        $lines = empty($_POST['bad_ips']) ? array() : explode("\n", trim($_POST['bad_ips']));
-        $bad_ips = array();
+        $lines = empty($_POST['bad_ips']) ? [] : explode("\n", trim($_POST['bad_ips']));
+        $bad_ips = [];
         foreach ($lines as $line) {
             @list($bad_ip, $jailed_time) = explode('-', $line, 2);
-            $bad_ips[ trim($bad_ip) ] = empty($jailed_time) ? 0x7fffffff : intval($jailed_time);
+            $bad_ips[ trim($bad_ip) ] = empty($jailed_time) ? 0x7fffffff : (int)$jailed_time;
         }
         if (!$protector->write_file_badips($bad_ips)) {
             $error_msg .= _AM_MSG_BADIPSCANTOPEN;
         }
 
-        $group1_ips = empty($_POST['group1_ips']) ? array() : explode("\n", trim($_POST['group1_ips']));
+        $group1_ips = empty($_POST['group1_ips']) ? [] : explode("\n", trim($_POST['group1_ips']));
         foreach (array_keys($group1_ips) as $i) {
             $group1_ips[$i] = trim($group1_ips[$i]);
         }
@@ -54,27 +54,27 @@ if (!empty($_POST['action'])) {
             $error_msg .= _AM_MSG_GROUP1IPSCANTOPEN;
         }
 
-        $redirect_msg = $error_msg ? $error_msg : _AM_MSG_IPFILESUPDATED;
+        $redirect_msg = $error_msg ?: _AM_MSG_IPFILESUPDATED;
         redirect_header('index.php', 2, $redirect_msg);
         exit;
-    } elseif ($_POST['action'] == 'delete' && isset($_POST['ids']) && is_array($_POST['ids'])) {
+    } elseif ('delete' == $_POST['action'] && isset($_POST['ids']) && is_array($_POST['ids'])) {
         // remove selected records
         foreach ($_POST['ids'] as $lid) {
-            $lid = intval($lid);
+            $lid = (int)$lid;
             $db->query("DELETE FROM $log_table WHERE lid='$lid'");
         }
         redirect_header('index.php', 2, _AM_MSG_REMOVED);
         exit;
-    } elseif ($_POST['action'] == 'deleteall') {
+    } elseif ('deleteall' == $_POST['action']) {
         // remove all records
         $db->query("DELETE FROM $log_table");
         redirect_header('index.php', 2, _AM_MSG_REMOVED);
         exit;
-    } elseif ($_POST['action'] == 'compactlog') {
+    } elseif ('compactlog' == $_POST['action']) {
         // compactize records (removing duplicated records (ip,type)
         $result = $db->query("SELECT `lid`,`ip`,`type` FROM $log_table ORDER BY lid DESC");
-        $buf = array();
-        $ids = array();
+        $buf = [];
+        $ids = [];
         while (list($lid, $ip, $type) = $db->fetchRow($result)) {
             if (isset($buf[ $ip.$type ])) {
                 $ids[] = $lid;
@@ -101,7 +101,7 @@ $nav_html = $nav->renderNav(10);
 
 // Number selection
 $num_options = '';
-$num_array = array(20, 100, 500, 2000);
+$num_array = [20, 100, 500, 2000];
 foreach ($num_array as $n) {
     if ($n == $num) {
         $num_options .= "<option value='$n' selected='selected'>$n</option>\n";
@@ -112,14 +112,15 @@ foreach ($num_array as $n) {
 
 // beggining of Output
 xoops_cp_header();
-include dirname(__FILE__).'/mymenu.php';
+include __DIR__ . '/mymenu.php';
 
 // title
-echo "<h3 style='text-align:left;'>".$xoopsModule->name()."</h3>\n";
+echo "<div class='ui-card-main'>\n
+        <h2>".$xoopsModule->name()."</h3>\n";
 
 // configs writable check
-if (!is_writable(dirname(dirname(__FILE__)).'/configs')) {
-    printf("<p style='color:red;font-weight:bold;'>"._AM_FMT_CONFIGSNOTWRITABLE."</p>\n", dirname(dirname(__FILE__)).'/configs');
+if (!is_writable(dirname(__DIR__) . '/configs')) {
+    printf("<p style='color:red;font-weight:bold;'>"._AM_FMT_CONFIGSNOTWRITABLE."</p>\n", dirname(__DIR__) . '/configs');
 }
 
 // bad_ips
@@ -141,7 +142,7 @@ $group1_ips4disp = htmlspecialchars(implode("\n", $group1_ips), ENT_QUOTES);
 echo "
 <form name='ConfigForm' action='' method='POST'>
 ".$xoopsGTicket->getTicketHtml(__LINE__, 1800, 'protector_admin')."
-<input type='hidden' name='action' value='update_ips' />
+<input type='hidden' name='action' value='update_ips'>
 <table width='95%' class='outer' cellpadding='4' cellspacing='1'>
   <tr valign='top' align='left'>
     <td class='head'>
@@ -149,7 +150,7 @@ echo "
     </td>
     <td class='even'>
       <textarea name='bad_ips' id='bad_ips' style='width:200px;height:60px;'>$bad_ips4disp</textarea>
-      <br />
+      <br>
       ".htmlspecialchars($protector->get_filepath4badips())."
     </td>
   </tr>
@@ -159,7 +160,7 @@ echo "
     </td>
     <td class='even'>
       <textarea name='group1_ips' id='group1_ips' style='width:200px;height:60px;'>$group1_ips4disp</textarea>
-      <br />
+      <br>
       ".htmlspecialchars($protector->get_filepath4group1ips())."
     </td>
   </tr>
@@ -167,7 +168,7 @@ echo "
     <td class='head'>
     </td>
     <td class='even'>
-      <input type='submit' value='"._GO."' />
+      <input type='submit' value='"._GO."'>
     </td>
   </tr>
 </table>
@@ -192,13 +193,13 @@ echo "
 </form>
 <form name='MainForm' action='' method='POST' style='margin-top:0px;'>
 ".$xoopsGTicket->getTicketHtml(__LINE__, 1800, 'protector_admin')."
-<input type='hidden' name='action' value='' />
+<input type='hidden' name='action' value=''>
 <table width='95%' class='outer' cellpadding='4' cellspacing='1'>
   <tr valign='middle'>
-    <th width='5'><input type='checkbox' name='dummy' onclick=\"with(document.MainForm){for(i=0;i<length;i++){if(elements[i].type=='checkbox'){elements[i].checked=this.checked;}}}\" /></th>
+    <th width='5'><input type='checkbox' name='dummy' onclick=\"with(document.MainForm){for(i=0;i<length;i++){if(elements[i].type=='checkbox'){elements[i].checked=this.checked;}}}\"></th>
     <th>"._AM_TH_DATETIME.'</th>
     <th>'._AM_TH_USER.'</th>
-    <th>'._AM_TH_IP.'<br />'._AM_TH_AGENT.'</th>
+    <th>'._AM_TH_IP.'<br>'._AM_TH_AGENT.'</th>
     <th>'._AM_TH_TYPE.'</th>
     <th>'._AM_TH_DESCRIPTION.'</th>
   </tr>
@@ -207,7 +208,7 @@ echo "
 // body of log listing
 $oddeven = 'odd';
 while (list($lid, $uid, $ip, $agent, $type, $description, $timestamp, $uname) = $db->fetchRow($prs)) {
-    $oddeven = ($oddeven == 'odd' ? 'even' : 'odd');
+    $oddeven = ('odd' == $oddeven ? 'even' : 'odd');
 
     $ip = htmlspecialchars($ip, ENT_QUOTES);
     $type = htmlspecialchars($type, ENT_QUOTES);
@@ -217,20 +218,20 @@ while (list($lid, $uid, $ip, $agent, $type, $description, $timestamp, $uname) = 
     // make agents shorter
     if (preg_match('/MSIE\s+([0-9.]+)/', $agent, $regs)) {
         $agent_short = 'IE '.$regs[1];
-    } elseif (stristr($agent, 'Gecko') !== false) {
+    } elseif (false !== stristr($agent, 'Gecko')) {
         $agent_short = strrchr($agent, ' ');
     } else {
         $agent_short = substr($agent, 0, strpos($agent, ' '));
     }
     $agent4disp = htmlspecialchars($agent, ENT_QUOTES);
-    $agent_desc = $agent == $agent_short ? $agent4disp : htmlspecialchars($agent_short, ENT_QUOTES)."<img src='../images/dotdotdot.gif' alt='$agent4disp' title='$agent4disp' />";
+    $agent_desc = $agent == $agent_short ? $agent4disp : htmlspecialchars($agent_short, ENT_QUOTES)."<img src='../images/dotdotdot.gif' alt='$agent4disp' title='$agent4disp'>";
 
     echo "
   <tr>
-    <td class='$oddeven'><input type='checkbox' name='ids[]' value='$lid' /></td>
+    <td class='$oddeven'><input type='checkbox' name='ids[]' value='$lid'></td>
     <td class='$oddeven'>".formatTimestamp($timestamp)."</td>
     <td class='$oddeven'>$uname</td>
-    <td class='$oddeven'>$ip<br />$agent_desc</td>
+    <td class='$oddeven'>$ip<br>$agent_desc</td>
     <td class='$oddeven'>$type</td>
     <td class='$oddeven' width='100%'>$description</td>
   </tr>\n";
@@ -239,20 +240,21 @@ while (list($lid, $uid, $ip, $agent, $type, $description, $timestamp, $uname) = 
 // footer of log listing
 echo "
   <tr>
-    <td colspan='8' align='left'>"._AM_LABEL_REMOVE."<input type='button' value='"._AM_BUTTON_REMOVE."' onclick='if(confirm(\""._AM_JS_REMOVECONFIRM."\")){document.MainForm.action.value=\"delete\"; submit();}' /></td>
+    <td colspan='8' align='left'>"._AM_LABEL_REMOVE." <input type='button' value='"._AM_BUTTON_REMOVE."' onclick='if(confirm(\""._AM_JS_REMOVECONFIRM."\")){document.MainForm.action.value=\"delete\"; submit();}'></td>
   </tr>
 </table>
 <div align='right'>
   $nav_html
 </div>
-<div style='clear:both;'><br /><br /></div>
+<div style='clear:both;'><br><br></div>
 <div align='right'>
-"._AM_LABEL_COMPACTLOG."<input type='button' value='"._AM_BUTTON_COMPACTLOG."' onclick='if(confirm(\""._AM_JS_COMPACTLOGCONFIRM."\")){document.MainForm.action.value=\"compactlog\"; submit();}' />
+"._AM_LABEL_COMPACTLOG." <input type='button' value='"._AM_BUTTON_COMPACTLOG."' onclick='if(confirm(\""._AM_JS_COMPACTLOGCONFIRM."\")){document.MainForm.action.value=\"compactlog\"; submit();}'>
 &nbsp;
-"._AM_LABEL_REMOVEALL."<input type='button' value='"._AM_BUTTON_REMOVEALL."' onclick='if(confirm(\""._AM_JS_REMOVEALLCONFIRM."\")){document.MainForm.action.value=\"deleteall\"; submit();}' />
+"._AM_LABEL_REMOVEALL." <input type='button' value='"._AM_BUTTON_REMOVEALL."' onclick='if(confirm(\""._AM_JS_REMOVEALLCONFIRM."\")){document.MainForm.action.value=\"deleteall\"; submit();}'>
 </div>
 </form>
-</td></tr></table>
+</td></tr></table>\n
+</div>
 ";
 
 xoops_cp_footer();

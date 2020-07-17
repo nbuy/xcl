@@ -1,53 +1,20 @@
 <?php
-// $Id: formelement.php,v 1.1 2007/05/15 02:34:42 minahito Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <https://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: https://www.myweb.ne.jp/, https://www.xoops.org/, https://jp.xoops.org/ //
-// Project: The XOOPS Project                                                //
-// ------------------------------------------------------------------------- //
 /**
- * 
- * 
- * @package     kernel
- * @subpackage  form
- * 
- * @author	    Kazumi Ono	<onokazu@xoops.org>
- * @copyright	copyright (c) 2000-2003 XOOPS.org
+ * *
+ *  * Abstract base class for form elements
+ *  *
+ *  * @package    kernel
+ *  * @subpackage form
+ *  * @author     Original Authors: Kazumi Ono (aka onokazu)
+ *  * @author     Other Authors : Minahito
+ *  * @copyright  2000-2020 The XOOPSCube Project
+ *  * @license    Legacy : https://github.com/xoopscube/xcl/blob/master/GPL_V2.txt
+ *  * @license    Cube : https://github.com/xoopscube/xcl/blob/master/BSD_license.txt
+ *  * @version    Release: @package_230@
+ *  * @link       https://github.com/xoopscube/xcl
+ * *
  */
 
-
-/**
- * Abstract base class for form elements
- * 
- * @author	Kazumi Ono	<onokazu@xoops.org>
- * @copyright	copyright (c) 2000-2003 XOOPS.org
- * 
- * @package     kernel
- * @subpackage  form
- */
 class XoopsFormElement
 {
 
@@ -56,7 +23,7 @@ class XoopsFormElement
      */
     /**
      * "name" attribute of the element
-     * @var string  
+     * @var string
      */
     public $_name;
 
@@ -88,7 +55,7 @@ class XoopsFormElement
      * extra attributes to go in the tag
      * @var	string
      */
-    public $_extra = "";
+    public $_extra = '';
 
     /**
      * required field?
@@ -100,8 +67,8 @@ class XoopsFormElement
      * description of the field
      * @var	string
      */
-    public $_description = "";
-    
+    public $_description = '';
+
     /**
      * specified id for the form.
      * @var string
@@ -116,7 +83,7 @@ class XoopsFormElement
      */
     public function __construct()
     {
-        exit("This class cannot be instantiated!");
+        exit('This class cannot be instantiated!');
     }
     public function XoopsFormElement()
     {
@@ -152,7 +119,7 @@ class XoopsFormElement
     public function getName($encode=true)
     {
         if (false != $encode) {
-            return str_replace("&amp;", "&", str_replace("'", "&#039;", htmlspecialchars($this->_name)));
+            return str_replace(array("'", '&amp;'), array('&#039;', '&'), htmlspecialchars($this->_name));
         }
         return $this->_name;
     }
@@ -165,13 +132,13 @@ class XoopsFormElement
     {
         $this->_id = $id;
     }
-    
+
     /**
      * get the "id" attribute for the element. If ID is empty, return getName().
      */
     public function getId()
     {
-        return $this->_id != null ? $this->_id : $this->getName();
+        return null != $this->_id ? $this->_id : $this->getName();
     }
 
     /**
@@ -202,7 +169,7 @@ class XoopsFormElement
     {
         $access = $this->getAccessKey();
         if (!empty($access) && (false !== ($pos = strpos($str, $access)))) {
-            return substr($str, 0, $pos) . '<span style="text-decoration:underline">' . substr($str, $pos, 1) . '</span>' . substr($str, $pos+1);
+            return substr($str, 0, $pos) . '<span style="text-decoration:underline">' . $str[$pos] . '</span>' . substr($str, $pos+1);
         }
         return $str;
     }
@@ -210,7 +177,7 @@ class XoopsFormElement
     /**
      * set the "class" attribute for the element
      *
-     * @param	string  $key   "class" attribute for the element
+     * @param $class
      */
     public function setClass($class)
     {
@@ -301,16 +268,16 @@ class XoopsFormElement
      * This string will be inserted verbatim and unvalidated in the
      * element's tag. Know what you are doing!
      *
-     * @param	string  $extra
-     * @param   string  $replace If true, passed string will replace current content otherwise it will be appended to it
-     * @return	string New content of the extra string
+     * @param string $extra
+     * @param bool   $replace If true, passed string will replace current content otherwise it will be appended to it
+     * @return    string New content of the extra string
      */
     public function setExtra($extra, $replace = false)
     {
         if ($replace) {
-            $this->_extra = " " .trim($extra);
+            $this->_extra = ' ' . trim($extra);
         } else {
-            $this->_extra .= " " . trim($extra);
+            $this->_extra .= ' ' . trim($extra);
         }
         return $this->_extra;
     }
@@ -336,7 +303,7 @@ class XoopsFormElement
     public function render()
     {
     }
-    
+
     /**
      * Gets a message for javascript in the specific member function of XoopsForm class.
      */
@@ -345,7 +312,7 @@ class XoopsFormElement
         $eltcaption = trim($this->getCaption());
         $eltmsg = empty($eltcaption) ? sprintf(_FORM_ENTER, $eltname) : sprintf(_FORM_ENTER, $eltcaption);
         $eltmsg = str_replace('"', '\"', stripslashes($eltmsg));
-        
+
         return $eltmsg;
     }
 }

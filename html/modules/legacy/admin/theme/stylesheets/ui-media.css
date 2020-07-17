@@ -1,0 +1,221 @@
+/*
+    XOOPSCube Theme : XCL Admin Flex Grid
+    Distribution : XCL 2.3 Alpha
+    Version : 0.7.0
+    Author : Nuno Luciano aka Gigamaster
+    Date : 2020-06-11
+    URL : https://github.com/xoopscube/xcl/
+
+    -------------------- -------------------- -------------------- -------------------- Media Queries */
+    /*
+    * Screen Mode Portrait -> Invite To Turn Device
+    *
+    /* -------------------- -------------------- -------------------- Screen Portrait */
+
+
+    @media only screen and (min-width: 320px) and (orientation:portrait) {
+
+    body {
+
+        height      : 100vw;
+
+    }
+
+    .grid,
+    .ondemand,
+    .ondemand-button  {
+
+        left        : -30px;
+        grid-template-columns: auto;
+
+    }
+
+    nav ul li.nav-logo {
+        padding: 0;
+    }
+
+    main {
+
+        padding: 0 1rem 1rem;
+
+    }
+
+    }
+
+
+    /* -------------------- -------------------- -------------------- -------------------- Screen max 420px */
+
+    @media only screen and (min-width: 420px)  and (orientation:portrait) {
+
+    .grid {
+
+        grid-template-areas:
+            "header header"
+            "main main"
+            "footer footer";
+
+    }
+
+    .main {
+
+        padding: 0 2rem 2rem;
+
+    }
+    .nav-side-menu {
+
+        margin      : 0;
+
+    }
+
+    .ui-card-small {
+        margin      : 0;
+    }
+
+    .ui-card-2-col {
+
+        column-count    : 1;
+        display         : block;
+        margin          : 0;
+
+    }
+
+    .ui-card-overview {
+
+        grid-template-areas	:
+            "header"
+            "main"
+            "footer";
+        width       : 100%;
+
+        }
+
+    }
+
+
+
+    /* -------------------- -------------------- -------------------- -------------------- Tablet Hor. 1024px*/
+
+    @media only screen and (min-width: 46.875em) {
+
+    /* .main {
+
+        padding: 0 4rem 2rem;
+
+    } */
+    .ui-flex-column {
+        flex    : 1
+    }
+
+    .ui-flex-column-2 {
+        flex    : 2
+    }
+
+    table {
+
+        border              : 0;
+        overflow-x          : auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style  : -ms-autohiding-scrollbar;
+        width               : 100%;
+
+    }
+
+    table tr {
+
+        padding         : 0.5rem;
+
+    }
+
+    table tbody td.legacy_blockside {
+
+        display         : flex;
+        justify-content : center;
+
+    }
+
+    .table-responsive {
+
+        display             : block;
+        overflow-x          : auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style  : -ms-autohiding-scrollbar;
+        width               : 100%;
+
+    }
+
+    .table-responsive > .table-bordered {
+
+        border          : 0;
+
+    }
+
+    }
+
+
+    /* -------------------- -------------------- -------------------- -------------------- Tablet Hor. 1024px*/
+    @media only screen and (min-width: 65.625em) {
+
+    .grid {
+
+        display                 : grid;
+        grid-template-columns   : 230px calc(100% - 230px);
+        grid-template-rows      : 50px 1fr 50px;
+        grid-template-areas     : "header header" "nav-aside main" "footer footer";
+
+    }
+
+    .nav-mobile {
+
+        visibility              : hidden;
+
+    }
+
+    .nav-aside {
+
+        visibility              : unset;
+        transform               : translateX(0);
+
+    }
+
+    /* .nav-side-menu {
+
+        margin                  : 2rem 0;
+
+    } */
+
+    .ui-card-overview {
+
+        grid-template-columns   : repeat(auto-fit, minmax(214px, 1fr));
+
+    }
+
+    .ui-card-2-col {
+
+        column-count            : 2;
+
+    }
+
+    .ui-card-full {
+
+        column-count            : 1;
+
+    }
+    .ui-block-online-content {
+
+        flex-direction          : row;
+
+    }
+
+    .ui-block-online-welcome {
+
+        align-items             : flex-start;
+
+    }
+
+    	.ui-card-small {
+
+        padding                 : .5rem;
+
+    }
+
+    }

@@ -12,15 +12,15 @@ if (defined('XOOPS_TRUST_PATH') && XOOPS_TRUST_PATH != '' && file_exists(XOOPS_T
 
 // show the hint if password mathes
 $hint = '' ;
-if (@$_POST['dbpassword'] == XOOPS_DB_PASS) {
+if (XOOPS_DB_PASS == @$_POST['dbpassword']) {
     // find XOOPS_TRUST_PATH
     $xoops_trust_path = '' ;
-    $base_dirs = array( XOOPS_ROOT_PATH , dirname(XOOPS_ROOT_PATH) , dirname(dirname(XOOPS_ROOT_PATH)) ) ;
+    $base_dirs = [XOOPS_ROOT_PATH, dirname(XOOPS_ROOT_PATH), dirname(dirname(XOOPS_ROOT_PATH))];
     foreach ($base_dirs as $base_dir) {
         $dh = @opendir($base_dir) ;
         if (! empty($dh)) {
-            while (($file = readdir($dh)) !== false) {
-                if (substr($file, 0, 1) == '.') {
+            while (false !== ($file = readdir($dh))) {
+                if ('.' == substr($file, 0, 1)) {
                     continue ;
                 }
                 $fullpath = $base_dir . '/' . $file ;
@@ -40,9 +40,9 @@ if (@$_POST['dbpassword'] == XOOPS_DB_PASS) {
     }
     // create the hint
     if (! defined('XOOPS_TRUST_PATH')) {
-        $hint = "Insert the red line.<br />define('XOOPS_ROOT_PATH', '".htmlspecialchars(XOOPS_ROOT_PATH, ENT_QUOTES)."');<br /><ins style='color:red;'>define('XOOPS_TRUST_PATH', '".htmlspecialchars($xoops_trust_path, ENT_QUOTES)."');</ins>";
+        $hint = "Insert the red line.<br>define('XOOPS_ROOT_PATH', '".htmlspecialchars(XOOPS_ROOT_PATH, ENT_QUOTES)."');<br><ins style='color:red;'>define('XOOPS_TRUST_PATH', '".htmlspecialchars($xoops_trust_path, ENT_QUOTES)."');</ins>";
     } else {
-        $hint = "<del>define('XOOPS_TRUST_PATH', '');</del><br /><ins style='color:red;'>define('XOOPS_TRUST_PATH', '".htmlspecialchars($xoops_trust_path, ENT_QUOTES)."');</ins>";
+        $hint = "<del>define('XOOPS_TRUST_PATH', '');</del><br><ins style='color:red;'>define('XOOPS_TRUST_PATH', '".htmlspecialchars($xoops_trust_path, ENT_QUOTES)."');</ins>";
     }
 }
 

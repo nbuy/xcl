@@ -4,14 +4,14 @@ CKEditor 4
 Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
 https://ckeditor.com - See LICENSE.md for license information.
 
-CKEditor is a text editor to be used inside web pages. It's not a replacement
+CKEditor 4 is a text editor to be used inside web pages. It's not a replacement
 for desktop text editors like Word or OpenOffice, but a component to be used as
 part of web applications and websites.
 
 ## Documentation
 
 The full editor documentation is available online at the following address:
-https://docs.ckeditor.com
+https://ckeditor.com/docs/
 
 ## Installation
 
@@ -32,8 +32,8 @@ installation proceeded properly. Take a look at the `samples` directory.
 
 To test your installation, just call the following page at your website:
 
-	https://<your site>/<CKEditor installation path>/samples/index.html
+	http://<your site>/<CKEditor installation path>/samples/index.html
 
 For example:
 
-	https://www.example.com/ckeditor/samples/index.html
+	http://www.example.com/ckeditor/samples/index.html

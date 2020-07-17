@@ -1,7 +1,7 @@
 <div class="adminnavi">
   <a href="./index.php"><{$smarty.const._MI_USER_NAME}></a>
   &raquo;&raquo; <a href="./index.php?action=AvatarList"><{$smarty.const._MI_USER_ADMENU_AVATAR_MANAGE}></a>
-  &raquo;&raquo; 
+  &raquo;&raquo;
   <{if $actionForm->get('avatar_id')}>
     <span class="adminnaviTitle"><{$smarty.const._MD_USER_LANG_AVATAR_EDIT}></span>
   <{else}>
@@ -9,11 +9,14 @@
   <{/if}>
 </div>
 
+
 <{if $actionForm->get('avatar_id')}>
-  <h3 class="admintitle"><{$smarty.const._MD_USER_LANG_AVATAR_EDIT}> (<{$actionForm->get('avatar_name')}>)</h3>
+	<h2 class="admintitle"><{$smarty.const._MD_USER_LANG_AVATAR_EDIT}> (<{$actionForm->get('avatar_name')}>)</h2>
 <{else}>
-  <h3 class="admintitle"><{$smarty.const._AD_USER_LANG_AVATAR_NEW}></h3>
+  <h2 class="admintitle"><{$smarty.const._AD_USER_LANG_AVATAR_NEW}></h2>
 <{/if}>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <{if $actionForm->hasError()}>
 <div class="error">
@@ -81,8 +84,8 @@
     </tr>
     <tr>
       <td class="foot" colspan="2">
-        <input class="formButton" type="submit" value="<{$smarty.const._SUBMIT}>" />
-        <input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel" />
+        <input class="formButton" type="submit" value="<{$smarty.const._SUBMIT}>">
+        <input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel">
       </td>
     </tr>
   </table>

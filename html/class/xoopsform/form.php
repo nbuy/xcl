@@ -1,54 +1,20 @@
 <?php
-// $Id: form.php,v 1.1 2007/05/15 02:34:42 minahito Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <https://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: https://www.myweb.ne.jp/, https://www.xoops.org/, https://jp.xoops.org/ //
-// Project: The XOOPS Project                                                //
-// ------------------------------------------------------------------------- //
-// public abstruct
 /**
- *
- *
- * @package     kernel
- * @subpackage  form
- *
- * @author      Kazumi Ono  <onokazu@xoops.org>
- * @copyright   copyright (c) 2000-2003 XOOPS.org
+ * *
+ *  * Abstract base class for forms
+ *  *
+ *  * @package    kernel
+ *  * @subpackage form
+ *  * @author     Original Authors: Kazumi Ono (aka onokazu)
+ *  * @author     Other Authors : Minahito
+ *  * @copyright  2000-2020 The XOOPSCube Project
+ *  * @license    Legacy : https://github.com/xoopscube/xcl/blob/master/GPL_V2.txt
+ *  * @license    Cube : https://github.com/xoopscube/xcl/blob/master/BSD_license.txt
+ *  * @version    Release: @package_230@
+ *  * @link       https://github.com/xoopscube/xcl
+ * *
  */
 
-
-/**
- * Abstract base class for forms
- *
- * @author  Kazumi Ono  <onokazu@xoops.org>
- * @copyright   copyright (c) 2000-2003 XOOPS.org
- *
- * @package     kernel
- * @subpackage  form
- */
 class XoopsForm
 {
     /**#@+
@@ -82,7 +48,7 @@ class XoopsForm
      * array of {@link XoopsFormElement} objects
      * @var  array
      */
-    public $_elements = array();
+    public $_elements = [];
 
     /**
      * extra information for the <form> tag
@@ -94,7 +60,7 @@ class XoopsForm
      * required elements
      * @var array
      */
-    public $_required = array();
+    public $_required = [];
 
     /**#@-*/
 
@@ -107,17 +73,17 @@ class XoopsForm
      * @param   string  $method "method" attribute for the <form> tag
      * @param   bool    $addtoken whether to add a security token to the form
      */
-    public function __construct($title, $name, $action, $method="post", $addtoken = false)
+    public function __construct($title, $name, $action, $method= 'post', $addtoken = false)
     {
         $this->_title = $title;
         $this->_name = $name;
         $this->_action = $action;
         $this->_method = $method;
-        if ($addtoken != false) {
+        if (false != $addtoken) {
             $this->addElement(new XoopsFormHiddenToken());
         }
     }
-    public function XoopsForm($title, $name, $action, $method="post", $addtoken = false)
+    public function XoopsForm($title, $name, $action, $method= 'post', $addtoken = false)
     {
         return self::__construct($title, $name, $action, $method, $addtoken);
     }
@@ -172,7 +138,7 @@ class XoopsForm
     {
         if (is_string($formElement)) {
             $this->_elements[] = $formElement;
-        } elseif (is_subclass_of($formElement, 'xoopsformelement')) {
+        } elseif ($formElement instanceof \xoopsformelement) {
             $this->_elements[] =& $formElement;
             if ($required) {
                 if (!$formElement->isContainer()) {
@@ -199,7 +165,7 @@ class XoopsForm
         if (!$recurse) {
             return $this->_elements;
         } else {
-            $ret = array();
+            $ret = [];
             $count = count($this->_elements);
             for ($i = 0; $i < $count; $i++) {
                 if (!is_object($this->_elements[$i])) {
@@ -227,7 +193,7 @@ class XoopsForm
      */
     public function getElementNames()
     {
-        $ret = array();
+        $ret = [];
         $elements =& $this->getElements(true);
         $count = count($elements);
         for ($i = 0; $i < $count; $i++) {
@@ -301,7 +267,7 @@ class XoopsForm
         if (is_object($ele) && method_exists($ele, 'getValue')) {
             return $ele->getValue($value);
         }
-        
+
         $ret = null;
         return $ret;
     }
@@ -316,7 +282,7 @@ class XoopsForm
         // will not use getElementByName() for performance..
         $elements =& $this->getElements(true);
         $count = count($elements);
-        $values = array();
+        $values = [];
         for ($i = 0; $i < $count; $i++) {
             $name = $elements[$i]->getName();
             if ($name && method_exists($elements[$i], 'getValue')) {
@@ -333,7 +299,7 @@ class XoopsForm
      */
     public function setExtra($extra)
     {
-        $this->_extra = " ".$extra;
+        $this->_extra = ' ' . $extra;
     }
 
     /**
@@ -405,32 +371,33 @@ class XoopsForm
     /**
      * Renders the Javascript function needed for client-side for validation
      *
-     * @param       boolean  $withtags  Include the < javascript > tags in the returned string
+     * @param bool $withtags Include the < javascript > tags in the returned string
+     * @return string|null
      */
     public function renderValidationJS($withtags = true)
     {
         $root =& XCube_Root::getSingleton();
         $renderSystem =& $root->getRenderSystem(XOOPSFORM_DEPENDENCE_RENDER_SYSTEM);
-        
+
         $renderTarget =& $renderSystem->createRenderTarget();
-    
+
         $renderTarget->setAttribute('legacy_module', 'legacy');
-        $renderTarget->setTemplateName("legacy_xoopsform_opt_validationjs.html");
+        $renderTarget->setTemplateName('legacy_xoopsform_opt_validationjs.html');
         $renderTarget->setAttribute('form', $this);
         $renderTarget->setAttribute('withtags', $withtags);
-        
+
         $required =& $this->getRequired();
         $reqcount = count($required);
-        
+
         $renderTarget->setAttribute('required', $required);
         $renderTarget->setAttribute('required_count', $reqcount);
-        
+
         $renderSystem->render($renderTarget);
-    
+
         return $renderTarget->getResult();
-        
-        
-        $js = "";
+
+
+        $js = '';
         if ($withtags) {
             $js .= "\n<!-- Start Form Vaidation JavaScript //-->\n<script type='text/javascript'>\n<!--//\n";
         }
@@ -463,19 +430,20 @@ class XoopsForm
     public function assign(&$tpl)
     {
         $i = 0;
-        $elements = array();
+        $elements = [];
         foreach ($this->getElements() as $ele) {
-            $n = ($ele->getName() != "") ? $ele->getName() : $i;
+            $n = ('' != $ele->getName()) ? $ele->getName() : $i;
             $elements[$n]['name']     = $ele->getName();
             $elements[$n]['caption']  = $ele->getCaption();
             $elements[$n]['body']     = $ele->render();
             $elements[$n]['hidden']   = $ele->isHidden();
-            if ($ele->getDescription() != '') {
+            if ('' != $ele->getDescription()) {
                 $elements[$n]['description']  = $ele->getDescription();
             }
             $i++;
         }
         $js = $this->renderValidationJS();
-        $tpl->assign($this->getName(), array('title' => $this->getTitle(), 'name' => $this->getName(), 'action' => $this->getAction(),  'method' => $this->getMethod(), 'extra' => 'onsubmit="return xoopsFormValidate_'.$this->getName().'();"'.$this->getExtra(), 'javascript' => $js, 'elements' => $elements));
+        $tpl->assign($this->getName(), ['title' => $this->getTitle(), 'name' => $this->getName(), 'action' => $this->getAction(), 'method' => $this->getMethod(), 'extra' => 'onsubmit="return xoopsFormValidate_' . $this->getName() . '();"' . $this->getExtra(), 'javascript' => $js, 'elements' => $elements]
+        );
     }
 }

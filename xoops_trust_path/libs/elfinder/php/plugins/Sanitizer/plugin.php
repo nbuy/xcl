@@ -9,7 +9,7 @@
  *            'upload.pre mkdir.pre mkfile.pre rename.pre archive.pre ls.pre' => array(
  *                'Plugin.Sanitizer.cmdPreprocess'
  *            ),
- *            'upload.presave' => array(
+ *            'upload.presave paste.copyfrom' => array(
  *                'Plugin.Sanitizer.onUpLoadPreSave'
  *            )
  *        ),
@@ -27,7 +27,7 @@
  *            array(
  *                'driver' => 'LocalFileSystem',
  *                'path'   => '/path/to/files/',
- *                'URL'    => 'https://localhost/to/files/'
+ *                'URL'    => 'http://localhost/to/files/'
  *                'plugin' => array(
  *                    'Sanitizer' => array(
  *                        'enable' => true,

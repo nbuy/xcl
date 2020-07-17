@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: Legacy_LanguageManager.class.php,v 1.6 2008/09/25 15:11:57 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -12,20 +12,20 @@ if (!defined('XOOPS_ROOT_PATH')) {
     exit();
 }
 
-require_once XOOPS_ROOT_PATH . "/core/XCube_LanguageManager.class.php";
+require_once XOOPS_ROOT_PATH . '/core/XCube_LanguageManager.class.php';
 
 class Legacy_LanguageManager extends XCube_LanguageManager
 {
     public function prepare()
     {
         parent::prepare();
-        
+
         $this->_setupDatabase();
         $this->loadGlobalMessageCatalog();
-        
+
         $this->_setupMbstring();
     }
-    
+
     /**
      * Load the additional file to control DB.
      */
@@ -36,25 +36,25 @@ class Legacy_LanguageManager extends XCube_LanguageManager
             require_once($filename);
         }
     }
-    
+
     public function _setupMbstring()
     {
         #ifdef _MBSTRING_LANGUAGE
-        if (defined('_MBSTRING_LANGUAGE') && function_exists("mb_language")) {
-            if (@mb_language(_MBSTRING_LANGUAGE) != false && @mb_internal_encoding(_CHARSET) != false) {
+        if (defined('_MBSTRING_LANGUAGE') && function_exists('mb_language')) {
+            if (false != @mb_language(_MBSTRING_LANGUAGE) && false != @mb_internal_encoding(_CHARSET)) {
                 define('MBSTRING', true);
             } else {
-                mb_language("neutral");
-                mb_internal_encoding("ISO-8859-1");
+                mb_language('neutral');
+                mb_internal_encoding('ISO-8859-1');
                 if (!defined('MBSTRING')) {
                     define('MBSTRING', false);
                 }
             }
-            
+
             if (function_exists('mb_regex_encoding')) {
                 @mb_regex_encoding(_CHARSET);
             }
-            
+
             ini_set('mbstring.substitute_character', 'none');
             ini_set('default_charset', _CHARSET);
             ini_set('mbstring.substitute_character', 'none');
@@ -69,8 +69,8 @@ class Legacy_LanguageManager extends XCube_LanguageManager
         }
         #endif
 
-        if (!defined("MBSTRING")) {
-            define("MBSTRING", false);
+        if (!defined('MBSTRING')) {
+            define('MBSTRING', false);
         }
     }
 
@@ -87,21 +87,21 @@ class Legacy_LanguageManager extends XCube_LanguageManager
         //
         // Now, if XOOPS_USE_MULTIBYTES isn't defined, set zero to it.
         //
-        if (!defined("XOOPS_USE_MULTIBYTES")) {
-            define("XOOPS_USE_MULTIBYTES", 0);
+        if (!defined('XOOPS_USE_MULTIBYTES')) {
+            define('XOOPS_USE_MULTIBYTES', 0);
         }
     }
 
     /**
      * Load the special message catalog which is defined has been the XOOPS2
      * generation.
-     * 
+     *
      * @access public
      * @param string $type
      */
     public function loadPageTypeMessageCatalog($type)
     {
-        if (strpos($type, '.') === false) {
+        if (false === strpos($type, '.')) {
             if (!$this->_loadFile(XOOPS_ROOT_PATH . '/language/' . $this->mLanguageName . '/' . $type . '.php')) {
                 $this->_loadFile(XOOPS_ROOT_PATH . '/language/' . $this->getFallbackLanguage() . '/' . $type . '.php');
             }
@@ -110,20 +110,20 @@ class Legacy_LanguageManager extends XCube_LanguageManager
 
     /**
      * Load the message catalog of the specified module.
-     * 
+     *
      * @access public
-     * @param $dirname A dirname of module.
+     * @param $moduleName
      */
     public function loadModuleMessageCatalog($moduleName)
     {
         $this->_loadLanguage($moduleName, 'main');
     }
-    
+
     /**
      * Load the message catalog of the specified module for admin.
-     * 
+     *
      * @access public
-     * @param $dirname A dirname of module.
+     * @param A $dirname dirname of module.
      */
     public function loadModuleAdminMessageCatalog($dirname)
     {
@@ -132,9 +132,9 @@ class Legacy_LanguageManager extends XCube_LanguageManager
 
     /**
      * Load the message catalog of the specified module for block.
-     * 
+     *
      * @access public
-     * @param $dirname A dirname of module.
+     * @param A $dirname dirname of module.
      */
     public function loadBlockMessageCatalog($dirname)
     {
@@ -143,9 +143,9 @@ class Legacy_LanguageManager extends XCube_LanguageManager
 
     /**
      * Load the message catalog of the specified module for modinfo.
-     * 
+     *
      * @access public
-     * @param $dirname A dirname of module.
+     * @param A $dirname dirname of module.
      */
     public function loadModinfoMessageCatalog($dirname)
     {
@@ -154,12 +154,12 @@ class Legacy_LanguageManager extends XCube_LanguageManager
 
     /**
      * @access protected
-     * @param $dirname      module directory name
-     * @param $fileBodyName language file body name
+     * @param module   $dirname      directory name
+     * @param language $fileBodyName file body name
      */
     public function _loadLanguage($dirname, $fileBodyName)
     {
-        static $trust_dirnames = array();
+        static $trust_dirnames = [];
         if (!isset($trust_dirnames[$dirname])) {
             $trust_dirnames[$dirname] = Legacy_Utils::getTrustDirnameByDirname($dirname);
         }
@@ -179,11 +179,11 @@ class Legacy_LanguageManager extends XCube_LanguageManager
         );
     }
 
-
     /**
      * @access protected
-     * @param $filename A filename.
-     * @param $dirname A dirname of module. (for D3 module)
+     * @param A    $filename filename.
+     * @param null $mydirname
+     * @return bool
      */
     public function _loadFile($filename, $mydirname = null)
     {
@@ -194,10 +194,10 @@ class Legacy_LanguageManager extends XCube_LanguageManager
 
         return false;
     }
-    
+
     /**
      * check the exstence of the specified file in the specified section.
-     * 
+     *
      * @access public
      * @param string $section  A name of section.
      * @param string $filename A name of file
@@ -207,10 +207,10 @@ class Legacy_LanguageManager extends XCube_LanguageManager
     {
         return file_exists(XOOPS_ROOT_PATH . '/languages/' . $this->mLanguageName . ($section?"/$section/$filename":"/$filename"));
     }
-    
+
     /**
      * Return the file path by the specified section and the specified file.
-     * 
+     *
      * @access public
      * @param string $section  A name of section.
      * @param string $filename A name of file
@@ -219,7 +219,7 @@ class Legacy_LanguageManager extends XCube_LanguageManager
     public function getFilepath($section, $filename)
     {
         $filepath = XOOPS_ROOT_PATH . '/languages/' . $this->mLanguageName . ($section?"/${section}/${filename}":"/${filename}");
-        
+
         if (file_exists($filepath)) {
             return $filepath;
         } else {
@@ -229,7 +229,7 @@ class Legacy_LanguageManager extends XCube_LanguageManager
 
     /**
      * Get file contents and return it.
-     * 
+     *
      * @access public
      * @param string $section  A name of section.
      * @param string $filename A name of file
@@ -240,7 +240,7 @@ class Legacy_LanguageManager extends XCube_LanguageManager
         $filepath = $this->getFilepath($section, $filename);
         return file_get_contents($filepath);
     }
-    
+
     public function getFallbackLanguage()
     {
         return 'english';
@@ -253,10 +253,10 @@ class Legacy_LanguageManager extends XCube_LanguageManager
                 return mb_convert_encoding($text, 'UTF-8', _CHARSET);
             }
         }
-        
+
         return utf8_encode($text);
     }
-    
+
     public function decodeUTF8($text)
     {
         if (XOOPS_USE_MULTIBYTES == 1) {
@@ -264,7 +264,7 @@ class Legacy_LanguageManager extends XCube_LanguageManager
                 return mb_convert_encoding($text, _CHARSET, 'UTF-8');
             }
         }
-        
+
         return utf8_decode($text);
     }
 }

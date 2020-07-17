@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: image.php,v 1.3 2008/09/25 15:11:33 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -19,9 +19,7 @@ class LegacyImageObject extends XoopsSimpleObject
     public $mImageBody = null;
     public $_mImageBodyLoadedFlag = false;
 
-    // !Fix deprecated constructor for php 7.x
     public function __construct()
-    // public function LegacyImageObject()
     {
         static $initVars;
         if (isset($initVars)) {
@@ -41,7 +39,7 @@ class LegacyImageObject extends XoopsSimpleObject
 
     public function loadImagecategory()
     {
-        if ($this->_mImageCategoryLoadedFlag == false) {
+        if (false === $this->_mImageCategoryLoadedFlag) {
             $handler =& xoops_getmodulehandler('imagecategory', 'legacy');
             $this->mImageCategory =& $handler->get($this->get('imgcat_id'));
             $this->_mImageCategoryLoadedFlag = true;
@@ -50,7 +48,7 @@ class LegacyImageObject extends XoopsSimpleObject
 
     public function loadImagebody()
     {
-        if ($this->_mImageBodyLoadedFlag == false) {
+        if (false === $this->_mImageBodyLoadedFlag) {
             $handler =& xoops_getmodulehandler('imagebody', 'legacy');
             $this->mImageBody =& $handler->get($this->get('image_id'));
             $this->_mImageBodyLoadedFlag = true;
@@ -68,9 +66,9 @@ class LegacyImageObject extends XoopsSimpleObject
 
 class LegacyImageHandler extends XoopsObjectGenericHandler
 {
-    public $mTable = "image";
-    public $mPrimary = "image_id";
-    public $mClass = "LegacyImageObject";
+    public $mTable = 'image';
+    public $mPrimary = 'image_id';
+    public $mClass = 'LegacyImageObject';
 
     public function insert(&$obj, $force = false)
     {
@@ -80,39 +78,39 @@ class LegacyImageHandler extends XoopsObjectGenericHandler
                 $handler =& xoops_getmodulehandler('imagebody', 'legacy');
                 return $handler->insert($obj->mImageBody, $force);
             }
-            
+
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      *
      * Delete object and image file.
      *
-     * @param $obj    LegacyImageObject
-     * @param $force  boolean
-     * @return boolean
+     * @param LegacyImageObject $obj
+     * @param bool              $force
+     * @return bool
      */
     public function delete(&$obj, $force = false)
     {
         $obj->loadImagebody();
-            
+
         if (parent::delete($obj, $force)) {
-            $filepath = XOOPS_UPLOAD_PATH . "/" . $obj->get('image_name');
+            $filepath = XOOPS_UPLOAD_PATH . '/' . $obj->get('image_name');
             if (file_exists($filepath)) {
                 @unlink($filepath);
             }
-            
+
             if (is_object($obj->mImageBody)) {
                 $handler =& xoops_getmodulehandler('imagebody', 'legacy');
                 $handler->delete($obj->mImageBody, $force);
             }
-            
+
             return true;
         }
-        
+
         return false;
     }
 }

@@ -1,14 +1,16 @@
 <?php
 
-// singleton for xoops_breadcrumbs
+/*
+* AltSys
+* singleton for xoops_breadcrumbs
+*/
+
 class AltsysBreadcrumbs
 {
 
-public $paths = array() ;
+public $paths = [];
 
-	// !Fix PHP7 NOTICE: deprecated constructor
 	public function __construct()
-    // public function AltsysBreadcrumbs()
     {
     }
     //HACK by domifara for php5.3+
@@ -24,19 +26,19 @@ public $paths = array() ;
 
     public function getXoopsBreadcrumbs()
     {
-        $ret = array() ;
+        $ret = [];
         foreach ($this->paths as $val) {
             // delayed language constant
-        if (substr($val['name'], 0, 1) == '_' && defined($val['name'])) {
-            $ret[] = array(
+        if ('_' == substr($val['name'], 0, 1) && defined($val['name'])) {
+            $ret[] = [
                 'url' => $val['url'] ,
                 'name' => constant($val['name']) ,
-            ) ;
+            ];
         } else {
             $ret[] = $val ;
         }
         }
-        unset($ret[ sizeof($ret) - 1 ]['url']) ;
+        unset($ret[count($ret) - 1 ]['url']) ;
         return $ret ;
     }
 
@@ -53,7 +55,7 @@ public $paths = array() ;
             }
         } else {
             // separate format
-            $this->paths[] = array( 'url' => $url_or_path , 'name' => $name ) ;
+            $this->paths[] = ['url' => $url_or_path, 'name' => $name];
         }
     }
 

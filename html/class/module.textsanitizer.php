@@ -1,46 +1,22 @@
 <?php
-// $Id: module.textsanitizer.php,v 1.1 2007/05/15 02:34:21 minahito Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <https://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (https://www.myweb.ne.jp/, https://jp.xoops.org/)        //
-//         Goghs Cheng (https://www.eqiao.com, https://www.devbeez.com/)       //
-// Project: The XOOPS Project (https://www.xoops.org/)                        //
-// ------------------------------------------------------------------------- //
-
 /**
- * Class to "clean up" text for various uses
- *
- * <b>Singleton</b>
- *
- * @package     kernel
- * @subpackage  core
- *
- * @author      Kazumi Ono  <onokazu@xoops.org>
- * @author      Goghs Cheng
- * @copyright   (c) 2000-2003 The Xoops Project - www.xoops.org
+ * *
+ *  * Class to "clean up" text for various uses
+ *  *
+ *  * Singleton
+ *  *
+ *  * @package    kernel
+ *  * @subpackage core
+ *  * @author     Original Authors: Kazumi Ono (aka onokazu)
+ *  * @author     Other Authors : Minahito
+ *  * @copyright  2000-2020 The XOOPSCube Project
+ *  * @license    Legacy : https://github.com/xoopscube/xcl/blob/master/GPL_V2.txt
+ *  * @license    Cube : https://github.com/xoopscube/xcl/blob/master/BSD_license.txt
+ *  * @version    Release: @package_230@
+ *  * @link       https://github.com/xoopscube/xcl
+ * *
  */
+
 class MyTextSanitizer
 {
     /**
@@ -65,7 +41,7 @@ class MyTextSanitizer
      */
     public $mXoopsCodePostFilter = null;
 
-    /*
+    /**
     * Constructor of this class
     *
     * Gets allowed html tags from admin config settings
@@ -74,9 +50,9 @@ class MyTextSanitizer
     *
     * @access   private
     *
-    * @todo Sofar, this does nuttin' ;-)
+    * @todo So far, this does nuttin' ;-)
     */
-    public function MyTextSanitizer()
+    public function __construct()
     {
         $this->mMakeClickablePostFilter =new XCube_Delegate();
         $this->mMakeClickablePostFilter->register('MyTextSanitizer.MakeClickablePostFilter');
@@ -118,8 +94,7 @@ class MyTextSanitizer
     /**
      * Replace emoticons in the message with smiley images
      *
-     * @param   string  $message
-     *
+     * @param $text
      * @return  string
      */
     public function &smiley($text)
@@ -150,11 +125,11 @@ class MyTextSanitizer
     /**
      * Replace XoopsCodes with their equivalent HTML formatting
      *
-     * @param   string  $text
-     * @param   bool    $allowimage Allow images in the text?
+     * @param string $text
+     * @param int    $allowimage    Allow images in the text?
      *                              On FALSE, uses links to images.
      * @return  string
-     **/
+     */
     public function &xoopsCodeDecode($text, $allowimage = 1)
     {
         $text = $this->mTextFilter->convertXCode($text, $allowimage);
@@ -179,9 +154,9 @@ class MyTextSanitizer
     {
         if ($this->checkUrlString($matches[2])) {
             return $matches[0];
-        } else {
-            return "";
         }
+
+        return '';
     }
 
     /**
@@ -197,11 +172,11 @@ class MyTextSanitizer
             return false;
         }
         // check black pattern(deprecated)
-        return !preg_match("/^(javascript|vbscript|about):/i", $text);
+        return !preg_match('/^(javascript|vbscript|about):/i', $text);
     }
 
     /**
-     * Convert linebreaks to <br /> tags
+     * Convert linebreaks to <br> tags
      *
      * @param   string  $text
      *
@@ -214,17 +189,14 @@ class MyTextSanitizer
     }
 
     /**
-     * Add slashes to the text if magic_quotes_gpc is turned off.
+     * Add slashes to the text.
      *
      * @param   string  $text
      * @return  string
      **/
     public function &addSlashes($text)
     {
-        if (!get_magic_quotes_gpc()) {
-            $text = addslashes($text);
-        }
-        return $text;
+        return addslashes($text);
     }
     /*
     * if magic_quotes_gpc is on, stirip back slashes
@@ -235,9 +207,7 @@ class MyTextSanitizer
     */
     public function &stripSlashesGPC($text)
     {
-        if (get_magic_quotes_gpc()) {
-            $text = stripslashes($text);
-        }
+        //trigger_error("assume magic_quotes_gpc is off", E_USER_NOTICE);
         return $text;
     }
 
@@ -268,7 +238,7 @@ class MyTextSanitizer
      **/
     public function &undoHtmlSpecialChars($text)
     {
-        $ret = preg_replace(array("/&gt;/i", "/&lt;/i", "/&quot;/i", "/&#039;/i"), array(">", "<", "\"", "'"), $text);
+        $ret = preg_replace(['/&gt;/i', '/&lt;/i', '/&quot;/i', '/&#039;/i'], ['>', '<', '"', "'"], $text);
         return $ret;
     }
 
@@ -276,29 +246,29 @@ class MyTextSanitizer
      * Filters textarea data for display
      * (This method makes overhead but needed for compatibility)
      *
-     * @param   string  $text
-     * @param   bool    $html   allow html?
-     * @param   bool    $smiley allow smileys?
-     * @param   bool    $xcode  allow xoopscode?
-     * @param   bool    $image  allow inline images?
-     * @param   bool    $br     convert linebreaks?
+     * @param string $text
+     * @param int    $html   allow html?
+     * @param int    $smiley allow smileys?
+     * @param int    $xcode  allow xoopscode?
+     * @param int    $image  allow inline images?
+     * @param int    $br     convert linebreaks?
      * @return  string
-     **/
+     */
 
     public function _ToShowTarea($text, $html = 0, $smiley = 1, $xcode = 1, $image = 1, $br = 1)
     {
         $text = $this->codePreConv($text, $xcode);
-        if ($html != 1) {
+        if (1 !== $html) {
             $text = $this->htmlSpecialChars($text);
         }
         $text = $this->makeClickable($text);
-        if ($smiley != 0) {
+        if (0 !== $smiley) {
             $text = $this->smiley($text);
         }
-        if ($xcode != 0) {
+        if (0 !== $xcode) {
             $text = $this->xoopsCodeDecode($text, $image);
         }
-        if ($br != 0) {
+        if (0 !== $br) {
             $text = $this->nl2Br($text);
         }
         $text = $this->codeConv($text, $xcode, $image);
@@ -308,14 +278,14 @@ class MyTextSanitizer
     /**
      * Filters textarea form data in DB for display
      *
-     * @param   string  $text
-     * @param   bool    $html   allow html?
-     * @param   bool    $smiley allow smileys?
-     * @param   bool    $xcode  allow xoopscode?
-     * @param   bool    $image  allow inline images?
-     * @param   bool    $br     convert linebreaks?
+     * @param string $text
+     * @param int    $html   allow html?
+     * @param int    $smiley allow smileys?
+     * @param int    $xcode  allow xoopscode?
+     * @param int    $image  allow inline images?
+     * @param int    $br     convert linebreaks?
      * @return  string
-     **/
+     */
     public function &displayTarea($text, $html = 0, $smiley = 1, $xcode = 1, $image = 1, $br = 1)
     {
         $text = $this->mTextFilter->toShowTarea($text, $html, $smiley, $xcode, $image, $br, true);
@@ -325,14 +295,14 @@ class MyTextSanitizer
     /**
      * Filters textarea form data submitted for preview
      *
-     * @param   string  $text
-     * @param   bool    $html   allow html?
-     * @param   bool    $smiley allow smileys?
-     * @param   bool    $xcode  allow xoopscode?
-     * @param   bool    $image  allow inline images?
-     * @param   bool    $br     convert linebreaks?
+     * @param string $text
+     * @param int    $html   allow html?
+     * @param int    $smiley allow smileys?
+     * @param int    $xcode  allow xoopscode?
+     * @param int    $image  allow inline images?
+     * @param int    $br     convert linebreaks?
      * @return  string
-     **/
+     */
     public function &previewTarea($text, $html = 0, $smiley = 1, $xcode = 1, $image = 1, $br = 1)
     {
         $text =& $this->stripSlashesGPC($text);
@@ -354,19 +324,19 @@ class MyTextSanitizer
             $config_handler =& xoops_gethandler('config');
             $this->censorConf =& $config_handler->getConfigsByCat(XOOPS_CONF_CENSOR);
         }
-        if ($this->censorConf['censor_enable'] == 1) {
+        if (1 == $this->censorConf['censor_enable']) {
             $replacement = $this->censorConf['censor_replace'];
             foreach ($this->censorConf['censor_words'] as $bad) {
                 if (!empty($bad)) {
                     $bad = quotemeta($bad);
-                    $patterns[] = "/(\s)".$bad."/siU";
+                    $patterns[] = "/(\s)".$bad . '/siU';
                     $replacements[] = "\\1".$replacement;
-                    $patterns[] = "/^".$bad."/siU";
+                    $patterns[] = '/^' . $bad . '/siU';
                     $replacements[] = $replacement;
-                    $patterns[] = "/(\n)".$bad."/siU";
+                    $patterns[] = "/(\n)".$bad . '/siU';
                     $replacements[] = "\\1".$replacement;
-                    $patterns[] = "/]".$bad."/siU";
-                    $replacements[] = "]".$replacement;
+                    $patterns[] = '/]' . $bad . '/siU';
+                    $replacements[] = ']' . $replacement;
                     $text = preg_replace($patterns, $replacements, $text);
                 }
             }
@@ -374,13 +344,15 @@ class MyTextSanitizer
         return $text;
     }
 
-
     /**#@+
      * Sanitizing of [code] tag
+     * @param     $text
+     * @param int $xcode
+     * @return
      */
     public function codePreConv($text, $xcode = 1)
     {
-        if ($xcode != 0) {
+        if (0 !== $xcode) {
             $text = $this->mTextFilter->preConvertXCode($text, $xcode);
         }
         return $text;
@@ -388,7 +360,7 @@ class MyTextSanitizer
 
     public function codeConv($text, $xcode = 1, $image = 1)
     {
-        if ($xcode != 0) {
+        if (0 !== $xcode) {
             $text = $this->mTextFilter->postConvertXCode($text, $xcode);
         }
         return $text;
@@ -397,6 +369,11 @@ class MyTextSanitizer
 ##################### Deprecated Methods ######################
 
     /**#@+
+     * @param     $text
+     * @param int $allowhtml
+     * @param int $smiley
+     * @param int $bbcode
+     * @return string
      * @deprecated
      */
     public function sanitizeForDisplay($text, $allowhtml = 0, $smiley = 1, $bbcode = 1)
@@ -507,7 +484,7 @@ class MyTextSanitizer
         return $ret;
     }
 
-    public function &getInstance()
+    public static function &getInstance()
     {
         $ret = self::sGetInstance();
         return $ret;

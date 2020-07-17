@@ -1,10 +1,13 @@
-<div class="adminnavi">
+<div class="adminnavi" aria-label="breadcrumb">
   <a href="./index.php"><{$smarty.const._MI_LEGACY_NAME}></a>
   &raquo;&raquo; <a href="./index.php?action=CommentList"><{$smarty.const._MI_LEGACY_MENU_COMMENT_MANAGE}></a>
-  &raquo;&raquo; <span class="adminnaviTitle"><{$smarty.const._AD_LEGACY_LANG_COMMENT_VIEW}></span>
+  &raquo;&raquo; <span class="adminnaviTitle" aria-current="page"><{$smarty.const._AD_LEGACY_LANG_COMMENT_VIEW}></span>
 </div>
 
-<h3 class="admintitle"><{$smarty.const._AD_LEGACY_LANG_COMMENT_VIEW}></h3>
+
+<h2 class="admintitle"><{$smarty.const._AD_LEGACY_LANG_COMMENT_VIEW}></h2>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <ul class="toptab">
   <li><a href="./index.php?action=CommentEdit&amp;com_id=<{$object->getShow('com_id')}>"><{$smarty.const._AD_LEGACY_LANG_COMMENT_EDIT}></a></li>
@@ -39,9 +42,9 @@
       <td class="head"><{$smarty.const._MD_LEGACY_LANG_COM_ICON}></td>
       <td class="<{cycle values="odd,even"}>">
         <{if $object->getShow('com_icon')}>
-          <img src="<{$smarty.const.XOOPS_URL}>/images/subject/<{$object->getShow('com_icon')}>" alt="" />
+          <img src="<{$smarty.const.XOOPS_URL}>/images/subject/<{$object->getShow('com_icon')}>" alt="">
         <{else}>
-          <img src="<{$smarty.const.XOOPS_URL}>/images/icons/no_posticon.gif" alt="" />
+          <img src="<{$smarty.const.XOOPS_URL}>/images/icons/no_posticon.gif" alt="">
         <{/if}>
       </td>
     </tr>
@@ -93,10 +96,10 @@
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_CONTROL}></td>
       <td class="<{cycle values="odd,even"}>">
-        <label><{xoops_input type=checkbox name=dohtml value=1 default=$object->get('dohtml') disabled=true}> <{$smarty.const._MD_LEGACY_LANG_DOHTML}></label><br />
-        <label><{xoops_input type=checkbox name=dosmiley value=1 default=$object->get('dosmiley') disabled=true}> <{$smarty.const._MD_LEGACY_LANG_DOSMILEY}></label><br />
-        <label><{xoops_input type=checkbox name=doxcode value=1 default=$object->get('doxcode') disabled=true}> <{$smarty.const._MD_LEGACY_LANG_DOXCODE}></label><br />
-        <label><{xoops_input type=checkbox name=doimage value=1 default=$object->get('doimage') disabled=true}> <{$smarty.const._AD_LEGACY_LANG_DOIMAGE}></label><br />
+        <label><{xoops_input type=checkbox name=dohtml value=1 default=$object->get('dohtml') disabled=true}> <{$smarty.const._MD_LEGACY_LANG_DOHTML}></label><br>
+        <label><{xoops_input type=checkbox name=dosmiley value=1 default=$object->get('dosmiley') disabled=true}> <{$smarty.const._MD_LEGACY_LANG_DOSMILEY}></label><br>
+        <label><{xoops_input type=checkbox name=doxcode value=1 default=$object->get('doxcode') disabled=true}> <{$smarty.const._MD_LEGACY_LANG_DOXCODE}></label><br>
+        <label><{xoops_input type=checkbox name=doimage value=1 default=$object->get('doimage') disabled=true}> <{$smarty.const._AD_LEGACY_LANG_DOIMAGE}></label><br>
         <label><{xoops_input type=checkbox name=dobr value=1 default=$object->get('dobr') disabled=true}> <{$smarty.const._MD_LEGACY_LANG_DOBR}></label>
       </td>
     </tr>
@@ -126,7 +129,7 @@
       <td class="legacy_list_order"><{$obj->getShow('com_ip')}></td>
       <td class="legacy_list_select">
         <{if $obj->get('com_status') == 2 }>
-          <img src="<{"icons/active.png"|theme}>" alt="<{$smarty.const._AD_LEGACY_LANG_ACTIVE}>" title="<{$smarty.const._AD_LEGACY_LANG_ACTIVE}>" />
+          <i title="<{$smarty.const._AD_LEGACY_LANG_ACTIVE}>"><img src="<{"icons/icon-comment-active.svg"|theme}>" class="svg"></i>
         <{/if}>
       </td>
     </tr>

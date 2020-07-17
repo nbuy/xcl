@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: imagebody.php,v 1.3 2008/09/25 15:11:24 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -14,7 +14,7 @@ if (!defined('XOOPS_ROOT_PATH')) {
 
 class LegacyImagebodyObject extends XoopsSimpleObject
 {
-    public function LegacyImagebodyObject()
+    public function __construct()
     {
         static $initVars;
         if (isset($initVars)) {
@@ -29,7 +29,7 @@ class LegacyImagebodyObject extends XoopsSimpleObject
 
 class LegacyImagebodyHandler extends XoopsObjectGenericHandler
 {
-    public $mTable = "imagebody";
-    public $mPrimary = "image_id";
-    public $mClass = "LegacyImagebodyObject";
+    public $mTable = 'imagebody';
+    public $mPrimary = 'image_id';
+    public $mClass = 'LegacyImagebodyObject';
 }

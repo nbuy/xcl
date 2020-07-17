@@ -8,11 +8,14 @@
   <{/if}>
 </div>
 
+
   <{if $actionForm->get('bid')}>
-    <h3 class="admintitle"><{$smarty.const._AD_LEGACYRENDER_LANG_BANNER_EDIT}></h3>
+    <h2 class="admintitle"><{$smarty.const._AD_LEGACYRENDER_LANG_BANNER_EDIT}></h2>
   <{else}>
-    <h3 class="admintitle"><{$smarty.const._AD_LEGACYRENDER_LANG_BANNER_NEW}></h3>
-  <{/if}>
+    <h2 class="admintitle"><{$smarty.const._AD_LEGACYRENDER_LANG_BANNER_NEW}></h2>
+	<{/if}>
+
+<div class="ui-dev-mode"><{$smarty.template}></div>
 
 <{if $actionForm->hasError()}>
 <div class="error">
@@ -28,6 +31,7 @@
   <{xoops_token form=$actionForm}>
   <{xoops_input type=hidden name=bid value=$actionForm->get('bid')}>
   <table class="outer">
+		<thead>
     <tr>
       <th colspan="2">
         <{if $actionForm->get('bid')}>
@@ -36,14 +40,16 @@
           <{$smarty.const._AD_LEGACYRENDER_LANG_BANNER_NEW}>
         <{/if}>
       </th>
-    </tr>
+		</tr>
+	</thead>
+	<tbody>
     <{if $actionForm->get('bid')}>
     <tr>
       <td class="head legacyRender_list_image" colspan="2">
         <{if $actionForm->get('htmlbanner')}>
           <{$actionForm->get('htmlcode')}>
         <{else}>
-          <a href="<{$actionForm->get('clickurl')}>" rel="external"><img src="<{$actionForm->get('imageurl')}>" alt="Banner" /></a>
+          <a href="<{$actionForm->get('clickurl')}>" rel="external"><img src="<{$actionForm->get('imageurl')}>" alt="Banner"></a>
         <{/if}>
       </td>
     </tr>
@@ -77,15 +83,28 @@
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACYRENDER_LANG_HTMLCODE}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_textarea name=htmlcode cols=50 rows=10 value=$actionForm->get('htmlcode')}><br />
-        <label><{xoops_input type=checkbox name=htmlbanner value=1 default=$actionForm->get('htmlbanner')}> <{$smarty.const._AD_LEGACYRENDER_LANG_HTMLBANNER}></label>
+        <{xoops_textarea name=htmlcode cols=50 rows=10 value=$actionForm->get('htmlcode')}>
       </td>
     </tr>
     <tr>
+      <td class="head">
+        <{$smarty.const._AD_LEGACYRENDER_LANG_HTMLBANNER}>
+      </td>
+      <td class="<{cycle values="odd,even"}>">
+        <label class="ui-checkbox" title="">
+        <{xoops_input type=checkbox name=htmlbanner value=1 default=$actionForm->get('htmlbanner')}>
+        <span class="ui-checkbox-custom"></span>
+      </label>
+      </td>
+		</tr>
+	</tbody>
+	<tfoot>
+    <tr>
       <td class="foot" colspan="2">
-        <input class="formButton" type="submit" value="<{$smarty.const._SUBMIT}>" />
-        <input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel" />
+        <input class="formButton" type="submit" value="<{$smarty.const._SUBMIT}>">
+        <input class="formButton" type="submit" value="<{$smarty.const._BACK}>" name="_form_control_cancel">
       </td>
     </tr>
-  </table>
+	</table>
+</tfoot>
 </form>

@@ -8,24 +8,22 @@
  *
  */
 
-
-
 /*
 If the first character in a line is #, ; or //, the line is treated as comment.
 */
 
 class XCube_IniHandler
 {
-    /*** string[] ***/    protected $_mConfig = array();
-    /*** string ***/    protected $_mFilePath = null;
+    /*** string[] ***/    protected $_mConfig = [];
+    /*** string ***/    protected $_mFilePath;
     /*** bool ***/    protected $_mSectionFlag = false;
 
     /**
-     * __constract
-     * 
+     * __construct
+     *
      * @param	string	$filePath
      * @param	bool	$section
-     * 
+     *
      * @return	void
     **/
     public function __construct(/*** string ***/ $filePath, /*** bool ***/ $section=false)
@@ -37,9 +35,9 @@ class XCube_IniHandler
 
     /**
      * _loadIni
-     * 
+     *
      * @param	void
-     * 
+     *
      * @return	void
     **/
     protected function _loadIni()
@@ -55,9 +53,9 @@ class XCube_IniHandler
                 $line = preg_replace('/\r/', '', $line);
                 //case: section line
                 if (preg_match('/\[(.*)\]/', $line, $str)) {
-                    if ($this->_mSectionFlag===true) {
+                    if (true === $this->_mSectionFlag) {
                         $key = $str[1];
-                        $this->_mConfig[$key] = array();
+                        $this->_mConfig[$key] = [];
                     }
                 }
                 //case: key/value line
@@ -67,8 +65,8 @@ class XCube_IniHandler
                     if (preg_match('/^"(.*)"$/', $val, $body)||preg_match('/^\'(.*)\'$/', $val, $body)) {
                         $val =& $body[1];
                     }
-                
-                    if ($this->_mSectionFlag===true) {
+
+                    if (true === $this->_mSectionFlag) {
                         $this->_mConfig[$key][$name] = $val;
                     } else {
                         $this->_mConfig[$name] = $val;
@@ -80,38 +78,37 @@ class XCube_IniHandler
 
     /**
      * getConfig
-     * 
+     *
      * @param	string	$key
      * @param	string	$section
-     * 
+     *
      * @return	string
     **/
     public function getConfig(/*** string ***/ $key, /*** string ***/ $section='')
     {
-        if ($this->_mSectionFlag===true) {
+        if (true === $this->_mSectionFlag) {
             return $this->_mConfig[$section][$key];
-        } else {
-            return $this->_mConfig[$key];
         }
+        return $this->_mConfig[$key];
     }
 
     /**
      * getSectionConfig
-     * 
+     *
      * @param	string	$section
-     * 
+     *
      * @return	string[]
     **/
     public function getSectionConfig(/*** string ***/ $section)
     {
-        return ($this->_mSectionFlag===true) ? $this->_mConfig[$section] : null;
+        return (true === $this->_mSectionFlag) ? $this->_mConfig[$section] : null;
     }
 
     /**
      * getAllConfig
-     * 
+     *
      * @param	void
-     * 
+     *
      * @return	string[]
     **/
     public function getAllConfig()

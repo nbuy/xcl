@@ -3,27 +3,27 @@
  *
  * @package Legacy
  * @version $Id: criteria.class.php,v 1.4 2008/09/25 15:11:59 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
 
-define("LEGACY_EXPRESSION_EQ", "=");
-define("LEGACY_EXPRESSION_NE", "<>");
-define("LEGACY_EXPRESSION_LT", "<");
-define("LEGACY_EXPRESSION_LE", "<=");
-define("LEGACY_EXPRESSION_GT", ">");
-define("LEGACY_EXPRESSION_GE", ">=");
-define("LEGACY_EXPRESSION_LIKE", "like");
-define("LEGACY_EXPRESSION_IN", "in");
- 
-define("LEGACY_EXPRESSION_AND", "and");
-define("LEGACY_EXPRESSION_OR", "or");
+define('LEGACY_EXPRESSION_EQ', '=');
+define('LEGACY_EXPRESSION_NE', '<>');
+define('LEGACY_EXPRESSION_LT', '<');
+define('LEGACY_EXPRESSION_LE', '<=');
+define('LEGACY_EXPRESSION_GT', '>');
+define('LEGACY_EXPRESSION_GE', '>=');
+define('LEGACY_EXPRESSION_LIKE', 'like');
+define('LEGACY_EXPRESSION_IN', 'in');
+
+define('LEGACY_EXPRESSION_AND', 'and');
+define('LEGACY_EXPRESSION_OR', 'or');
 
  /**
   * @internal
   * @brief Experimental Class for the next Criteria class
-  * 
+  *
   * This class is expression of criterion for handlers and useful for dynamic
   * SQL. This class group doesn't have CriteriaCompo. There is add() member
   * function to append conditions. For expression of nest, cast Legacy_Criteria
@@ -31,15 +31,15 @@ define("LEGACY_EXPRESSION_OR", "or");
   * instance by createCriteria() because Legacy_Criteria has to have Type
   * Information for Type Safety. createCriteria() returns $criteria that has
   * the same information.
-  * 
+  *
   * This class have to be separated from any specific resource. It's possible to
   * use for handlers of web service.
-  * 
+  *
   * \code
   *   //[Example 1] A = 1 AND B < 2 (SQL)
   *   $criteria->add('A', 1);
   *   $criteria->add('B', 2, '<');
-  * 
+  *
   *   //[Example 2] A = 1 OR (B > 1 AND B < 5) (SQL)
   *   $criteria->add('A', 1);
   *   $subCriteria = $criteria->createCriteria();
@@ -47,7 +47,7 @@ define("LEGACY_EXPRESSION_OR", "or");
   *   $subCriteria->add('B', 5, '<');
   *   $criteria->addOr($subCriteria);
   * \endcode
-  * 
+  *
   * \warning
   *   This class don't receive $criteria as reference.
   *
@@ -61,34 +61,40 @@ define("LEGACY_EXPRESSION_OR", "or");
   */
 class Legacy_Criteria
 {
-    public $mTypeInfoArr = array();
-    
+    public $mTypeInfoArr = [];
+
     /**
      * Childlen of this criteria.
      */
-    public $mChildlen = array();
-    
-    public function Legacy_Criteria($typeInfoArr)
+    public $mChildlen = [];
+
+    public function __construct($typeInfoArr)
     {
         $this->mTypeInfoArr = $typeInfoArr;
     }
-    
+
     /**
      * This is alias for addAnd().
+     * @param        $column
+     * @param null   $value
+     * @param string $comparison
      */
     public function add($column, $value = null, $comparison = LEGACY_EXPRESSION_EQ)
     {
         $this->addAnd($column, $value, $comparison);
     }
-    
+
     /**
      * Add $criteria to childlen with AND condition.
+     * @param        $column
+     * @param null   $value
+     * @param string $comparison
      */
     public function addAnd($column, $value = null, $comparison = LEGACY_EXPRESSION_EQ)
     {
-        $t_arr = array();
+        $t_arr = [];
         $t_arr['condition'] = LEGACY_EXPRESSION_AND;
-        if (is_object($column) && is_a($column, 'Legacy_Criteria')) {
+        if (is_object($column) && $column instanceof \Legacy_Criteria) {
             $t_arr['value'] = $column;
             $this->mChildlen[] = $t_arr;
         } elseif (!is_object($column)) {
@@ -102,12 +108,15 @@ class Legacy_Criteria
 
     /**
      * Add $criteria to childlen with OR condition.
+     * @param        $column
+     * @param null   $value
+     * @param string $comparison
      */
     public function addOr($column, $value = null, $comparison = LEGACY_EXPRESSION_EQ)
     {
-        $t_arr = array();
+        $t_arr = [];
         $t_arr['condition'] = LEGACY_EXPRESSION_OR;
-        if (is_object($column) && is_a($column, 'Legacy_Criteria')) {
+        if (is_object($column) && $column instanceof \Legacy_Criteria) {
             $t_arr['value'] = $column;
             $this->mChildlen[] = $t_arr;
         } elseif (!is_object($column)) {
@@ -118,11 +127,11 @@ class Legacy_Criteria
             }
         }
     }
-    
+
     /**
      * Create the instance of this class which has the same type information,
      * and return it.
-     * 
+     *
      * @return object Legacy_Criterion
      */
     public function &createCriterion()
@@ -130,24 +139,25 @@ class Legacy_Criteria
         $criteria =new Legacy_Criteria($this->mTypeInfoArr);
         return $criteria;
     }
-    
+
     /**
      * Check whether specified column exists in the list.
-     * 
+     *
      * @access protected
+     * @param $column
      * @return bool
      */
     public function _checkColumn($column)
     {
         return isset($this->mTypeInfoArr[$column]);
     }
-    
+
     /**
      * Do casting conversion. If type information is wrong, return false.
-     * 
+     *
      * @access protected
-     * @param $column string A name of column
-     * @param $value reference of value.
+     * @param string    $column A name of column
+     * @param reference $value  of value.
      * @return bool
      */
     public function _castingConversion($column, &$value)
@@ -166,26 +176,26 @@ class Legacy_Criteria
                 case XOBJ_DTYPE_BOOL:
                     $value = $value ? 1 : 0;
                     break;
-                    
+
                 case XOBJ_DTYPE_INT:
-                    $value = intval($value);
+                    $value = (int)$value;
                     break;
-                    
+
                 case XOOPS_DTYPE_FLOAT:
-                    $value = floatval($value);
+                    $value = (float)$value;
                     break;
 
                 case XOOPS_DTYPE_STRING:
                 case XOOPS_DTYPE_TEXT:
                     break;
-                    
+
                 default:
                     return false;
             }
         } else {
             return false;
         }
-        
+
         return true;
     }
 }

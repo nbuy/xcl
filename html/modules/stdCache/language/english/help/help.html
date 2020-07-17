@@ -1,24 +1,72 @@
-<h4>Standard Cache Module</h4>
-<h5>Summary</h5>
-<p>This module adds the standard cache policy to Legacy System. The policy orders Legacy System to make cache files for every groups except the webmaster group.</p>
+<section id="help-stdcache">
 
-<h5>What is this?</h5>
-<p>Legacy System module has contents cache feature for modules and blocks. The cache feature saves the content of their work to files, if cache setting is active. And, if cache files are available, Legacy System prevents the logic and SQL of blocks and modules. That's very powerful but very dangerous, because there is not the cache policy.</p>
 
-<p>For example, if Legacy System makes the cache file for administrators' access, anonymous users may see the cache file having secret informations which only administrators can access. For security, Legacy System should make the cache file for every groups. But, this way makes too many files in your server. In other words, Legacy System doesn't know what you hope.</p>
+    <nav id="help-menu">
+        <ul>
+            <li><a href="#help-description" class="ui-btn">Cache Module</a>
+            <li><a href="#help-features" class="ui-btn">Features</a>
+            <li><a href="#help-policy" class="ui-btn">Group Policy</a>
+            <li><a href="#help-block" class="ui-btn">Clear Cache</a>
+        </ul>
+    </nav>
 
-<p>This module is one of cache modules and adds the standard cache policy to Legacy System. The policy orders Legacy System to make the cache file for every groups except the administrator group.</p>
 
-<p>Therefore, the cache policy of this module makes many files, so you should install "cache clear block". This block is imvisible and deletes all of cache files including extra cache files, with interval timer. </p>
+<hr>
 
-<h5>The cache clear block</h5>
-<h6>Summary</h6>
-<p>This block is <strong>invisible</strong> and deletes all of cache files including extra cache files, with interval timer.</p>
 
-<h6>Options</h6>
-<p><img src="<{'cacheclear_block_option.png'|helpimage}>" /></p>
+    <article id="help-description">
+        <h3>Standard Cache Management</h3>
+        <p>This module manages the Standard Cache Policy of XCL Web Application Platform.
+        <p>The standard policy cache files for every users group except the webmaster group.
+    </article>
 
-  <dl>
-    <dt>Interval timer (min)</dt>
-    <dd>Specify the interval.</dd>
-  </dl>
+
+<hr>
+
+
+    <article id="help-features">
+        <h3>Features</h3>
+        <p>XCL introduced a new Cache Policy concept called Standard Cache.
+        <p>Its purpose is to reduce the time it takes to perform certain scenarios
+        <p>caching files of modules and blocks.
+        <p>The cache feature saves the content to files, if setting cache active.
+        <p>And, if cache files are available, XCL prevents the extra logic SQL of blocks and modules.
+        <p>This is a useful and powerful feature to speed up a web page load for all site visitors.
+    </article>
+
+
+<hr>
+
+
+    <article id="help-policy">
+        <h3>Understanding Group Policy Caching</h3>
+
+        <p>For security reasons, the Standard Cache Policy should prevent the caching of files for administrators' access.</p>
+        <p>Otherwise, the files cached could be accessed by anonymous users.</p>
+        <p>Also, to prevent the cache to grow larger with too many files in your server,</p>
+        <p>the cache of modules can be enable or disable from General Settings.</p>
+
+        <h5>Best practices for cache control settings</h5>
+        <p>Set the time that the module or block should keep the files in cache.</p>
+        <p>Therefore, the Standard Cache Policy can cache many files, so it features a "cache clear block".</p>
+    </article>
+
+
+<hr>
+
+
+    <article id="help-block">
+        <h3>The cache clear block</h3>
+        <p>This block is not visible and can delete all of cached files, including
+            extra cache files, with interval timer.</p>
+        <h5>Options</h5>
+        <p><img src="<{'cacheclear_block_option.png'|helpimage}>" /></p>
+
+          <dl>
+            <dt>Interval timer (min)</dt>
+            <dd>Specify the interval.</dd>
+      </dl>
+    </article>
+
+
+</section>

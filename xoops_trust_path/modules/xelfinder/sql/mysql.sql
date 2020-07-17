@@ -1,7 +1,7 @@
 CREATE TABLE `file` (
   `file_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
-  `name` varchar(255) NOT NULL DEFAULT '',
+  `name` varchar(191) NOT NULL DEFAULT '',
   `size` bigint(20) unsigned NOT NULL DEFAULT '0',
   `ctime` int(10) unsigned NOT NULL DEFAULT '0',
   `mtime` int(10) unsigned NOT NULL DEFAULT '0',
@@ -19,7 +19,7 @@ CREATE TABLE `file` (
   PRIMARY KEY (`file_id`),
   UNIQUE KEY `parent_name` (`parent_id`,`name`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB ;
 
 CREATE TABLE `link` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -33,14 +33,14 @@ CREATE TABLE `link` (
   UNIQUE KEY `mid_key_val` (`mid`,`param`,`val`),
   KEY `uri` (`uri`(255)),
   KEY `file_id` (`file_id`)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB ;
 
 CREATE TABLE `userdat` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(10) unsigned NOT NULL DEFAULT '0',
-  `key` varchar(255) NOT NULL DEFAULT '',
+  `key` varchar(255) character SET ascii NOT NULL DEFAULT '',
   `data` blob NOT NULL,
   `mtime` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `uid_key` (`uid`,`key`)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB ;

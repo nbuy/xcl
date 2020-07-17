@@ -7,10 +7,10 @@ if (!defined('XOOPS_ROOT_PATH')) {
     exit();
 }
 
-define("LEGACY_RENDER_TARGET_TYPE_BUFFER", null);
-define("LEGACY_RENDER_TARGET_TYPE_THEME", 'theme');
-define("LEGACY_RENDER_TARGET_TYPE_BLOCK", 'block');
-define("LEGACY_RENDER_TARGET_TYPE_MAIN", 'main');
+define('LEGACY_RENDER_TARGET_TYPE_BUFFER', null);
+define('LEGACY_RENDER_TARGET_TYPE_THEME', 'theme');
+define('LEGACY_RENDER_TARGET_TYPE_BLOCK', 'block');
+define('LEGACY_RENDER_TARGET_TYPE_MAIN', 'main');
 
 class Legacy_AbstractThemeRenderTarget extends XCube_RenderTarget
 {
@@ -18,7 +18,7 @@ class Legacy_AbstractThemeRenderTarget extends XCube_RenderTarget
 
     public function Legacy_AbstractThemeRenderTarget()
     {
-        self::__construct();
+        $this->__construct();
     }
 
     public function __construct()
@@ -53,13 +53,13 @@ class Legacy_ThemeRenderTarget extends Legacy_AbstractThemeRenderTarget
 {
     public function Legacy_ThemeRenderTarget()
     {
-        self::__construct();
+        $this->__construct();
     }
 
     public function __construct()
     {
         parent::__construct();
-        $this->setAttribute("isFileTheme", true);
+        $this->setAttribute('isFileTheme', true);
     }
 }
 
@@ -67,18 +67,18 @@ class Legacy_DialogRenderTarget extends Legacy_AbstractThemeRenderTarget
 {
     public function Legacy_DialogRenderTarget()
     {
-        self::__construct();
+        $this->__construct();
     }
 
     public function __construct()
     {
         parent::__construct();
-        $this->setAttribute("isFileTheme", false);
+        $this->setAttribute('isFileTheme', false);
     }
-    
+
     public function getTemplateName()
     {
-        return "legacy_render_dialog.html";
+        return 'legacy_render_dialog.html';
     }
 }
 

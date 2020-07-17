@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: ModuleInstaller.class.php,v 1.4 2008/10/26 04:00:40 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -12,12 +12,12 @@ if (!defined('XOOPS_ROOT_PATH')) {
     exit();
 }
 
-require_once XOOPS_LEGACY_PATH . "/admin/class/ModuleInstallUtils.class.php";
+require_once XOOPS_LEGACY_PATH . '/admin/class/ModuleInstallUtils.class.php';
 
 /**
  * This class extends a base class for the process of install module. This is added
  * some private functions.
- * 
+ *
  * @todo It seems possibility to abstract with other installer classes.
  */
 class Legacy_ModuleInstaller
@@ -27,15 +27,15 @@ class Legacy_ModuleInstaller
      * @var Legacy_ModuleInstallLog
      */
     public $mLog = null;
-    
+
     public $_mForceMode = false;
-    
+
     /**
      * @var XoopsModule
      * @remark [Precondition] _mXoopsModule has to be an object.
      */
     public $_mXoopsModule = null;
-    
+
     public function Legacy_ModuleInstaller()
     {
         self::__construct();
@@ -48,7 +48,7 @@ class Legacy_ModuleInstaller
 
     /**
      * Sets the current XoopsModule.
-     * 
+     *
      * @public
      * @param XoopsModule $xoopsModule
      */
@@ -56,7 +56,7 @@ class Legacy_ModuleInstaller
     {
         $this->_mXoopsModule =& $xoopsModule;
     }
-    
+
     /**
      * Sets a value indicating whether the force mode is on.
      * @param bool $isForceMode
@@ -65,12 +65,12 @@ class Legacy_ModuleInstaller
     {
         $this->_mForceMode = $isForceMode;
     }
-    
+
     public function _installTables()
     {
         Legacy_ModuleInstallUtils::installSQLAutomatically($this->_mXoopsModule, $this->mLog);
     }
-    
+
     /**
      * @todo Do rewrite.
      */
@@ -78,10 +78,10 @@ class Legacy_ModuleInstaller
     {
         $moduleHandler =& xoops_gethandler('module');
         if (!$moduleHandler->insert($this->_mXoopsModule)) {
-            $this->mLog->addError("*Could not install module information*");
+            $this->mLog->addError('*Could not install module information*');
             return false;
         }
-        
+
         $gpermHandler =& xoops_gethandler('groupperm');
 
         //
@@ -99,15 +99,15 @@ class Legacy_ModuleInstaller
         //
         // Add a permission which administrators can manage. (Special for Legacy System Module)
         //
-        if ($this->_mXoopsModule->getVar('dirname') == 'system') {
+        if ('system' == $this->_mXoopsModule->getVar('dirname')) {
             $root =& XCube_Root::getSingleton();
             $root->mLanguageManager->loadModuleAdminMessageCatalog('system');
 
-            require_once XOOPS_ROOT_PATH . "/modules/system/constants.php";
-            
-            $fileHandler = opendir(XOOPS_ROOT_PATH . "/modules/system/admin");
+            require_once XOOPS_ROOT_PATH . '/modules/system/constants.php';
+
+            $fileHandler = opendir(XOOPS_ROOT_PATH . '/modules/system/admin');
             while ($file = readdir($fileHandler)) {
-                $infoFile = XOOPS_ROOT_PATH . "/modules/system/admin/" . $file . "/xoops_version.php";
+                $infoFile = XOOPS_ROOT_PATH . '/modules/system/admin/' . $file . '/xoops_version.php';
                 if (file_exists($infoFile)) {
                     require_once $infoFile;
                     if (!empty($modversion['category'])) {
@@ -123,7 +123,7 @@ class Legacy_ModuleInstaller
                 }
             }
         }
-        
+
         if ($this->_mXoopsModule->getInfo('hasMain')) {
             $read_any = $this->_mXoopsModule->getInfo('read_any');
             if ($read_any) {
@@ -163,6 +163,7 @@ class Legacy_ModuleInstaller
      * For flexibility, creation only and not save it.
      * @access private
      * @param $group
+     * @return
      */
     public function &_createPermission($group)
     {
@@ -173,7 +174,7 @@ class Legacy_ModuleInstaller
         $perm->setVar('gperm_groupid', $group);
         $perm->setVar('gperm_itemid', $this->_mXoopsModule->getVar('mid'));
         $perm->setVar('gperm_modid', 1);
-        
+
         return $perm;
     }
 
@@ -194,19 +195,19 @@ class Legacy_ModuleInstaller
     {
         Legacy_ModuleInstallUtils::installAllOfConfigs($this->_mXoopsModule, $this->mLog);
     }
-    
+
     public function _processScript()
     {
         $installScript = trim($this->_mXoopsModule->getInfo('onInstall'));
-        if ($installScript != false) {
-            require_once XOOPS_MODULE_PATH . "/" . $this->_mXoopsModule->get('dirname') . "/" . $installScript;
+        if (false != $installScript) {
+            require_once XOOPS_MODULE_PATH . '/' . $this->_mXoopsModule->get('dirname') . '/' . $installScript;
             $funcName = 'xoops_module_install_' . $this->_mXoopsModule->get('dirname');
-            
-            if (!preg_match("/^[a-zA-Z_][a-zA-Z0-9_]*$/", $funcName)) {
+
+            if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $funcName)) {
                 $this->mLog->addError(XCube_Utils::formatString(_AD_LEGACY_ERROR_FAILED_TO_EXECUTE_CALLBACK, $funcName));
                 return;
             }
-            
+
             if (function_exists($funcName)) {
                 // Because X2 can use reference parameter, Legacy doesn't use the following code;'
                 // if (!call_user_func($funcName, $this->_mXoopsModule)) {
@@ -218,7 +219,7 @@ class Legacy_ModuleInstaller
             }
         }
     }
-    
+
     public function _processReport()
     {
         if (!$this->mLog->hasError()) {
@@ -256,21 +257,21 @@ class Legacy_ModuleInstaller
             $this->_processReport();
             return false;
         }
-        
+
         $this->_installPreferences();
         if (!$this->_mForceMode && $this->mLog->hasError()) {
             $this->_processReport();
             return false;
         }
-        
+
         $this->_processScript();
         if (!$this->_mForceMode && $this->mLog->hasError()) {
             $this->_processReport();
             return false;
         }
-        
+
         $this->_processReport();
-        
+
         return true;
     }
 }

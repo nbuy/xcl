@@ -1,6 +1,6 @@
 <?php
 
-$d3forum_configs_can_be_override = array(
+$d3forum_configs_can_be_override = [
 	'default_options' => 'text' ,
 	'allow_html' => 'bool' ,
 	'allow_textimg' => 'bool' ,
@@ -13,7 +13,7 @@ $d3forum_configs_can_be_override = array(
 	'use_solved' => 'bool' ,
 	'allow_mark' => 'bool' ,
 	'allow_hideuid' => 'bool' ,
-	'viewallbreak' => 'int' , 
+	'viewallbreak' => 'int' ,
 	'selfeditlimit' => 'int' ,
 	'selfdellimit' => 'int' ,
 	'css_uri' => 'text' ,
@@ -22,6 +22,4 @@ $d3forum_configs_can_be_override = array(
 	'anonymous_name' => 'text' ,
 	'icon_meanings' => 'text' ,
 	'guest_vote_interval' => 'int' ,
-) ;
-
-?>
+];

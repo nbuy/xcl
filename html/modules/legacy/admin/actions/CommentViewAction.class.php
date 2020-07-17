@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: CommentViewAction.class.php,v 1.3 2008/09/25 15:11:48 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -12,25 +12,25 @@ if (!defined('XOOPS_ROOT_PATH')) {
     exit();
 }
 
-require_once XOOPS_MODULE_PATH . "/legacy/class/AbstractListAction.class.php";
-require_once XOOPS_MODULE_PATH . "/legacy/admin/forms/CommentFilterForm.class.php";
+require_once XOOPS_MODULE_PATH . '/legacy/class/AbstractListAction.class.php';
+require_once XOOPS_MODULE_PATH . '/legacy/admin/forms/CommentFilterForm.class.php';
 
 class Legacy_CommentViewAction extends Legacy_Action
 {
     public $mObject = null;
-    
+
     public function getDefaultView(&$controller, &$xoopsUser)
     {
         $handler =& xoops_getmodulehandler('comment');
         $this->mObject =& $handler->get(xoops_getrequest('com_id'));
-        
-        if ($this->mObject == null) {
+
+        if (null == $this->mObject) {
             return LEGACY_FRAME_VIEW_ERROR;
         }
 
         return LEGACY_FRAME_VIEW_SUCCESS;
     }
-        
+
     public function executeViewSuccess(&$controller, &$xoopsUser, &$render)
     {
         //
@@ -40,7 +40,7 @@ class Legacy_CommentViewAction extends Legacy_Action
         $this->mObject->loadUser();
         $this->mObject->loadStatus();
 
-        $render->setTemplateName("comment_view.html");
+        $render->setTemplateName('comment_view.html');
         $render->setAttribute('object', $this->mObject);
 
         //
@@ -58,7 +58,7 @@ class Legacy_CommentViewAction extends Legacy_Action
         }
         $render->setAttribute('children', $children);
     }
-    
+
     public function executeViewError(&$controller, &$xoopsUser, &$render)
     {
         $controller->executeForward('./index.php');

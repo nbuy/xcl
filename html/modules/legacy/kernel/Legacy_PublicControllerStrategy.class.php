@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: Legacy_PublicControllerStrategy.class.php,v 1.7 2008/11/14 09:45:23 mumincacao Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -15,18 +15,15 @@ if (!defined('XOOPS_ROOT_PATH')) {
 class Legacy_PublicControllerStrategy extends Legacy_AbstractControllerStrategy
 {
     public $mStatusFlag = LEGACY_CONTROLLER_STATE_PUBLIC;
-    // !Fix PHP7 NOTICE: deprecated constructor
+
     public function __construct(&$controller)
-    //public function Legacy_PublicControllerStrategy(&$controller)
     {
-        // ! call parent::__construct() instead of parent::Controller()
-        //parent::Legacy_AbstractControllerStrategy($controller);
         parent::__construct($controller);
-        
-        $controller->mRoot->mContext->mBaseRenderSystemName = "Legacy_RenderSystem";
-        
-        if (!defined("LEGACY_DEPENDENCE_RENDERER")) {
-            define("LEGACY_DEPENDENCE_RENDERER", "Legacy_RenderSystem");
+
+        $controller->mRoot->mContext->mBaseRenderSystemName = 'Legacy_RenderSystem';
+
+        if (!defined('LEGACY_DEPENDENCE_RENDERER')) {
+            define('LEGACY_DEPENDENCE_RENDERER', 'Legacy_RenderSystem');
         }
     }
 
@@ -35,7 +32,7 @@ class Legacy_PublicControllerStrategy extends Legacy_AbstractControllerStrategy
         $showFlag =0;
         $mid=0;
 
-        if ($this->mController->mRoot->mContext->mModule != null) {
+        if (null != $this->mController->mRoot->mContext->mModule) {
             $showFlag = (preg_match("/index\.php$/i", xoops_getenv('PHP_SELF')) && $this->mController->mRoot->mContext->mXoopsConfig['startpage'] == $this->mController->mRoot->mContext->mXoopsModule->get('dirname'));
             $mid = $this->mController->mRoot->mContext->mXoopsModule->get('mid');
         } else {
@@ -58,7 +55,7 @@ class Legacy_PublicControllerStrategy extends Legacy_AbstractControllerStrategy
         foreach ($blockObjects as $blockObject) {
             $block =& Legacy_Utils::createBlockProcedure($blockObject);
 
-            if ($block->prepare() !== false) {
+            if (false !== $block->prepare()) {
                 $this->mController->_mBlockChain[] =& $block;
             }
             unset($block);
@@ -90,7 +87,7 @@ class Legacy_PublicControllerStrategy extends Legacy_AbstractControllerStrategy
                 return $theme;
             }
         }
-        
+
         $objs =& $handler->getObjects();
         if (count($objs) > 0) {
             return $objs[0];
@@ -99,23 +96,23 @@ class Legacy_PublicControllerStrategy extends Legacy_AbstractControllerStrategy
         $theme = null;
         return $theme;
     }
-    
+
     public function isEnableCacheFeature()
     {
         return true;
     }
-    
+
     public function enableAccess()
     {
-        if ($this->mController->mRoot->mContext->mModule != null) {
+        if (null != $this->mController->mRoot->mContext->mModule) {
             $dirname = $this->mController->mRoot->mContext->mXoopsModule->get('dirname');
-            
+
             return $this->mController->mRoot->mContext->mUser->isInRole("Module.${dirname}.Visitor");
         }
-        
+
         return true;
     }
-    
+
     public function setupModuleLanguage()
     {
         $root =& XCube_Root::getSingleton();

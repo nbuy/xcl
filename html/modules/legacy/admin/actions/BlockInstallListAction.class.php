@@ -3,7 +3,7 @@
  *
  * @package Legacy
  * @version $Id: BlockInstallListAction.class.php,v 1.3 2008/09/25 15:11:54 kilica Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/GPL_V2.txt GNU GENERAL PUBLIC LICENSE Version 2
  *
  */
@@ -12,13 +12,13 @@ if (!defined('XOOPS_ROOT_PATH')) {
     exit();
 }
 
-require_once XOOPS_MODULE_PATH . "/legacy/class/AbstractListAction.class.php";
-require_once XOOPS_MODULE_PATH . "/legacy/admin/forms/BlockInstallFilterForm.class.php";
+require_once XOOPS_MODULE_PATH . '/legacy/class/AbstractListAction.class.php';
+require_once XOOPS_MODULE_PATH . '/legacy/admin/forms/BlockInstallFilterForm.class.php';
 
 class Legacy_BlockInstallListAction extends Legacy_AbstractListAction
 {
 
-    public $mpageArr = array(5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 0);
+    public $mpageArr = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 0];
 
     public function &_getHandler()
     {
@@ -33,7 +33,7 @@ class Legacy_BlockInstallListAction extends Legacy_AbstractListAction
         $root =& XCube_Root::getSingleton();
         $perpage = $root->mContext->mRequest->getRequest($navi->mPrefix.'perpage');
 
-        if (isset($perpage) && intval($perpage) == 0) {
+        if (isset($perpage) && 0 == (int)$perpage) {
             $navi->setPerpage(0);
         }
         return $navi;
@@ -47,12 +47,12 @@ class Legacy_BlockInstallListAction extends Legacy_AbstractListAction
 
     public function _getBaseUrl()
     {
-        return "./index.php?action=BlockInstallList";
+        return './index.php?action=BlockInstallList';
     }
 
     public function executeViewIndex(&$controller, &$xoopsUser, &$render)
     {
-        $render->setTemplateName("blockinstall_list.html");
+        $render->setTemplateName('blockinstall_list.html');
 
         //
         // Lazy load
@@ -60,10 +60,12 @@ class Legacy_BlockInstallListAction extends Legacy_AbstractListAction
         foreach (array_keys($this->mObjects) as $key) {
             $this->mObjects[$key]->loadModule();
         }
-        // TODO: NOTICE: Undefined variable: mods.
-        // ! WARNING: Invalid argument supplied for foreach()
+
+        $mods = [];
+
         foreach ($mods as $mod) {
-            $rtn    = array();
+
+            $rtn    = [];
             $sadmin = $moduleperm_handler->checkRight('module_admin', $mod->getVar('mid'), $xoopsUser->getGroups());
             if ($sadmin && ($mod->getVar('hasnotification') || is_array($mod->getInfo('config')) || is_array($mod->getInfo('comments')))) {
                 $rtn['link']     = XOOPS_URL . '/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod=' . $mod->getVar('mid');
@@ -73,8 +75,8 @@ class Legacy_BlockInstallListAction extends Legacy_AbstractListAction
                 $menu[]          = $rtn;
             }
         }
-        $render->setAttribute("objects", $this->mObjects);
-        $render->setAttribute("pageNavi", $this->mFilter->mNavi);
+        $render->setAttribute('objects', $this->mObjects);
+        $render->setAttribute('pageNavi', $this->mFilter->mNavi);
         $moduleHandler =& xoops_gethandler('module');
         $modules =& $moduleHandler->getObjects(new Criteria('isactive', 1));
         $render->setAttribute('modules', $modules);

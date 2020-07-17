@@ -3,7 +3,7 @@
  *
  * @package XCube
  * @version $Id: XCube_Identity.class.php,v 1.3 2008/10/12 04:30:27 minahito Exp $
- * @copyright Copyright 2005-2007 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
+ * @copyright Copyright 2005-2020 XOOPS Cube Project  <https://github.com/xoopscube/legacy>
  * @license https://github.com/xoopscube/legacy/blob/master/docs/bsd_licenses.txt Modified BSD license
  *
  */
@@ -17,19 +17,18 @@ class XCube_Identity
      * A name of the identity.
      * @var string
      */
-    public $mName = "";
-    
+    public $mName = '';
+
     /**
      * The authentication type
      * @var string
      */
-    public $_mAuthenticationType = "";
-    // !Fix PHP7 NOTICE: deprecated constructor
+    public $_mAuthenticationType = '';
+
     public function __construct()
-    //public function XCube_Identity()
     {
     }
-    
+
     /**
      * Sets the authentication type.
      * @param string $type
@@ -38,7 +37,7 @@ class XCube_Identity
     {
         $this->_mAuthenticationType = $type;
     }
-    
+
     /**
      * Gets the authentication type.
      * @return string
@@ -47,15 +46,16 @@ class XCube_Identity
     {
         return $this->_mAuthenticationType;
     }
-    
+
     /**
      * Sets a name of this object.
+     * @param $name
      */
     public function setName($name)
     {
         $this->mName = $name;
     }
-    
+
     /**
      * Gets a name of this object.
      *
@@ -65,11 +65,11 @@ class XCube_Identity
     {
         return $this->mName;
     }
-    
+
     /**
      * Gets a value that indicates whether the user has been authenticated.
      *
-     * @return bool
+     * @return void
      */
     public function isAuthenticated()
     {
@@ -84,21 +84,20 @@ class XCube_Principal
     /**
      * The identity object which is tied to this object.
      */
-    public $mIdentity = null;
-    
+    public $mIdentity;
+
     /**
      * Roles in this object.
      * @var string[]
      */
-    public $_mRoles = array();
-    // !Fix PHP7 NOTICE: deprecated constructor
-    public function __construct($identity, $roles = array())
-    //public function XCube_Principal($identity, $roles = array())
+    public $_mRoles = [];
+
+    public function __construct($identity, $roles = [])
     {
         $this->mIdentity =& $identity;
         $this->_mRoles = $roles;
     }
-    
+
     /**
      * Gets a identity object which is tied to this object.
      * @return XCube_Identity
@@ -107,12 +106,13 @@ class XCube_Principal
     {
         return $this->mIdentity;
     }
-    
+
     /**
      * Gets a value that indicates whether this principal has a role specified by $rolename.
      *
+     *
+     * @return void
      * @var string $rolename
-     * @return bool
      */
     public function isInRole($rolename)
     {

@@ -7,6 +7,40 @@
     z-index: 100;
 }
 
+/* style reset */
+div.elfinder *,
+div.elfinder :after,
+div.elfinder :before {
+    box-sizing: content-box;
+}
+
+div.elfinder fieldset {
+    display: block;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+    border-width: 2px;
+    border-style: groove;
+    border-color: threedface;
+    border-image: initial;
+}
+
+div.elfinder legend {
+    display: block;
+    padding-inline-start: 2px;
+    padding-inline-end: 2px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    width: auto;
+    margin-bottom: 0;
+}
+
 /* base container */
 div.elfinder {
     padding: 0;
@@ -213,6 +247,12 @@ div.elfinder {
     opacity: .8;
 }
 
+.elfinder div.elfinder-bottomtray > div {
+    top: initial;
+    right: initial;
+    left: initial;
+}
+
 .elfinder.elfinder-ltr div.elfinder-bottomtray {
     left: 0;
 }
@@ -226,4 +266,23 @@ div.elfinder {
 .elfinder .elfinder-ui-tooltip {
     font-size: 14px;
     padding: 2px 4px;
+}
+
+/* progressbar */
+.elfinder-ui-progressbar {
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+    height: 2px;
+    top: 0px;
+    border-radius: 2px;
+    filter: blur(1px);
+}
+
+.elfinder-ltr .elfinder-ui-progressbar {
+    left: 0;
+}
+
+.elfinder-rtl .elfinder-ui-progressbar {
+    right: 0;
 }

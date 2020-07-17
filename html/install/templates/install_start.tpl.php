@@ -1,9 +1,11 @@
-<?php if (isset($message)) {
-    ?>
-<p align="center"><?php $this->e('message')?></p>
-<?php 
+<?php
+
+if (isset($message)) {
+
+    $this->e('message');
+
 } else {
-    ?>
-<div class="confirmInfo"><?php $this->e('welcome') ?></div>
-<?php 
-} ?>
+
+    $this->e('welcome');
+
+}
