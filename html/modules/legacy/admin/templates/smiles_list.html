@@ -28,7 +28,7 @@
 <{/if}>
 
 
-<{include file="./components/smilies-search.html" }>
+<{include file="./components/smilies-search.html"}>
 
 
 <form name="smilesform" method="post" action="./index.php?action=SmilesList">
@@ -53,7 +53,7 @@
 <th><{$smarty.const._AD_LEGACY_LANG_CONTROL}></th>
   </tr>
   <{foreach item=obj from=$objects}>
-    <{if $obj->get('display') == 1 }>
+    <{if $obj->get('display') == 1}>
     <tr class="<{cycle values='odd,even'}> active">
     <{else}>
     <tr class="<{cycle values='odd,even'}> inactive">
@@ -86,4 +86,4 @@
 </table>
 </form>
 
-<{include file="./components/pagenavi.html" }>
+<{include file="./components/pagenavi.html"}>

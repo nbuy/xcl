@@ -9,7 +9,7 @@
 
 <div class="ui-dev-mode"><{$smarty.template}></div>
 
-<{if count($objects) == 1 }>
+<{if count($objects) == 1}>
   <div class="tips"><{$smarty.const._AD_LEGACYRENDER_TIPS_TEMPLATE_MANAGE_1}></div>
 <{else}>
   <div class="tips"><{$smarty.const._AD_LEGACYRENDER_TIPS_TEMPLATE_MANAGE_2}></div>
@@ -142,7 +142,7 @@
 </thead>
 <tbody>
   <{foreach item=obj from=$recentObjects}>
-    <{if $activeTemplateSet == $obj->getShow('tpl_tplset') }>
+    <{if $activeTemplateSet == $obj->getShow('tpl_tplset')}>
       <{if $obj->get('tpl_type') == "block"}>
         <tr class="<{cycle values='odd,even'}> active legacyRender_TemplateFile_block">
       <{else}>

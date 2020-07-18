@@ -1,5 +1,5 @@
 <div id="menunavi" class="admin-menu">
-    <{if !empty($adminMenu) }>
+    <{if !empty($adminMenu)}>
     <{foreach item=menu from=$adminMenu}>
     <a href="<{$menu.link|xoops_escape:link}>" class="adminavi-item"><{$menu.title|xoops_escape}></a>
     <{/foreach}>

@@ -49,7 +49,7 @@
       <{if $actionForm->get('isactive',$mid)|intval == $moduleObjects[$mid]->get('isactive')}>
         <{$smarty.const._AD_LEGACY_LANG_NO_CHANGE}>
       <{else}>
-        (<{if $moduleObjects[$mid]->get('isactive') == 1 }>
+        (<{if $moduleObjects[$mid]->get('isactive') == 1}>
           <{$smarty.const._AD_LEGACY_LANG_ISACTIVE}>
         <{else}>
           <{$smarty.const._AD_LEGACY_LANG_DEACTIVATE}>

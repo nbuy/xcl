@@ -79,13 +79,13 @@
     </td>
     <td class="legacy_list_select">
       <{if $actionForm->get('display',$icid)|intval == $imagecategoryObjects[$icid]->get('imgcat_display')}>
-	<{if $imagecategoryObjects[$icid]->get('imgcat_display') == 1 }>
+	<{if $imagecategoryObjects[$icid]->get('imgcat_display') == 1}>
           	<{$smarty.const._YES}>
         	<{else}>
           	<{$smarty.const._NO}>
         	<{/if}>
       <{else}>
-        (<{if $imagecategoryObjects[$icid]->get('imgcat_display') == 1 }>
+        (<{if $imagecategoryObjects[$icid]->get('imgcat_display') == 1}>
           <{$smarty.const._YES}>
         <{else}>
           <{$smarty.const._NO}>

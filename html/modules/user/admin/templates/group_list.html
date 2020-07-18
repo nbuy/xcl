@@ -44,7 +44,7 @@
         <a href="index.php?action=GroupEdit&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._EDIT}>">
           <img src="<{"icons/icon-user-edit.svg"|theme}>" class="svg">
         </a>
-        <{if $group->get('groupid') > $smarty.const.XOOPS_GROUP_ANONYMOUS }>
+        <{if $group->get('groupid') > $smarty.const.XOOPS_GROUP_ANONYMOUS}>
           <a href="index.php?action=GroupDelete&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._DELETE}>" class="red">
             <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
           </a>

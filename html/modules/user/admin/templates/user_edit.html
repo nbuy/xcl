@@ -220,10 +220,10 @@
           </select>
         <{elseif $actionForm->get('level') == 1}>
           <{$smarty.const._AD_USER_LANG_LEVEL_ACTIVE}>
-          <{xoops_input type=hidden name=level value=$actionForm->get('level') }>
+          <{xoops_input type=hidden name=level value=$actionForm->get('level')}>
         <{elseif $actionForm->get('level') == 5}>
           <{$smarty.const._AD_USER_LANG_LEVEL_ROOT}>
-          <{xoops_input type=hidden name=level value=$actionForm->get('level') }>
+          <{xoops_input type=hidden name=level value=$actionForm->get('level')}>
         <{/if}>
       </td>
     </tr>

@@ -46,9 +46,9 @@
     <tr>
       <td class="head"><{$smarty.const._AD_USER_LANG_AVATAR_DISPLAY}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{if $object->get('avatar_display') == 1 }>
+        <{if $object->get('avatar_display') == 1}>
           <{$smarty.const._YES}>
-        <{elseif $object->get('avatar_display') == 0 }>
+        <{elseif $object->get('avatar_display') == 0}>
           <{$smarty.const._NO}>
         <{/if}>
       </td>

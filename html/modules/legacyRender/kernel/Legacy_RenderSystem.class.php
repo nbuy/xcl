@@ -66,7 +66,8 @@ class Legacy_XoopsTpl extends XoopsTpl
         }
     }
 
-    public function assign_by_ref($tpl_var, &$value)
+    //public function assignByRef($tpl_var, &$value)
+    public function assignByRef($tpl_var, &$value, $nocache = false)
     {
         if ('' !== $tpl_var) {
             if (isset($this->_mContextReserve[$tpl_var])) {

@@ -89,13 +89,13 @@
       <td class="user_list_name"><{$user->getShow('name')}></td>
       <td class="user_list_date"><{$user->get('user_regdate')|xoops_formattimestamp}></td>
       <td class="user_list_date"><{$user->get('last_login')|xoops_formattimestamp:l}></td>
-      <td class="user_list_number"><{if $user->get('uid') != 1 }><input type="text" size="4" maxlength="6" name="posts[<{$user->getShow('uid')}>]" value="<{$user->getShow('posts')}>" class=user_list_number /><{else}><{$user->getShow('posts')}><{/if}></td>
-      <td class="user_list_order"><{if $user->get('uid') != 1 }><input type="text" size="2" maxlength="4" name="level[<{$user->getShow('uid')}>]" value="<{$user->getShow('level')}>" class=user_list_number /><{else}><{$user->getShow('level')}><{/if}></td>
-      <td class="user_list_select"> <{if $user->get('uid') != 1 }><input type="checkbox" name="delete[<{$user->getShow('uid')}>]" value="1"> <{/if}></td>
+      <td class="user_list_number"><{if $user->get('uid') != 1}><input type="text" size="4" maxlength="6" name="posts[<{$user->getShow('uid')}>]" value="<{$user->getShow('posts')}>" class=user_list_number /><{else}><{$user->getShow('posts')}><{/if}></td>
+      <td class="user_list_order"><{if $user->get('uid') != 1}><input type="text" size="2" maxlength="4" name="level[<{$user->getShow('uid')}>]" value="<{$user->getShow('level')}>" class=user_list_number /><{else}><{$user->getShow('level')}><{/if}></td>
+      <td class="user_list_select"> <{if $user->get('uid') != 1}><input type="checkbox" name="delete[<{$user->getShow('uid')}>]" value="1"> <{/if}></td>
       <td class="user_list_control">
         <a href="./index.php?action=UserView&amp;uid=<{$user->getShow('uid')}>"><img src="<{"icons/property.png"|theme}>" alt="<{$smarty.const._VIEW}>" title="<{$smarty.const._VIEW}>"></a>
         <a href="./index.php?action=UserEdit&amp;uid=<{$user->getShow('uid')}>"><img src="<{"icons/edit.png"|theme}>" alt="<{$smarty.const._EDIT}>" title="<{$smarty.const._EDIT}>"></a>
-        <{if $user->get('uid') != 1 }>
+        <{if $user->get('uid') != 1}>
           <a href="index.php?action=UserDelete&amp;uid=<{$user->getShow('uid')}>"><img src="<{"icons/delete.png"|theme}>" alt="<{$smarty.const._DELETE}>" title="<{$smarty.const._DELETE}>"></a>
         <{/if}>
       </td>

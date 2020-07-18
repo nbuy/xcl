@@ -2,7 +2,7 @@
 <form name='<{$form->getName()}>' id='<{$form->getName()}>' action='<{$form->getAction()}>' method='<{$form->getMethod()}>' <{$form->getExtra()}> >
   <table style="width:100%;" cellspacing="1">
     <{foreach from=$form->getElements() item=element}>
-      <{if is_object($element) }>
+      <{if is_object($element)}>
         <{if !$element->isHidden()}>
           <{if !$element->isBreak()}>
             <tr>

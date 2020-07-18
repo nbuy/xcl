@@ -54,7 +54,7 @@
       <{if $actionForm->get('display',$sid)|intval == $smilesObjects[$sid]->get('display')}>
         <{$smarty.const._AD_LEGACY_LANG_NO_CHANGE}>
       <{else}>
-        (<{if $smilesObjects[$sid]->get('display') == 1 }>
+        (<{if $smilesObjects[$sid]->get('display') == 1}>
           <{$smarty.const._YES}>
         <{else}>
           <{$smarty.const._NO}>

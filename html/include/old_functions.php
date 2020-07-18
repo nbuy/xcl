@@ -66,7 +66,7 @@ function make_sidebar($side)
                 if (!$bresult) {
                     continue;
                 }
-                $xoopsTpl->assign_by_ref('block', $bresult);
+                $xoopsTpl->assignByRef('block', $bresult);
                 $bcontent =& $xoopsTpl->fetch('db:'.$btpl);
                 $xoopsTpl->clear_assign('block');
             } else {
@@ -81,7 +81,7 @@ function make_sidebar($side)
                 if (!$bresult) {
                     continue;
                 }
-                $xoopsTpl->assign_by_ref('dummy_content', $bresult['content']);
+                $xoopsTpl->assignByRef('dummy_content', $bresult['content']);
                 $bcontent =& $xoopsTpl->fetch('db:system_dummy.html', 'blk_'.$bid);
                 $xoopsTpl->clear_assign('block');
             } else {
@@ -143,7 +143,7 @@ function make_cblock()
                     if (!$bresult) {
                         continue;
                     }
-                    $xoopsTpl->assign_by_ref('block', $bresult);
+                    $xoopsTpl->assignByRef('block', $bresult);
                     $bcontent =& $xoopsTpl->fetch('db:'.$btpl);
                     $xoopsTpl->clear_assign('block');
                 } else {
@@ -158,7 +158,7 @@ function make_cblock()
                     if (!$bresult) {
                         continue;
                     }
-                    $xoopsTpl->assign_by_ref('dummy_content', $bresult['content']);
+                    $xoopsTpl->assignByRef('dummy_content', $bresult['content']);
                     $bcontent =& $xoopsTpl->fetch('db:system_dummy.html', 'blk_'.$bid);
                     $xoopsTpl->clear_assign('block');
                 } else {

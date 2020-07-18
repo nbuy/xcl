@@ -6,7 +6,7 @@
 <{if $user_ownpage == true && $enableSelfDelete == true && $xoops_isadmin == false}>
 | <a href="<{$xoops_url}>/user.php?op=delete"><{$smarty.const._MD_USER_LANG_DELACCOUNT}></a>
 <{elseif $xoops_isadmin == true}>
-    | <a href="<{$xoops_url}>/edituser.php?uid=<{$thisUser->getShow('uid')}>"><{$smarty.const._MD_USER_LANG_EDITPROFILE}></a> - 
+    | <a href="<{$xoops_url}>/edituser.php?uid=<{$thisUser->getShow('uid')}>"><{$smarty.const._MD_USER_LANG_EDITPROFILE}></a> -
     | <a href="<{$xoops_url}>/edituser.php?op=avatarform&amp;uid=<{$thisUser->getShow('uid')}>"><{$smarty.const._MD_USER_LANG_AVATAR_EDIT}></a> -
     | <a href="<{$xoops_url}>/modules/user/admin/index.php?action=UserDelete&amp;uid=<{$thisUser->getShow('uid')}>"><{$smarty.const._MD_USER_LANG_DELACCOUNT}></a>
 <{/if}>
@@ -32,7 +32,7 @@
       <tr valign="top">
         <td class="head"><{$smarty.const._MD_USER_LANG_AVATAR}></td>
         <td class="<{cycle values='odd,even'}>" style="text-align:center;">
-          <{if $thisUser->get('user_avatar') != "blank.gif" }>
+          <{if $thisUser->get('user_avatar') != "blank.gif"}>
             <img src="<{$smarty.const.XOOPS_UPLOAD_URL}>/<{$thisUser->getShow('user_avatar')}>" alt="Avatar" title="Avatar" />
           <{else}>
             <img src="<{$smarty.const.XOOPS_URL}>/modules/user/images/no_avatar.gif" alt="No Avatar" title="No Avatar" />
@@ -50,7 +50,7 @@
         <td class="head"><{$smarty.const._MD_USER_LANG_WEBSITE}></td>
         <td class="<{cycle values='odd,even'}>"><a href="<{$thisUser->getShow('url')}>" rel="external"><{$thisUser->getShow('url')}></a></td>
       </tr>
-      <{if $thisUser->get('user_viewemail') == 1 || $user_ownpage == true || $xoops_isadmin == true }>
+      <{if $thisUser->get('user_viewemail') == 1 || $user_ownpage == true || $xoops_isadmin == true}>
         <tr valign="top">
           <td class="head"><{$smarty.const._MD_USER_LANG_EMAIL}></td>
           <td class="<{cycle values='odd,even'}>">

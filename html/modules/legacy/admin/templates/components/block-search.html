@@ -44,7 +44,7 @@
         <select name="selgid">
           <option value="0"><{$smarty.const._ALL}></option>
           <{foreach from=$groupArr item=groups}>
-              <option value="<{$groups->getVar('groupid')}>" <{if $groups->getVar('groupid') == $selectedGid }>selected="selected"<{/if}>>
+              <option value="<{$groups->getVar('groupid')}>" <{if $groups->getVar('groupid') == $selectedGid}>selected="selected"<{/if}>>
               <{$groups->getVar('name')}></option>
           <{/foreach}>
         </select>

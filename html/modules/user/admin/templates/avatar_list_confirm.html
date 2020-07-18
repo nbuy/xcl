@@ -49,13 +49,13 @@
     <td class="user_list_type"><{$avatarObjects[$aid]->getShow('avatar_mimetype')}></td>
     <td class="user_list_select">
       <{if $actionForm->get('display',$aid)|intval == $avatarObjects[$aid]->get('avatar_display')}>
-	<{if $avatarObjects[$aid]->get('avatar_display') == 1 }>
+	<{if $avatarObjects[$aid]->get('avatar_display') == 1}>
           	<{$smarty.const._YES}>
         	<{else}>
           	<{$smarty.const._NO}>
         	<{/if}>
       <{else}>
-        (<{if $avatarObjects[$aid]->get('avatar_display') == 1 }>
+        (<{if $avatarObjects[$aid]->get('avatar_display') == 1}>
           <{$smarty.const._YES}>
         <{else}>
           <{$smarty.const._NO}>

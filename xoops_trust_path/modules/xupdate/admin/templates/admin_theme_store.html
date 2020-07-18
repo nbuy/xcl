@@ -41,7 +41,7 @@
 	</ul>
 	</div>
 
-	<{if $pageNavi->getPerpage() < $pageNavi->getTotalItems() }>
+	<{if $pageNavi->getPerpage() < $pageNavi->getTotalItems()}>
 	<div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
 	<{/if}>
 
@@ -158,7 +158,7 @@
 	      </td>
 	        <td class="legacy_list_select">
 	            <{if $xupdate_writable.result==true}>
-	            <{if $module->mModule && $module->mModule->getVar('mid') > 0 }>
+	            <{if $module->mModule && $module->mModule->getVar('mid') > 0}>
 	            <{if $module->mModule->getVar('isactive') && $module->isDirnameError() == false}>
 	            <input type="checkbox" class="rapidInstallCheckbox" />
 	            <{/if}>
@@ -187,7 +187,7 @@
 	</table>
 
 </form>
-	<{if $pageNavi->getPerpage() < $pageNavi->getTotalItems() }>
+	<{if $pageNavi->getPerpage() < $pageNavi->getTotalItems()}>
 	<div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
 	<{/if}>
 

@@ -33,7 +33,7 @@
       <a href="index.php?action=GroupEdit&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._EDIT}>">
         <img src="<{"icons/icon-user-edit.svg"|theme}>" class="svg">
       </a>
-      <{if $group->get('groupid') > $smarty.const.XOOPS_GROUP_ANONYMOUS }>
+      <{if $group->get('groupid') > $smarty.const.XOOPS_GROUP_ANONYMOUS}>
         <a href="index.php?action=GroupDelete&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._DELETE}>" class="red">
           <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
         </a>
@@ -70,7 +70,7 @@
   </tr>
   </thead>
   <tbody>
-  <{foreach from=$users item=user }>
+  <{foreach from=$users item=user}>
     <tr class="<{cycle values="odd,even"}>">
       <td class="user_list_image"><i title="<{$smarty.const._AD_USER_LANG_USER}>"><img src="<{"icons/icon-user-group.svg"|theme}>" class="svg"></i></td>
       <td class="user_list_id"><{$user->getShow('uid')}></td>
@@ -84,7 +84,7 @@
         <a href="./index.php?action=UserEdit&amp;uid=<{$user->getShow('uid')}>" title="<{$smarty.const._EDIT}>">
 
         </a>
-        <{if $user->get('uid') != 1 }>
+        <{if $user->get('uid') != 1}>
           <a href="index.php?action=UserDelete&amp;uid=<{$user->getShow('uid')}>" title="<{$smarty.const._DELETE}>" class="red">
             <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
           </a>
@@ -101,7 +101,7 @@
 <h4 class="admintitle"><{$smarty.const._AD_USER_LANG_PERM_ACCESS_ADMIN}></h4>
 
 <h5 class="admintitle"><{$smarty.const._AD_USER_LANG_PERM_MODULE_ACCESS}></h5>
-<{if $systemPermissions }>
+<{if $systemPermissions}>
 <table class="outer">
     <thead>
   <tr class="head">
@@ -112,7 +112,7 @@
   <tr>
   <{foreach item=perm from=$systemPermissions key="perm_key" name="SysPer"}>
     <td class="head" style="width:35%;">&nbsp;<{$perm->mItem->getName()|xoops_escape}></td>
-    <td class="even"><{assign var="getId" value=$perm->getId() }>
+    <td class="even"><{assign var="getId" value=$perm->getId()}>
       <{if $perm->mValue==2}>
         <{$smarty.const._AD_USER_LANG_PERM_ADMIN}>
       <{else}>
@@ -140,7 +140,7 @@
   <{foreach item=perm from=$modulePermissions name="ModPer"}>
     <td class="head" style="width:25%;">&nbsp;<{$perm->mItem->getName()|xoops_escape}></td>
     <td class="even">
-      <{assign var="getId" value=$perm->getId() }>
+      <{assign var="getId" value=$perm->getId()}>
       <{if $perm->mValue & 1}>
         <{$smarty.const._AD_USER_LANG_PERM_ACCESS}>
       <{else}>
@@ -187,7 +187,7 @@
         <span class="inactive"><{$perm->mItem->getName()|xoops_escape}></span>
       <{/if}>
     </td>
-    <td class="even"><{assign var="getId" value=$perm->getId() }>
+    <td class="even"><{assign var="getId" value=$perm->getId()}>
       <{if $perm->mValue==1}>
         <{$smarty.const._AD_USER_LANG_PERM_ACCESS}>
       <{else}>

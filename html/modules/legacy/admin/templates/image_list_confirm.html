@@ -55,13 +55,13 @@
     <td class="legacy_list_type"><{$imageObjects[$imid]->getShow('image_mimetype')}></td>
     <td class="legacy_list_select">
       <{if $actionForm->get('display',$imid)|intval == $imageObjects[$imid]->get('image_display')}>
-	<{if $imageObjects[$imid]->get('image_display') == 1 }>
+	<{if $imageObjects[$imid]->get('image_display') == 1}>
           	<{$smarty.const._YES}>
         	<{else}>
           	<{$smarty.const._NO}>
         	<{/if}>
       <{else}>
-        (<{if $imageObjects[$imid]->get('image_display') == 1 }>
+        (<{if $imageObjects[$imid]->get('image_display') == 1}>
           <{$smarty.const._YES}>
         <{else}>
           <{$smarty.const._NO}>
