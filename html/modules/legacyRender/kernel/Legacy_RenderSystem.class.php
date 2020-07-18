@@ -614,7 +614,7 @@ class Legacy_RenderSystem extends XCube_RenderSystem
     }
 }
 
-function LegacyRender_smartyfunction_notifications_select($params, &$smarty)
+function LegacyRender_smartyfunction_notifications_select($params, $smarty)
 {
     $root =& XCube_Root::getSingleton();
     $renderSystem =& $root->getRenderSystem('Legacy_RenderSystem');
