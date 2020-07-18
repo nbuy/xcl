@@ -28,7 +28,7 @@
 
         <form action="<{$xoops_url}>/edituser.php?op=avatarupload" method="post" enctype="multipart/form-data">
             <{xoops_token form=$actionForm}>
-            <{xoops_input type=hidden name=uid value=$actionForm->get('uid')}>
+            <{xoops_input type="hidden" name="uid" value=$actionForm->get('uid')}>
 
 
 
@@ -36,7 +36,7 @@
             <{if $actionForm->hasError()}>
             <div class="msg-callout msg-warning errorMsg">
                 <ul>
-                    <{foreach item=message from=$actionForm->getErrorMessages()}>
+                    <{foreach item="message" from=$actionForm->getErrorMessages()}>
                     <li><{$message|xoops_escape}></li>
                     <{/foreach}>
                 </ul>
@@ -70,7 +70,7 @@
 
             <p><{$smarty.const._MD_USER_LANG_AVATAR}>
 
-                <{xoops_input type=file name=uploadavatar size=30}></p>
+                <{xoops_input type="file" name="uploadavatar" size="30"}></p>
 
 
             <p><input type="submit" value="<{$smarty.const._SUBMIT}>" class="formButton"></p>
@@ -85,7 +85,7 @@
     <div class="card-footer">
         <form method="post" action="<{$xoops_url}>/edituser.php?op=avatarchoose">
             <{xoops_token form=$avatarSelectForm}>
-            <{xoops_input type=hidden name=uid value=$avatarSelectForm->get('uid')}>
+            <{xoops_input type="hidden" name="uid" value=$avatarSelectForm->get('uid')}>
             <table class="outer" style="text-align:center;">
                 <tr>
                     <th colspan="4"><{$smarty.const._MD_USER_LANG_AVATAR_LIST}></th>

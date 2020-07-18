@@ -12,7 +12,7 @@
 
 <div class="legacy_actionsearch_form">
 <form action="index.php" method="get">
-  <{xoops_input type=hidden name=action value=ActSearch}>
+  <{xoops_input type="hidden" name=action value=ActSearch}>
   <{xoops_token form=$actionForm}>
   <input type="text" size="40" name="keywords" <{if $actionForm}>value="<{$actionForm->get('keywords')|xoops_escape:edit}>"<{/if}> />
   <input class="button-search" type="submit" value="<{$smarty.const._SEARCH}>">

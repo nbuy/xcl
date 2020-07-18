@@ -34,7 +34,7 @@
 
     <{* ------- User profile column with user-data *}>
 
-    <{ include file="$xoops_theme/templates/user/inc_user_nav_left.html" }>
+    <{include file="$xoops_theme/templates/user/inc_user_nav_left.html"}>
 
     <{* ------- /user-data column *}>
 
@@ -92,17 +92,17 @@
 
             <form action="#" method="post" autocomplete="off">
                 <{xoops_token form=$actionForm}>
-                <{xoops_input name=uid type=hidden value=$actionForm->get('uid')}>
+                <{xoops_input name=uid type="hidden" value=$actionForm->get('uid')}>
 
 
             <{* ------- User Edit Profile and Preferences *}>
             <div class="tab-content">
 
                 <{* ------- Tab-panel User Edit *}>
-                <{ include file="$xoops_theme/templates/user/inc_user_tab_edit.html" }>
+                <{include file="$xoops_theme/templates/user/inc_user_tab_edit.html"}>
 
                 <{* ------- Tab-panel User Preferences *}>
-                <{ include file="$xoops_theme/templates/user/inc_user_tab_pref.html" }>
+                <{include file="$xoops_theme/templates/user/inc_user_tab_pref.html"}>
 
 
 

@@ -31,7 +31,7 @@
 
 <form action="" method="post">
   <{xoops_token form=$actionForm}>
-	<{xoops_input type=hidden name=com_id value=$actionForm->get('com_id')}>
+	<{xoops_input type="hidden" name=com_id value=$actionForm->get('com_id')}>
 
   <table class="outer">
 
@@ -39,7 +39,7 @@
     <tr>
       <td class="head"><{$smarty.const._MD_LEGACY_LANG_COM_TITLE}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=com_title value=$actionForm->get('com_title') size=60 maxlength=255}>
+        <{xoops_input type="text" name=com_title value=$actionForm->get('com_title') size=60 maxlength=255}>
       </td>
     </tr>
     <tr>
@@ -53,7 +53,7 @@
     <tr>
       <td class="head"><{$smarty.const._MD_LEGACY_LANG_COM_TEXT}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_dhtmltarea type=text rows=15 cols=60 name=com_text value=$actionForm->get('com_text')}>
+        <{xoops_dhtmltarea type="text" rows=15 cols=60 name=com_text value=$actionForm->get('com_text')}>
       </td>
     </tr>
     <tr>

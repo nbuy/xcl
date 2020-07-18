@@ -29,7 +29,7 @@
 
 <form action="index.php?action=SmilesEdit" method="post" enctype="multipart/form-data">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=id value=$actionForm->get('id')}>
+  <{xoops_input type="hidden" name=id value=$actionForm->get('id')}>
   <table class="outer">
     <tr>
       <th colspan="2">
@@ -49,7 +49,7 @@
     <tr>
       <td class="head"><{$smarty.const._MD_LEGACY_LANG_CODE}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=code value=$actionForm->get('code') size=15 maxlength=50}>
+        <{xoops_input type="text" name=code value=$actionForm->get('code') size=15 maxlength=50}>
       </td>
     </tr>
     <tr>
@@ -65,7 +65,7 @@
     <tr>
       <td class="head"><{$smarty.const._MD_LEGACY_LANG_EMOTION}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=emotion value=$actionForm->get('emotion') size=30 maxlength=75}>
+        <{xoops_input type="text" name=emotion value=$actionForm->get('emotion') size=30 maxlength=75}>
       </td>
     </tr>
     <tr>

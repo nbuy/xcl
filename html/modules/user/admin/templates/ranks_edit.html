@@ -30,7 +30,7 @@
 
 <form action="?action=RanksEdit" method="post" enctype="multipart/form-data">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=rank_id value=$actionForm->get('rank_id')}>
+  <{xoops_input type="hidden" name=rank_id value=$actionForm->get('rank_id')}>
   <table class="outer">
     <tr>
       <th colspan="2">
@@ -44,19 +44,19 @@
     <tr>
       <td class="head"><{$smarty.const._AD_USER_LANG_RANK_TITLE}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=rank_title value=$actionForm->get('rank_title')}>
+        <{xoops_input type="text" name=rank_title value=$actionForm->get('rank_title')}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._AD_USER_LANG_RANK_MIN}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=rank_min value=$actionForm->get('rank_min') class=user_list_number}>
+        <{xoops_input type="text" name=rank_min value=$actionForm->get('rank_min') class=user_list_number}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._AD_USER_LANG_RANK_MAX}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=rank_max value=$actionForm->get('rank_max') class=user_list_number}>
+        <{xoops_input type="text" name=rank_max value=$actionForm->get('rank_max') class=user_list_number}>
       </td>
     </tr>
     <tr>

@@ -12,7 +12,7 @@ if ($php54up = version_compare(PHP_VERSION, '5.4.0', '>=')) {
 		$client = null;
 		$clientId = $clientSecret = '';
 		$config = $xoopsModuleConfig;
-		
+
 		if (! empty($_POST['json'])) {
 			$json = @json_decode($_POST['json'], true);
 			if ($json && isset($json['web'])) {
@@ -43,18 +43,18 @@ if ($php54up = version_compare(PHP_VERSION, '5.4.0', '>=')) {
 		}
 
 		if (! empty($_SESSION[$sessClientKey]) && !isset($_GET ['start'])) {
-			
+
 			$client = new \Google_Client();
 			$client->setClientId($_SESSION[$sessClientKey]['ClientId']);
 			$client->setClientSecret($_SESSION[$sessClientKey]['ClientSecret']);
 			$client->setRedirectUri($selfURL);
-			
+
 			$service = new \Google_Service_Drive($client);
 			if (isset($_GET['code'])) {
 				$client->authenticate($_GET['code']);
 				$_SESSION[$sessTokenKey] = $client->getAccessToken();
 			}
-			
+
 			if (isset($_SESSION[$sessTokenKey]) && isset($_SESSION[$sessTokenKey]['access_token'])) {
 				$client->setAccessToken($_SESSION[$sessTokenKey]);
 			}
@@ -86,7 +86,7 @@ if ($php54up && $vendor) {
 				echo '<h3>Google Drive API Token</h3>';
 				echo '<div><textarea class="allselect" style="width:70%;height:5em;" spellcheck="false">' . $ext_token . '</textarea></div>';
 				echo '<h3>Example to Volume Driver Setting</h3>';
-				echo '<div><p>Folder ID as root: <input type=text id="xelfinder_googledrive_folder" value="root"></input> "root" is <a href="https://drive.google.com/drive/my-drive" target="_blank">"My Drive" of your Google Drive</a>.</p>';
+				echo '<div><p>Folder ID as root: <input type="text" id="xelfinder_googledrive_folder" value="root"></input> "root" is <a href="https://drive.google.com/drive/my-drive" target="_blank">"My Drive" of your Google Drive</a>.</p>';
 				echo '<p>You can find the folder ID to the URL(folders/[Folder ID]) of the site of <a href="https://drive.google.com/drive/">GoogleDrive</a>.</p></div>';
 				echo '<div><textarea class="allselect" style="width:70%;height:7em;" id="xelfinder_googledrive_volconf" spellcheck="false">xelfinder:GoogleDrive:root:GoogleDrive:gid=1|id=gd|ext_token=' . $ext_token . '</textarea></div>';
 				echo "<script>(function($){

@@ -86,7 +86,7 @@
       <form action="./index.php?action=UserView" method="post">
           <span class="badge"><{$object->getShow('posts')}></span>
         <{xoops_token form=$actionForm}>
-        <{xoops_input type=hidden name=uid value=$actionForm->get('uid')}>
+        <{xoops_input type="hidden" name=uid value=$actionForm->get('uid')}>
         <input class='formButton' type='submit' value='<{$smarty.const._AD_USER_LANG_RECOUNT}>' />
       </form>
     </td>

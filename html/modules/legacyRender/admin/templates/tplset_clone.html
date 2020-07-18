@@ -21,7 +21,7 @@
 
 <form action="./index.php?action=TplsetClone" method="post">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=tplset_id value=$actionForm->get('tplset_id')}>
+  <{xoops_input type="hidden" name=tplset_id value=$actionForm->get('tplset_id')}>
   <table class="outer">
     <tr>
       <th colspan="2"><{$smarty.const._AD_LEGACYRENDER_LANG_TEMPLATE_SET_CLONE}></th>
@@ -30,13 +30,13 @@
       <td class="head"><{$smarty.const._AD_LEGACYRENDER_LANG_TPLSET_NAME}></td>
       <td class="<{cycle values="odd,even"}>">
         <b><{$object->getShow('tplset_name')}></b> &raquo; &raquo;
-       <{xoops_input type=text name=tplset_name value=$actionForm->get('tplset_name') size=30 maxlength=50}>
+       <{xoops_input type="text" name=tplset_name value=$actionForm->get('tplset_name') size=30 maxlength=50}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACYRENDER_LANG_TPLSET_DESC}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=tplset_desc value=$object->get('tplset_desc') size=50 maxlength=255}>
+        <{xoops_input type="text" name=tplset_desc value=$object->get('tplset_desc') size=50 maxlength=255}>
       </td>
     </tr>
     <tr>

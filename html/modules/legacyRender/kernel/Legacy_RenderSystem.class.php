@@ -91,7 +91,7 @@ class Legacy_XoopsTpl extends XoopsTpl
         } elseif (isset($this->_mContextReserve[$name])) {
             $value = htmlspecialchars($root->mContext->getAttribute($this->_mContextReserve[$name]), ENT_QUOTES);
         } else {
-            $value =& parent::getTemplateVars($name);
+            $value = parent::getTemplateVars($name);
         }
         return $value;
     }

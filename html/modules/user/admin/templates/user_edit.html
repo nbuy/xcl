@@ -32,7 +32,7 @@
 
 <form action="" method="post" autocomplete="off">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=uid value=$actionForm->get('uid')}>
+  <{xoops_input type="hidden" name=uid value=$actionForm->get('uid')}>
   <table class="outer">
 		<thead>
     <tr>
@@ -49,37 +49,37 @@
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_UNAME}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=uname value=$actionForm->get('uname') size=25 maxlength=25}>
+        <{xoops_input type="text" name="uname" value=$actionForm->get('uname') size="25" maxlength="25"}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_NAME}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=name value=$actionForm->get('name') size=30 maxlength=60}>
+        <{xoops_input type="text" name="name" value=$actionForm->get('name') size="30" maxlength="60"}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_EMAIL}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=email value=$actionForm->get('email') size=30 maxlength=60}>
+        <{xoops_input type="text" name=email value=$actionForm->get('email') size="30" maxlength="60"}>
         <br>
         <{$smarty.const._MD_USER_LANG_USER_VIEWEMAIL}>
 
-        <{xoops_input type=checkbox name=user_viewemail value=1 default=$actionForm->get('user_viewemail')}>
+        <{xoops_input type="checkbox" name="user_viewemail" value="1" default=$actionForm->get('user_viewemail')}>
 
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_URL}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=url value=$actionForm->get('url') size=50 maxlength=100}>
+        <{xoops_input type="text" name=url value=$actionForm->get('url') size="50" maxlength="100"}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_TIMEZONE_OFFSET}></td>
       <td class="<{cycle values="odd,even"}>">
         <select name="timezone_offset">
-          <{xoops_optionsArray id=timezone_offset label=zone_name value=offset from=$timezones default=$actionForm->get('timezone_offset')}>
+          <{xoops_optionsArray id="timezone_offset" label="zone_name" value="offset" from=$timezones default=$actionForm->get('timezone_offset')}>
         </select>
       </td>
     </tr>
@@ -89,49 +89,49 @@
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_USER_ICQ}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=user_icq value=$actionForm->get('user_icq') size=15 maxlength=15}>
+        <{xoops_input type="text" name=user_icq value=$actionForm->get('user_icq') size=15 maxlength=15}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_USER_AIM}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=user_aim value=$actionForm->get('user_aim') size=18 maxlength=18}>
+        <{xoops_input type="text" name=user_aim value=$actionForm->get('user_aim') size=18 maxlength=18}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_USER_YIM}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=user_yim value=$actionForm->get('user_yim') size=25 maxlength=25}>
+        <{xoops_input type="text" name=user_yim value=$actionForm->get('user_yim') size=25 maxlength=25}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_USER_MSNM}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=user_msnm value=$actionForm->get('user_msnm') size=25 maxlength=100}>
+        <{xoops_input type="text" name=user_msnm value=$actionForm->get('user_msnm') size=25 maxlength=100}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_USER_FROM}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=user_from value=$actionForm->get('user_from') size=50 maxlength=100}>
+        <{xoops_input type="text" name=user_from value=$actionForm->get('user_from') size=50 maxlength=100}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_USER_OCC}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=user_occ value=$actionForm->get('user_occ') size=50 maxlength=100}>
+        <{xoops_input type="text" name=user_occ value=$actionForm->get('user_occ') size=50 maxlength=100}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_USER_INTREST}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=user_intrest value=$actionForm->get('user_intrest') size=50 maxlength=150}>
+        <{xoops_input type="text" name=user_intrest value=$actionForm->get('user_intrest') size=50 maxlength=150}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_USER_SIG}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{* xoops_dhtmltarea type=text name=user_sig value=$actionForm->get('user_sig') *}>
+        <{* xoops_dhtmltarea type="text" name=user_sig value=$actionForm->get('user_sig') *}>
         <br>
         <label><{xoops_input type=checkbox name=attachsig value=1 default=$actionForm->get('attachsig')}> <{$smarty.const._MD_USER_LANG_ATTACHSIG}></label>
       </td>
@@ -165,7 +165,7 @@
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_BIO}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_textarea type=text rows=5 cols=50 name=bio value=$actionForm->get('bio')}>
+        <{xoops_textarea type="text" rows=5 cols=50 name=bio value=$actionForm->get('bio')}>
       </td>
     </tr>
     <tr>
@@ -207,7 +207,7 @@
     <tr>
       <td class="head"><{$smarty.const._MD_USER_LANG_POSTS}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=posts value=$actionForm->get('posts') class=user_list_number}>
+        <{xoops_input type="text" name="posts" value=$actionForm->get('posts') class="user_list_number"}>
       </td>
     </tr>
     <tr>
@@ -220,14 +220,14 @@
           </select>
         <{elseif $actionForm->get('level') == 1}>
           <{$smarty.const._AD_USER_LANG_LEVEL_ACTIVE}>
-          <{xoops_input type=hidden name=level value=$actionForm->get('level')}>
+          <{xoops_input type="hidden" name="level" value=$actionForm->get('level')}>
         <{elseif $actionForm->get('level') == 5}>
           <{$smarty.const._AD_USER_LANG_LEVEL_ROOT}>
-          <{xoops_input type=hidden name=level value=$actionForm->get('level')}>
+          <{xoops_input type="hidden" name="level" value=$actionForm->get('level')}>
         <{/if}>
       </td>
     </tr>
-		<{legacy_profile template=profile_inc_data_edit.html action=edit actionForm=$actionForm}>
+		<{legacy_profile template="profile_inc_data_edit.html" action="edit" actionForm=$actionForm}>
 
 	</tbody>
 	<tfoot>

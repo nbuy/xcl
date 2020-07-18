@@ -41,9 +41,9 @@
 
 <form action="index.php?action=DefinitionsEdit" method="post">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=field_id value=$actionForm->get('field_id')}>
+  <{xoops_input type="hidden" name=field_id value=$actionForm->get('field_id')}>
   <{if $actionForm->get('field_id')}>
-  <{xoops_input type=hidden name=type value=$actionForm->get('type')}>
+  <{xoops_input type="hidden" name=type value=$actionForm->get('type')}>
   <{/if}>
   <table class="outer">
     <tr>
@@ -57,13 +57,13 @@
       <td class="head"><{$smarty.const._MD_PROFILE_LANG_FIELD_NAME}><br>
       <{$smarty.const._MD_PROFILE_LANG_FIELD_NAME_DESC}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=field_name value=$actionForm->get('field_name') size=15 maxlength=32}>
+        <{xoops_input type="text" name=field_name value=$actionForm->get('field_name') size=15 maxlength=32}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_PROFILE_LANG_LABEL}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=label value=$actionForm->get('label') size=15 maxlength=255}>
+        <{xoops_input type="text" name=label value=$actionForm->get('label') size=15 maxlength=255}>
       </td>
     </tr>
     <tr>
@@ -107,13 +107,13 @@
     <tr>
       <td class="head"><{$smarty.const._MD_PROFILE_LANG_WEIGHT}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=weight value=$actionForm->get('weight')}>
+        <{xoops_input type="text" name=weight value=$actionForm->get('weight')}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._MD_PROFILE_LANG_DESCRIPTION}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_dhtmltarea type=text name=description value=$actionForm->get('description')}>
+        <{xoops_dhtmltarea type="text" name=description value=$actionForm->get('description')}>
       </td>
     </tr>
     <tr>
@@ -170,7 +170,7 @@
 
 
       	<{*$smarty.const._MD_PROFILE_DESC_OPTIONS*}><br>
-        <{*xoops_textarea type=text name=options value=$actionForm->get('options') cols=60 rows=1*}>
+        <{*xoops_textarea type="text" name=options value=$actionForm->get('options') cols=60 rows=1*}>
       </td>
     </tr>
     <tr>

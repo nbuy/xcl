@@ -30,7 +30,7 @@
 
 <form action="?action=GroupEdit" method="post">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=groupid value=$actionForm->get('groupid')}>
+  <{xoops_input type="hidden" name=groupid value=$actionForm->get('groupid')}>
   <table class="outer">
       <thead>
     <tr>
@@ -47,7 +47,7 @@
     <tr>
       <td class="head"><{$smarty.const._AD_USER_LANG_GROUP_NAME}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=name value=$actionForm->get('name')}>
+        <{xoops_input type="text" name=name value=$actionForm->get('name')}>
       </td>
     </tr>
     <tr>

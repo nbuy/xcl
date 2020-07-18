@@ -26,7 +26,7 @@
 
 <form action="?action=GroupDelete" method="post">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=groupid value=$object->get('groupid')}>
+  <{xoops_input type="hidden" name=groupid value=$object->get('groupid')}>
 <table class="outer">
   <tr>
     <th colspan="2"><i class="red" title="<{$smarty.const._AD_USER_LANG_GROUP}>"><img src="<{"icons/icon-group.svg"|theme}>" class="svg"></i> <{$smarty.const._AD_USER_LANG_GROUP_DELETE}> (<{$object->getShow('name')}>)</th>

@@ -16,7 +16,7 @@
 
 <form action="<{$xoops_url}>/edituser.php?op=avatarupload" method="post" enctype="multipart/form-data">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=uid value=$actionForm->get('uid')}>
+  <{xoops_input type="hidden" name=uid value=$actionForm->get('uid')}>
   <table class="outer">
     <tr>
       <th colspan="2" style="text-align:center;">( <{$actionForm->get('uid')|xoops_user:user_name}> )<{$smarty.const._MD_USER_LANG_AVATAR_EDIT}></th>
@@ -61,7 +61,7 @@
 
 <form method="post" action="<{$xoops_url}>/edituser.php?op=avatarchoose">
   <{xoops_token form=$avatarSelectForm}>
-  <{xoops_input type=hidden name=uid value=$avatarSelectForm->get('uid')}>
+  <{xoops_input type="hidden" name=uid value=$avatarSelectForm->get('uid')}>
   <table class="outer" style="text-align:center;">
     <tr>
       <th colspan="4"><{$smarty.const._MD_USER_LANG_AVATAR_LIST}></th>

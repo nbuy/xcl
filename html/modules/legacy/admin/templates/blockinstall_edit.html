@@ -21,7 +21,7 @@
 
 <form action="index.php?action=BlockInstallEdit" method="post">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=bid value=$actionForm->get('bid')}>
+  <{xoops_input type="hidden" name=bid value=$actionForm->get('bid')}>
   <{if !$hasVisibleOptionForm && $optionForm != null}>
     <{$optionForm}>
 	<{/if}>
@@ -38,7 +38,7 @@
     <tr>
       <td><{$smarty.const._AD_LEGACY_LANG_TITLE}></td>
       <td>
-        <{xoops_input type=text name=title value=$actionForm->get('title') size=50 maxlength=255}>
+        <{xoops_input type="text" name=title value=$actionForm->get('title') size=50 maxlength=255}>
       </td>
     </tr>
     <tr>
@@ -52,7 +52,7 @@
     <tr>
       <td><{$smarty.const._AD_LEGACY_LANG_WEIGHT}></td>
       <td>
-        <{xoops_input type=text name=weight value=$actionForm->get('weight') size=5 class=legacy_list_number}>
+        <{xoops_input type="text" name=weight value=$actionForm->get('weight') size=5 class=legacy_list_number}>
       </td>
     </tr>
     <tr>

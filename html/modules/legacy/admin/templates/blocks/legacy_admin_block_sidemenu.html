@@ -1,7 +1,7 @@
-<{foreach item=module from=$modules}>
+<{foreach item="module" from=$modules}>
 
-<{assign var=mid value=$module->mXoopsModule->getVar('mid')}>
-<{assign var=dirname value=$module->mXoopsModule->getVar('dirname', 'N')}>
+<{assign var="mid" value=$module->mXoopsModule->getVar('mid')}>
+<{assign var="dirname" value=$module->mXoopsModule->getVar('dirname', 'N')}>
 
 <{if $module->hasAdminIndex()}>
 
@@ -22,8 +22,8 @@
 			<{* ---------- ---------- ---------- ---------- ---------- Module Admin Links *}>
 
 
-			<{foreach item=menu from=$module->getAdminMenu()}>
-				<{if $menu.show !== false}>
+			<{foreach item="menu" from=$module->getAdminMenu()}>
+			<{if $menu.show !== false}>
 				<li class="nav-module-link"><a href="<{$menu.link|xoops_escape:link}>"><{$menu.title|xoops_escape}></a></li>
 				<{/if}>
 			<{/foreach}>
@@ -60,7 +60,7 @@
 
 
 				<{if $dirname != "legacyRender" && $dirname != "altsys"  && $dirname != "system"}>
-				<{foreach item=tplmodule from=$tplmodules}>
+				<{foreach item="tplmodule" from=$tplmodules}>
 				<{if $dirname == $tplmodule}>
 				<a href="<{$xoops_url}>/modules/legacyRender/admin/index.php?action=TplfileList&amp;tpl_module=<{$dirname}>&amp;sort=-9" title="<{$smarty.const._AD_LEGACY_LANG_TEMPLATE_INFO}>">
 					<img src="<{"icons/icon-file-view.svg"|theme}>" class="svg">
