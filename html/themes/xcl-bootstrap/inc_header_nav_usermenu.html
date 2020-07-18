@@ -55,7 +55,7 @@
             <a class="nav-link" href="#">Pico <span class="badge badge-warning">11</span></a>
 
             <{if $xoops_showlblock}>
-                <{foreach item=block from=$xoops_lblocks name=lbloop}>
+                <{foreach item="block" from=$xoops_lblocks name="lbloop"}>
                 <{if $block.title|strstr:"User Menu"}>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

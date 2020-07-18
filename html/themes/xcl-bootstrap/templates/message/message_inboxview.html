@@ -2,8 +2,8 @@
 <div class="ui-dev-mode"><{$smarty.template}></div>
 
 <{* set tab inbox to current active *}>
-<{ if $smarty.template == 'db:message_inboxview.html' }>
-<{ assign var="tab" value="active" }>
+<{if $smarty.template == 'db:message_inboxview.html'}>
+<{assign var="tab" value="active"}>
 <{/if}>
 
     <nav aria-label="breadcrumb">
@@ -23,7 +23,7 @@
 
 <div class="card mt-sm-5">
 
-    <{ include file="$xoops_theme/templates/message/inc_compo_nav.html" }>
+    <{include file="$xoops_theme/templates/message/inc_compo_nav.html"}>
 
     <{* ------- /card-header *}>
 
