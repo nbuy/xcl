@@ -10,8 +10,8 @@
 
 <form action="<{$xoops_url}>/imagemanager.php?op=upload" method="post" enctype="multipart/form-data" style="margin:10px 0;">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=imgcat_id value=$actionForm->get('imgcat_id')}>
-  <{xoops_input type=hidden name=target value=$target}>
+  <{xoops_input type="hidden" name=imgcat_id value=$actionForm->get('imgcat_id')}>
+  <{xoops_input type="hidden" name=target value=$target}>
   <table class="outer" cellspacing="1">
     <tr>
       <td class="head"><{$smarty.const._MD_LEGACY_LANG_IMAGE_FILE}></td>
@@ -22,7 +22,7 @@
     <tr>
       <td class="head"><{$smarty.const._MD_LEGACY_LANG_IMAGE_NICENAME}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=image_nicename value=$actionForm->get('image_nicename') size=30 maxlength=255}>
+        <{xoops_input type="text" name=image_nicename value=$actionForm->get('image_nicename') size=30 maxlength=255}>
       </td>
     </tr>
     <tr class="foot">

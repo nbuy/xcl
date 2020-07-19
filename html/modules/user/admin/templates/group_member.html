@@ -33,7 +33,7 @@
       <a href="index.php?action=GroupEdit&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._EDIT}>">
         <img src="<{"icons/icon-user-edit.svg"|theme}>" class="svg">
       </a>
-      <{if $group->get('groupid') > $smarty.const.XOOPS_GROUP_ANONYMOUS }>
+      <{if $group->get('groupid') > $smarty.const.XOOPS_GROUP_ANONYMOUS}>
         <a href="index.php?action=GroupDelete&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._DELETE}>" class="red">
           <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
         </a>
@@ -90,7 +90,7 @@
   </tr>
 </thead>
 <tbody>
-  <{foreach from=$noUsers item=user }>
+  <{foreach from=$noUsers item=user}>
     <tr class="<{cycle values="odd,even"}>">
       <td class="user_list_select">
         <input type="checkbox" name="uid[<{$user->getShow('uid')}>]" value="1">
@@ -107,7 +107,7 @@
         <a href="./index.php?action=UserEdit&amp;uid=<{$user->getShow('uid')}>" title="<{$smarty.const._EDIT}>">
           <img src="<{"icons/icon-user-edit.svg"|theme}>" class="svg">
         </a>
-        <{if $user->get('uid') != 1 }>
+        <{if $user->get('uid') != 1}>
           <a href="index.php?action=UserDelete&amp;uid=<{$user->getShow('uid')}>" title="<{$smarty.const._DELETE}>" class="red">
             <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
           </a>
@@ -154,7 +154,7 @@
   </tr>
 </thead>
 <tbody>
-  <{foreach from=$users item=user }>
+  <{foreach from=$users item=user}>
     <tr class="<{cycle values="odd,even"}>">
       <td class="user_list_select">
         <input type="checkbox" name="uid[<{$user->getShow('uid')}>]" value="2">
@@ -171,7 +171,7 @@
         <a href="index.php?action=UserEdit&amp;uid=<{$user->getShow('uid')}>&amp;op=modifyUser" title="<{$smarty.const._EDIT}>">
 
         </a>
-        <{if $user->get('uid') != 1 }>
+        <{if $user->get('uid') != 1}>
           <a href="index.php?action=UserDelete&amp;uid=<{$user->getShow('uid')}>" title="<{$smarty.const._DELETE}>" class="red">
             <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
           </a>

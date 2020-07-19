@@ -32,7 +32,7 @@
 
 	<{if $topic.u2t_marked}><img src="<{$block.mod_imageurl}>/block_marked.gif" alt="<{$block.lang_alt_marked}>"><{/if}>
 	<{* displays the last post's subject or topic title *}>
-	<{if $block.disp_last_subject }>
+	<{if $block.disp_last_subject}>
 	<{$topic.last_subject}>
 	<{else}>
 	<{$topic.title}>
@@ -57,13 +57,13 @@
 <div style="text-align:right; padding: 5px;">
 <a href="<{$block.mod_url}>/index.php?page=search"><{$block.lang_linktosearch}></a>
 &nbsp;
-<{if is_numeric( $block.forums ) }>
+<{if is_numeric( $block.forums )}>
 <a href="<{$block.mod_url}>/index.php?forum_id=<{$block.forums}>"><{$block.lang_linktolisttopics}></a>
 <{else}>
 <a href="<{$block.mod_url}>/index.php?cat_ids=<{$block.categories}>"><{$block.lang_linktolisttopics}></a>
 <{/if}>
 &nbsp;
-<{if is_numeric( $block.categories ) }>
+<{if is_numeric( $block.categories )}>
 <a href="<{$block.mod_url}>/index.php?cat_id=<{$block.categories}>"><{$block.lang_linktolistforums}></a>
 &nbsp;
 <{/if}>

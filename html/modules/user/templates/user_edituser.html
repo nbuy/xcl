@@ -15,7 +15,7 @@
 
 <form action="#" method="post" autocomplete="off">
 <{xoops_token form=$actionForm}>
-<{xoops_input name=uid type=hidden value=$actionForm->get('uid')}>
+<{xoops_input name=uid type="hidden" value=$actionForm->get('uid')}>
 <table class="outer" cellspacing="1" width="100%">
   <tr>
     <th colspan="2"><{$smarty.const._MD_USER_LANG_EDITPROFILE}></th>
@@ -57,7 +57,7 @@
   </tr>
 
   <!-- XCL2.2 TEST-->
-  <{legacy_profile template=profile_inc_data_edit.html action=edit actionForm=$actionForm}>
+  <{legacy_profile template="profile_inc_data_edit.html" action="edit" actionForm=$actionForm}>
   <{*
   <tr>
     <td class="head"><{$smarty.const._MD_USER_LANG_USER_ICQ}></td>

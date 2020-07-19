@@ -19,7 +19,7 @@
 	<a href="<{$mod_url}>/index.php?page=makecategory&amp;pid=<{$cat_id}>" class="ui-btn ui-btn-small"><{$smarty.const._MD_PICO_LINK_MAKESUBCATEGORY}></a>
 	<a href="<{$mod_url}>/<{$cat_link}>" class="ui-btn ui-btn-small"><{$smarty.const._MD_PICO_LINK_PUBLICCATEGORYINDEX}></a></p>
 
-<{if $cat_id != 0 }>
+<{if $cat_id != 0}>
 <!-- cat_permission_id == cat_id -->
 <h2 class="head"><{$smarty.const._MD_A_PICO_H2_INDEPENDENTPERMISSION}></h2>
 <form name="independentpermission" action="<{$mod_url}>/admin/index.php?page=category_access&amp;cat_id=<{$cat_id}>" method="post">
@@ -30,7 +30,7 @@
 </form>
 <{/if}>
 
-<{if $cat_id != $cat_permission_id && $cat_id != 0 }>
+<{if $cat_id != $cat_permission_id && $cat_id != 0}>
 	<!-- link to the parent for the permission -->
 	<a href="<{$mod_url}>/admin/index.php?page=category_access&amp;cat_id=<{$cat_permission_id}>"><{$smarty.const._MD_A_PICO_LINK_CATPERMISSIONID}></a>
 <{else}>

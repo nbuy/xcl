@@ -23,7 +23,7 @@
 
 <form method="post"  action="./index.php?action=CommentList">
   <{xoops_token form=$actionForm}>
-	<{xoops_input type=hidden name=confirm value=1}>
+	<{xoops_input type="hidden" name=confirm value=1}>
 
 <table class="outer">
 
@@ -56,18 +56,18 @@
 				<{if $actionForm->get('status',$cid)|intval == $commentObjects[$cid]->getShow('com_status')}>
 					<{$smarty.const._AD_LEGACY_LANG_NO_CHANGE}>
 				<{else}>
-					(<{if $commentObjects[$cid]->getShow('com_status') == 1 }>
+					(<{if $commentObjects[$cid]->getShow('com_status') == 1}>
 		<{$smarty.const._CM_PENDING}>
-					<{elseif $commentObjects[$cid]->getShow('com_status') == 2 }>
+					<{elseif $commentObjects[$cid]->getShow('com_status') == 2}>
 		<{$smarty.const._CM_ACTIVE}>
 					<{elseif $commentObjects[$cid]->getShow('com_status') == 3}>
 		<{$smarty.const._CM_HIDDEN}>
 					<{/if}>)
 					&raquo;
 					<b class="message-warning">
-					<{if $actionForm->get('status',$cid) == 1 }>
+					<{if $actionForm->get('status',$cid) == 1}>
 		<{$smarty.const._CM_PENDING}>
-					<{elseif $actionForm->get('status',$cid) == 2 }>
+					<{elseif $actionForm->get('status',$cid) == 2}>
 		<{$smarty.const._CM_ACTIVE}>
 					<{elseif $actionForm->get('status',$cid) == 3}>
 		<{$smarty.const._CM_HIDDEN}>

@@ -128,7 +128,7 @@
       <td class="legacy_list_name"><a href="<{$smarty.const.XOOPS_URL}>/userinfo.php?uid=<{$obj->getShow('com_uid')}>"><{if $obj->mUser}><{$obj->mUser->getShow('uname')}><{else}><{$smarty.const._GUESTS}><{/if}></a></td>
       <td class="legacy_list_order"><{$obj->getShow('com_ip')}></td>
       <td class="legacy_list_select">
-        <{if $obj->get('com_status') == 2 }>
+        <{if $obj->get('com_status') == 2}>
           <i title="<{$smarty.const._AD_LEGACY_LANG_ACTIVE}>"><img src="<{"icons/icon-comment-active.svg"|theme}>" class="svg"></i>
         <{/if}>
       </td>

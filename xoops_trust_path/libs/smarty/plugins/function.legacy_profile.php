@@ -13,7 +13,7 @@
  * 			 int	uid: user id
  *			 string	action: 'view', 'edit', etc
  *			 string	template:	template name
- * Examples: {legacy_profile uid=3 action=edit actionForm=$actionForm}
+ * Examples: {legacy_profile uid=3 action="edit" actionForm=$actionForm}
  * -------------------------------------------------------------
  */
 function smarty_function_legacy_profile($params, &$smarty)

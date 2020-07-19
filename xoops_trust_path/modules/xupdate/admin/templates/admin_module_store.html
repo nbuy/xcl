@@ -55,13 +55,13 @@
             </ul>
         </div>
 
-        <{if $pageNavi->getPerpage() < $pageNavi->getTotalItems() }>
+        <{if $pageNavi->getPerpage() < $pageNavi->getTotalItems()}>
         <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
         <{/if}>
 
         <form action="index.php?action=<{$action}>" method="post">
-            <{xoops_input type=hidden name=sid value=$sid}>
-            <{xoops_input type=hidden name=do_confirm value=1}>
+            <{xoops_input type="hidden" name=sid value=$sid}>
+            <{xoops_input type="hidden" name=do_confirm value=1}>
 
             <table class="outer">
 
@@ -142,7 +142,7 @@
                         <div class="legacy_list_image">
                             <{if $module->getShow('target_type') == 'TrustModule' && $module->getShow('replicatable') &&
                             (!$module->mModule->getVar('mid') || $module->get('dirname') ==
-                            $module->get('trust_dirname') ) }>
+                            $module->get('trust_dirname') )}>
                             <input type="text" size="24" name="dirname[<{$module->get('id')}>]"
                                    value="<{$module->get('dirname')}>"/>
                             <{else}>
@@ -253,7 +253,7 @@
                     <{if $module->mModule->getVar('dirname') !== 'legacy'}>
                     <td class="legacy_list_select center">
                         <{if $xupdate_writable.result==true}>
-                        <{if $module->mModule && $module->mModule->getVar('mid') > 0 }>
+                        <{if $module->mModule && $module->mModule->getVar('mid') > 0}>
                         <{if $module->mModule->getVar('isactive') && $module->isDirnameError() == false}>
                         <input type="checkbox" class="rapidInstallCheckbox"/>
                         <{/if}>
@@ -290,7 +290,7 @@
 
         </form>
 
-        <{if $pageNavi->getPerpage() < $pageNavi->getTotalItems() }>
+        <{if $pageNavi->getPerpage() < $pageNavi->getTotalItems()}>
         <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
         <{/if}>
 

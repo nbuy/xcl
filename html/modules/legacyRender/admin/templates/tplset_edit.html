@@ -21,7 +21,7 @@
 
 <form action="./index.php?action=TplsetEdit" method="post">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=tplset_id value=$actionForm->get('tplset_id')}>
+  <{xoops_input type="hidden" name=tplset_id value=$actionForm->get('tplset_id')}>
   <table class="outer">
     <tr>
       <th colspan="2"><{$smarty.const._AD_LEGACYRENDER_LANG_TEMPLATE_SET_EDIT}> (<{$object->getShow('tplset_name')}>)</th>
@@ -33,7 +33,7 @@
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACYRENDER_LANG_TPLSET_DESC}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=tplset_desc value=$actionForm->get('tplset_desc') size=50 maxlength=255}>
+        <{xoops_input type="text" name=tplset_desc value=$actionForm->get('tplset_desc') size=50 maxlength=255}>
       </td>
     </tr>
     <tr>

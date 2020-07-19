@@ -5,7 +5,7 @@
 </div>
 
 
-<{include file="./components/block-overview.html" }>
+<{include file="./components/block-overview.html"}>
 
 
 <h2 class="admintitle"><{$smarty.const._MI_LEGACY_MENU_BLOCKINSTALL}></h2>
@@ -28,7 +28,7 @@
 
 
 
-<{include file="./components/block-search-install.html" }>
+<{include file="./components/block-search-install.html"}>
 
 
 <table class="outer">
@@ -60,7 +60,7 @@
           <span class="legacy_blocktype_module"><{$obj->mModule->getShow('name')}></span>
         <{else}>
           <span class="ui-blocktype-custom">
-          <{if $obj->get('c_type') == "H" }><{$smarty.const._AD_LEGACY_LANG_CUSTOM_HTML}>
+          <{if $obj->get('c_type') == "H"}><{$smarty.const._AD_LEGACY_LANG_CUSTOM_HTML}>
           <{elseif $obj->get('c_type') == "P"}><{$smarty.const._AD_LEGACY_LANG_CUSTOM_PHP}>
           <{elseif $obj->get('c_type') == "S"}><{$smarty.const._AD_LEGACY_LANG_CUSTOM_WITH_SMILIES}>
           <{elseif $obj->get('c_type') == "T"}><{$smarty.const._AD_LEGACY_LANG_CUSTOM_WITHOUT_SMILIES}>
@@ -94,4 +94,4 @@
 
 </table>
 
-<{include file="./components/pagenavi.html" }>
+<{include file="./components/pagenavi.html"}>

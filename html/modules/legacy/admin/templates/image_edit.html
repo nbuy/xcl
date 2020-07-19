@@ -30,7 +30,7 @@
 
 <form action="#" method="post" enctype="multipart/form-data">
   <{xoops_token form=$actionForm}>
-	<{xoops_input type=hidden name=image_id value=$actionForm->get('image_id')}>
+	<{xoops_input type="hidden" name=image_id value=$actionForm->get('image_id')}>
 
 
   <table class="outer">
@@ -68,7 +68,7 @@
     <tr>
       <td class="head"><{$smarty.const._MD_LEGACY_LANG_IMAGE_NICENAME}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=image_nicename value=$actionForm->get('image_nicename') size=30 maxlength=255}>
+        <{xoops_input type="text" name=image_nicename value=$actionForm->get('image_nicename') size=30 maxlength=255}>
       </td>
     </tr>
     <tr>
@@ -80,7 +80,7 @@
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_IMAGE_WEIGHT}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=image_weight value=$actionForm->get('image_weight') size=5}>
+        <{xoops_input type="text" name=image_weight value=$actionForm->get('image_weight') size=5}>
       </td>
     </tr>
     <tr>

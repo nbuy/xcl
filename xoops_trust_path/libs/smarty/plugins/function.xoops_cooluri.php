@@ -22,8 +22,8 @@
  *			 int		data_id
  *			 string		action
  *			 string		query
- * 
- * Examples: {xoops_cooluri dirname=lenews dataname=story data_id=6 action=edit query='cat_id=3&mode=admin'}
+ *
+ * Examples: {xoops_cooluri dirname=lenews dataname=story data_id=6 action="edit" query='cat_id=3&mode=admin'}
  * -------------------------------------------------------------
  */
 

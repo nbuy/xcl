@@ -23,7 +23,7 @@
 
 <form method="post"  action="./index.php?action=SmilesList">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=confirm value=1}>
+  <{xoops_input type="hidden" name=confirm value=1}>
 <table class="outer">
   <tr>
     <th><{$smarty.const._AD_LEGACY_LANG_ID}></th>
@@ -54,7 +54,7 @@
       <{if $actionForm->get('display',$sid)|intval == $smilesObjects[$sid]->get('display')}>
         <{$smarty.const._AD_LEGACY_LANG_NO_CHANGE}>
       <{else}>
-        (<{if $smilesObjects[$sid]->get('display') == 1 }>
+        (<{if $smilesObjects[$sid]->get('display') == 1}>
           <{$smarty.const._YES}>
         <{else}>
           <{$smarty.const._NO}>

@@ -2,7 +2,7 @@
   <a href="./index.php"><{$smarty.const._MI_USER_NAME}></a>
   &raquo;&raquo; <a href="./index.php?action=GroupList"><{$smarty.const._AD_USER_LANG_GROUP_LIST}></a>
   &raquo;&raquo;
-  <{if $actionForm->get('groupid') }>
+  <{if $actionForm->get('groupid')}>
     <span class="adminnaviTitle"><{$smarty.const._AD_USER_LANG_GROUP_EDIT}></span>
   <{else}>
     <span class="adminnaviTitle"><{$smarty.const._AD_USER_LANG_GROUP_NEW}></span>
@@ -10,7 +10,7 @@
 </div>
 
 
-<{if $actionForm->get('groupid') }>
+<{if $actionForm->get('groupid')}>
   <h2 class="admintitle"><{$smarty.const._AD_USER_LANG_GROUP_EDIT}> (<{$actionForm->get('name')}>)</h2>
 <{else}>
   <h2 class="admintitle"><{$smarty.const._AD_USER_LANG_GROUP_NEW}></h2>
@@ -30,12 +30,12 @@
 
 <form action="?action=GroupEdit" method="post">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=groupid value=$actionForm->get('groupid')}>
+  <{xoops_input type="hidden" name=groupid value=$actionForm->get('groupid')}>
   <table class="outer">
       <thead>
     <tr>
       <th colspan="2">
-      <{if $actionForm->get('groupid') }>
+      <{if $actionForm->get('groupid')}>
         <{$smarty.const._AD_USER_LANG_GROUP_EDIT}> (<{$actionForm->get('name')}>)
       <{else}>
         <{$smarty.const._AD_USER_LANG_GROUP_NEW}>
@@ -47,7 +47,7 @@
     <tr>
       <td class="head"><{$smarty.const._AD_USER_LANG_GROUP_NAME}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=name value=$actionForm->get('name')}>
+        <{xoops_input type="text" name=name value=$actionForm->get('name')}>
       </td>
     </tr>
     <tr>

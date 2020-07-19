@@ -179,7 +179,7 @@ include_once XOOPS_ROOT_PATH.'/class/xoopsblock.php';
                 if (!$bresult) {
                     continue;
                 }
-                $xoopsTpl->assign_by_ref('block', $bresult);
+                $xoopsTpl->assignByRef('block', $bresult);
                 $bcontent = $xoopsTpl->fetch('db:'.$btpl, 'blk_'.$block_arr[$i]->getVar('bid'));
                 $xoopsTpl->clear_assign('block');
             } else {
@@ -194,7 +194,7 @@ include_once XOOPS_ROOT_PATH.'/class/xoopsblock.php';
                 if (!$bresult) {
                     continue;
                 }
-                $xoopsTpl->assign_by_ref('dummy_content', $bresult['content']);
+                $xoopsTpl->assignByRef('dummy_content', $bresult['content']);
                 $bcontent = $xoopsTpl->fetch('db:system_dummy.html', 'blk_'.$bid);
                 $xoopsTpl->clear_assign('block');
             } else {

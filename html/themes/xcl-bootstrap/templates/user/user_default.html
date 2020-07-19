@@ -6,15 +6,15 @@
 
 
 <form action="<{$xoops_url}>/user.php" method="post">
-<{xoops_input type=hidden name=op value=login}>
-<{xoops_input type=hidden name=xoops_redirect value=$redirect_page}>
+<{xoops_input type="hidden" name=op value=login}>
+<{xoops_input type="hidden" name=xoops_redirect value=$redirect_page}>
 
 
 
     <div class="form-group">
         <label for="formGroupExampleInput"><{$smarty.const._USERNAME}></label>
         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
-        <{xoops_input type=text name=uname size=25 maxlength=25 value=$usercookie}>
+        <{xoops_input type="text" name=uname size=25 maxlength=25 value=$usercookie}>
     </div>
     <div class="form-group">
         <label for="formGroupExampleInput2"><{$smarty.const._PASSWORD}></label>
@@ -31,7 +31,7 @@
   <tr>
     <td class="head"><{$smarty.const._USERNAME}></td>
     <td class="<{cycle values="odd,even"}>">
-      <{xoops_input type=text name=uname size=25 maxlength=25 value=$usercookie}>
+      <{xoops_input type="text" name=uname size=25 maxlength=25 value=$usercookie}>
     </td>
   </tr>
   <tr>

@@ -2,8 +2,8 @@
 <div class="ui-dev-mode"><{$smarty.template}></div>
 
 <{* set tab sent-box to current active *}>
-<{ if $smarty.template == 'db:message_outboxview.html' }>
-<{ assign var="tabSent" value="active" }>
+<{if $smarty.template == 'db:message_outboxview.html'}>
+<{assign var="tabSent" value="active"}>
 <{/if}>
 
 
@@ -24,7 +24,7 @@
 
 <div class="card mt-sm-5">
 
-    <{ include file="$xoops_theme/templates/message/inc_compo_nav.html" }>
+    <{include file="$xoops_theme/templates/message/inc_compo_nav.html"}>
 
     <{* ------- /card-header *}>
 

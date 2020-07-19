@@ -18,7 +18,7 @@
 
 <div class="card mt-sm-5">
 
-<{ include file="$xoops_theme/templates/message/inc_compo_nav.html" }>
+<{include file="$xoops_theme/templates/message/inc_compo_nav.html"}>
 
 <{* ------- /card-header *}>
 
@@ -38,11 +38,11 @@
         <th width="30%"><{$smarty.const._MD_MESSAGE_SETTINGS_MSG1}></th>
             <td class="odd">
                 <div class="custom-control custom-radio custom-control-inline">
-                <{xoops_input type=radio class="custom-control-input" name=usepm default=$mActionForm->get('usepm') value=1}>
+                <{xoops_input type="radio" class="custom-control-input" name="usepm" default=$mActionForm->get('usepm') value=1}>
                 <label class="custom-control-label" for="legacy_xoopsform_usepm_1"><{$smarty.const._YES}></label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                <{xoops_input type=radio class="custom-control-input" name=usepm default=$mActionForm->get('usepm') value=0}>
+                <{xoops_input type="radio" class="custom-control-input" name="usepm" default=$mActionForm->get('usepm') value=0}>
                 <label class="custom-control-label" for="legacy_xoopsform_usepm_0"><{$smarty.const._NO}></label>
                 </div>
             </td>
@@ -51,11 +51,11 @@
         <th><{$smarty.const._MD_MESSAGE_SETTINGS_MSG2}></th>
             <td class="even">
                 <div class="custom-control custom-radio custom-control-inline">
-                <{xoops_input type=radio class="custom-control-input" name=tomail default=$mActionForm->get('tomail') value=1}>
+                <{xoops_input type="radio" class="custom-control-input" name="tomail" default=$mActionForm->get('tomail') value=1}>
                 <label class="custom-control-label" for="legacy_xoopsform_tomail_1"><{$smarty.const._YES}></label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                <{xoops_input type=radio class="custom-control-input" name=tomail default=$mActionForm->get('tomail') value=0}>
+                <{xoops_input type="radio" class="custom-control-input" name="tomail" default=$mActionForm->get('tomail') value=0}>
                 <label class="custom-control-label" for="legacy_xoopsform_tomail_0"><{$smarty.const._NO}></label>
                 </div>
             </td>
@@ -64,11 +64,11 @@
         <th><{$smarty.const._MD_MESSAGE_SETTINGS_MSG7}></th>
             <td class="odd">
                 <div class="custom-control custom-radio custom-control-inline">
-                <{xoops_input type=radio class="custom-control-input" name=viewmsm default=$mActionForm->get('viewmsm') value=1}>
+                <{xoops_input type="radio" class="custom-control-input" name="viewmsm" default=$mActionForm->get('viewmsm') value=1}>
                 <label class="custom-control-label" for="legacy_xoopsform_viewmsm_1"><{$smarty.const._YES}></label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                <{xoops_input type=radio class="custom-control-input" name=viewmsm default=$mActionForm->get('viewmsm') value=0}>
+                <{xoops_input type="radio" class="custom-control-input" name="viewmsm" default=$mActionForm->get('viewmsm') value=0}>
                 <label class="custom-control-label" for="legacy_xoopsform_viewmsm_0"><{$smarty.const._NO}></label>
                 </div>
             </td>
@@ -76,7 +76,7 @@
         <tr>
         <th><{$smarty.const._MD_MESSAGE_SETTINGS_MSG8}></th>
             <td class="even">
-            <{xoops_input type=text class="form-control col-sm-2" name=pagenum value=$mActionForm->get('pagenum')}>
+            <{xoops_input type="text" class="form-control col-sm-2" name="pagenum" value=$mActionForm->get('pagenum')}>
             <{$smarty.const._MD_MESSAGE_SETTINGS_MSG9}>
             </td>
         </tr>
@@ -89,13 +89,13 @@
             </svg> <{$smarty.const._MD_MESSAGE_SETTINGS_MSG18}></a>
         </th>
             <td class="even">
-            <{xoops_input type=text class="form-control" name=blacklist value=$mActionForm->get('blacklist') maxlength=255 size=60}>
+            <{xoops_input type="text" class="form-control" name="blacklist" value=$mActionForm->get('blacklist') maxlength="191" size="60"}>
             <{$smarty.const._MD_MESSAGE_SETTINGS_MSG11}>
             </td>
         </tr>
 
         <tr>
-            <td colspan="2" class="foot" align="center"><{legacy_button id=Submit class="btn btn-primary btn-sm px-4" Text=$smarty.const._SUBMIT}></td>
+            <td colspan="2" class="foot" align="center"><{legacy_button id="Submit" class="btn btn-primary btn-sm px-4" Text=$smarty.const._SUBMIT}></td>
         </tr>
         </table>
 

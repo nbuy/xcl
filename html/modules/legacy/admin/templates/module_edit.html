@@ -21,7 +21,7 @@
 
 <form action="index.php?action=ModuleEdit" method="post">
   <{xoops_token form=$actionForm}>
-	<{xoops_input type=hidden name=mid value=$actionForm->get('mid')}>
+	<{xoops_input type="hidden" name=mid value=$actionForm->get('mid')}>
 
 
 <table class="outer">
@@ -47,7 +47,7 @@
   <tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_NAME}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=name value=$actionForm->get('name') size=50 maxlength=255}>
+        <{xoops_input type="text" name=name value=$actionForm->get('name') size=50 maxlength=255}>
       </td>
     </tr>
   <tr>
@@ -57,7 +57,7 @@
   <tr>
 	<td class="head"><{$smarty.const._AD_LEGACY_LANG_VERSION}></td>
 	<td class="<{cycle values='odd,even'}>"><{math equation="v/100" v=$object->get('version') format="%.2f"}>
-	<{if $object->get('version')/100 != $object->modinfo.version  }>
+	<{if $object->get('version')/100 != $object->modinfo.version}>
 	  &raquo; <b class="message-warning"><{math equation=$object->modinfo.version format="%.2f"}></b>
 	<{/if}>
 	</td>
@@ -75,7 +75,7 @@
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_WEIGHT}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=weight value=$actionForm->get('weight') size=5 class=legacy_list_number}>
+        <{xoops_input type="text" name=weight value=$actionForm->get('weight') size=5 class=legacy_list_number}>
       </td>
     </tr>
     <tr>
@@ -102,7 +102,7 @@
           <{xoops_optionsArray id=module_cache from=$cachetimeArr value=cachetime label=label default=$actionForm->get('module_cache')}>
         </select>
        <{else}>
-           <{$smarty.const._NOCACHE}><{xoops_input type=hidden name=module_cache value=0}>
+           <{$smarty.const._NOCACHE}><{xoops_input type="hidden" name=module_cache value=0}>
        <{/if}>
       </td>
     </tr>

@@ -127,7 +127,7 @@
 		<{/if}>
 
 		<!-- body -->
-		<{if $smarty.const.LEGACY_BASE_VERSION|version_compare:'2.2':'>=' }>
+		<{if $smarty.const.LEGACY_BASE_VERSION|version_compare:'2.2':'>='}>
 			<{assign var=xcl22 value=1}>
 		<{/if}>
 		<tr valign="top" align="<{$smarty.const._ALIGN_START}>">
@@ -136,7 +136,7 @@
 				<{if $body_wysiwyg && ! $content.filter_infos.eval.enabled}>
 					<{$body_wysiwyg}>
 				<{else}>
-					<{if $xcl22 }>
+					<{if $xcl22}>
 						<{assign var=cssClass value=""}>
 						<{if $content.filter_infos._editor_info.editor}>
 							<{if !$content.subject && $content.filter_infos._editor_info.useHtmlAtNew}>

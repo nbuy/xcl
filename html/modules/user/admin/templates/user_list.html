@@ -4,7 +4,7 @@
 </div>
 
 
-<{ include file="./components/user-overview.html" }>
+<{include file="./components/user-overview.html"}>
 
 
 <h2 class="admintitle"><{$smarty.const._AD_USER_LANG_USER_LIST}></h2>
@@ -38,10 +38,10 @@
   <{xoops_token form=$actionForm}>
 
     <div class="user-search" style="display: none">
-	<{ include file="./components/user-search.html" }>
+	<{include file="./components/user-search.html"}>
     </div>
     <div class="user-filter" style="display: none">
-	<{ include file="./components/user-filter.html" }>
+	<{include file="./components/user-filter.html"}>
     </div>
 
 	<hr>
@@ -50,7 +50,7 @@
 	<div class="ui-grid-blocks">
   <{foreach item=user from=$objects}>
 
-	<{ include file="./components/user-card.html" }>
+	<{include file="./components/user-card.html"}>
 
   <{/foreach}>
 	</div><{* /ui-grid-blocks *}>
@@ -61,5 +61,5 @@
 
 </form>
 
-<{ include file="./components/pagenavi.html" }>
+<{include file="./components/pagenavi.html"}>
 

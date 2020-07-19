@@ -54,13 +54,15 @@ class XoopsTpl extends Smarty
         $this->template_dir = XOOPS_THEME_PATH;
         $this->cache_dir = XOOPS_CACHE_PATH;
         $this->compile_dir = XOOPS_COMPILE_PATH;
+        $this->config_dir = XOOPS_LIBRARY_PATH. '/configs';
         //loading under root_path for compatibility with XCL2.1
         $this->plugins_dir = [SMARTY_DIR . 'plugins', XOOPS_ROOT_PATH . '/class/smarty/plugins'];
 //		$this->default_template_handler_func = 'xoops_template_create';
         $this->use_sub_dirs = false;
         // escape as default for security
         // $this->default_modifiers = ['escape'];
-
+        //$this->testInstall();
+        //exit;
 
         $this->assign(
             [
@@ -80,7 +82,9 @@ class XoopsTpl extends Smarty
             ]
         );
 
-        if (empty($this->debug_tpl)) {
+// !TODO SMARTY3 SECURITY POLICY -> php_handling
+
+/*          if (empty($this->debug_tpl)) {
             // set path to debug template from SMARTY_DIR
             $this->debug_tpl = XOOPS_ROOT_PATH.'/modules/legacy/templates/xoops_debug.tpl';
             $security_policy = new Smarty_Security($this);
@@ -92,7 +96,7 @@ class XoopsTpl extends Smarty
             }
             $this->enableSecurity($security_policy);
             $this->debug_tpl = 'file:' . XOOPS_ROOT_PATH.'/modules/legacy/templates/xoops_debug.tpl';
-        }
+        } */
 
         // Delegate 'XoopsTpl.New'
         //  Delegate may define additional initialization code for XoopTpl Instance;

@@ -7,7 +7,7 @@
             <{if $obj->mModule}>
             <{$obj->mModule->getVar('name')}>
             <{else}>
-                <{if $obj->get('c_type') == "H" }>
+                <{if $obj->get('c_type') == "H"}>
                 <{$smarty.const._AD_LEGACY_LANG_CUSTOM_HTML}>
                 <{elseif $obj->get('c_type') == "P"}><{$smarty.const._AD_LEGACY_LANG_CUSTOM_PHP}>
                 <{elseif $obj->get('c_type') == "S"}><{$smarty.const._AD_LEGACY_LANG_CUSTOM_WITH_SMILIES}>
@@ -41,7 +41,7 @@
             </a>
             <{else}>
                 <a class="ui-block-type" href="./index.php?action=CustomBlockEdit&amp;bid=<{$obj->getShow('bid')}>" title="<{$smarty.const._EDIT}>">
-                <{if $obj->get('c_type') == "H" }>
+                <{if $obj->get('c_type') == "H"}>
                     <svg xmlns="http://www.w3.org/2000.svg" width="100%" height="100%" viewBox="0 0 240 100" class="ui-block-html">
                         <g id="ui-block-html">
                         <path class="block-icon" d="M12 17.56l4.07-1.13l.55-6.1H9.38L9.2 8.3h7.6l.2-1.99H7l.56 6.01h6.89l-.23 2.58l-2.22.6l-2.22-.6l-.14-1.66h-2l.29 3.19L12 17.56M4.07 3h15.86L18.5 19.2L12 21l-6.5-1.8L4.07 3z" fill="currentColor"></path>
@@ -151,7 +151,7 @@
 
         <div class="ui-card-block-item pad-center">
             <select name="bcachetime[<{$obj->getShow('bid')}>]">
-                <{assign var="bid" value=$obj->getShow('bid') }>
+                <{assign var="bid" value=$obj->getShow('bid')}>
                 <{xoops_optionsArray id="bcachetime[`$bid`]" from=$cachetimeArr value=cachetime label=label default=$obj->get('bcachetime')}>
             </select>
         </div>

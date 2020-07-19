@@ -1,7 +1,7 @@
 <div class="adminnavi" aria-label="breadcrumb">
   <a href="./index.php"><{$smarty.const._MI_LEGACY_NAME}></a>
   &raquo;&raquo; <a href="./index.php?action=ModuleList"><{$smarty.const._MI_LEGACY_MENU_MODULELIST}></a>
-  <{if !$installed }>
+  <{if !$installed}>
     &raquo;&raquo; <span class="adminnaviTitle" aria-current="page"><a href="./index.php?action=InstallList"><{$smarty.const._AD_LEGACY_LANG_MODINSTALL}></a></span>
   <{/if}>
   &raquo;&raquo; <span class="adminnaviTitle" aria-current="page"><{$smarty.const._AD_LEGACY_LANG_INFORMATION}></span>
@@ -41,7 +41,7 @@
   <tr>
 	<td class="head"><{$smarty.const._AD_LEGACY_LANG_VERSION}></td>
 	<td class="<{cycle values='odd,even'}>"><{math equation="v/100" v=$module->get('version') format="%.2f"}>
-	<{if $module->get('version')/100 != $module->modinfo.version  }>
+	<{if $module->get('version')/100 != $module->modinfo.version}>
 	  &raquo; <b class="message-warning"><{math equation=$module->modinfo.version format="%.2f"}></b>
 	<{/if}>
 	</td>
@@ -157,7 +157,7 @@
 	<th><{$smarty.const._AD_LEGACY_LANG_SUBMENU_NAME}></th>
 	<th><{$smarty.const._AD_LEGACY_LANG_SUBMENU_URL}></th>
   </tr>
-  <{foreach from=$module->modinfo.sub item=sub }>
+  <{foreach from=$module->modinfo.sub item=sub}>
   <tr class="<{cycle values="odd,even"}>">
     <td><{$sub.name}></td>
     <td><{$sub.url}></td>
@@ -247,7 +247,7 @@
   <tr class="<{cycle values='odd,even'}>">
 	<td class="head legacy_list_id"><{$template_key}></td>
 	<td>
-	<{if $installed }>
+	<{if $installed}>
 	<a href="<{$xoops_url}>/modules/legacyRender/admin/index.php?action=TplfileList&amp;tpl_file=<{$template.file}>"><{$template.file|xoops_escape}></a>
 	<{else}>
 	<{$template.file|xoops_escape}>
@@ -265,16 +265,16 @@
 <hr />
 <h4 class="admintitle"><{$smarty.const._AD_LEGACY_LANG_BLOCKS_INFO}></h4>
 
-<{foreach from=$module->modinfo.blocks item=block key=block_num }>
+<{foreach from=$module->modinfo.blocks item=block key=block_num}>
 <table class="outer">
   <tr>
 	<th><{$smarty.const._AD_LEGACY_LANG_BLOCK_KEY}> (<{$block_num|xoops_escape}>)</th>
 	<th><{$smarty.const._AD_LEGACY_LANG_BLOCK_VAL}></th>
   </tr>
-  <{foreach from=$block key=block_key item=block_val name=block }>
+  <{foreach from=$block key=block_key item=block_val name=block}>
   <tr class="<{cycle values='odd,even' name=block}>">
 	<td class="head legacy_list_name" style="width:30%;"><{$block_key|xoops_escape}></td>
-	<{if $block_key == "name" }>
+	<{if $block_key == "name"}>
 	  <td><b><{$block_val|xoops_escape}></b></td>
 	<{elseif $installed && $block_key == "template"}>
 	  <td><a href="<{$xoops_url}>/modules/legacyRender/admin/index.php?action=TplfileList&amp;tpl_file=<{$block_val}>"><{$block_val|xoops_escape}></a></td>
@@ -303,10 +303,10 @@
   <tr class="<{cycle values='odd,even' name=config}>">
 	<td class="head legacy_list_name" style="width:30%;"><{$config_key|xoops_escape}></td>
 	<td>
-	  <{if $config_key == "name" }>
+	  <{if $config_key == "name"}>
 	    <b><{$config_val|xoops_escape}></b>
-      <{elseif $config_key == "options" }>
-	    <{foreach from=$config_val item=opt key=opt_key }>
+      <{elseif $config_key == "options"}>
+	    <{foreach from=$config_val item=opt key=opt_key}>
 	      <{$opt_key}> &raquo; <{$opt|xoops_escape}><br>
 	    <{/foreach}>
 	  <{else}>

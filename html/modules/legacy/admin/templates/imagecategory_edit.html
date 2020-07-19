@@ -29,7 +29,7 @@
 
 <form action="index.php?action=ImagecategoryEdit" method="post">
   <{xoops_token form=$actionForm}>
-	<{xoops_input type=hidden name=imgcat_id value=$actionForm->get('imgcat_id')}>
+	<{xoops_input type="hidden" name=imgcat_id value=$actionForm->get('imgcat_id')}>
 
   <table class="outer">
 
@@ -49,7 +49,7 @@
 		<tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_IMGCAT_NAME}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=imgcat_name value=$actionForm->get('imgcat_name') size=40 maxlength=100}>
+        <{xoops_input type="text" name=imgcat_name value=$actionForm->get('imgcat_name') size=40 maxlength=100}>
       </td>
     </tr>
     <tr>
@@ -71,19 +71,19 @@
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_IMGCAT_MAXSIZE}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=imgcat_maxsize value=$actionForm->get('imgcat_maxsize')}>
+        <{xoops_input type="text" name=imgcat_maxsize value=$actionForm->get('imgcat_maxsize')}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_IMGCAT_MAXWIDTH}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=imgcat_maxwidth value=$actionForm->get('imgcat_maxwidth')}>
+        <{xoops_input type="text" name=imgcat_maxwidth value=$actionForm->get('imgcat_maxwidth')}>
       </td>
     </tr>
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_IMGCAT_MAXHEIGHT}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=imgcat_maxheight value=$actionForm->get('imgcat_maxheight')}>
+        <{xoops_input type="text" name=imgcat_maxheight value=$actionForm->get('imgcat_maxheight')}>
       </td>
     </tr>
     <tr>
@@ -97,7 +97,7 @@
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_IMGCAT_WEIGHT}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=imgcat_weight value=$actionForm->get('imgcat_weight')}>
+        <{xoops_input type="text" name=imgcat_weight value=$actionForm->get('imgcat_weight')}>
       </td>
     </tr>
     <{if $actionForm->get('imgcat_id') == 0}>

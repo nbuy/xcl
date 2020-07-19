@@ -23,7 +23,7 @@
 
 <form method="post"  action="./index.php?action=AvatarList">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=confirm value=1}>
+  <{xoops_input type="hidden" name=confirm value=1}>
 <table class="outer">
   <tr>
     <th><{$smarty.const._MD_USER_LANG_AVATAR_ID}></th>
@@ -49,13 +49,13 @@
     <td class="user_list_type"><{$avatarObjects[$aid]->getShow('avatar_mimetype')}></td>
     <td class="user_list_select">
       <{if $actionForm->get('display',$aid)|intval == $avatarObjects[$aid]->get('avatar_display')}>
-	<{if $avatarObjects[$aid]->get('avatar_display') == 1 }>
+	<{if $avatarObjects[$aid]->get('avatar_display') == 1}>
           	<{$smarty.const._YES}>
         	<{else}>
           	<{$smarty.const._NO}>
         	<{/if}>
       <{else}>
-        (<{if $avatarObjects[$aid]->get('avatar_display') == 1 }>
+        (<{if $avatarObjects[$aid]->get('avatar_display') == 1}>
           <{$smarty.const._YES}>
         <{else}>
           <{$smarty.const._NO}>

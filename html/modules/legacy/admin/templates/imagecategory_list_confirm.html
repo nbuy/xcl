@@ -24,7 +24,7 @@
 
 <form method="post"  action="./index.php?action=ImagecategoryList">
   <{xoops_token form=$actionForm}>
-	<{xoops_input type=hidden name=confirm value=1}>
+	<{xoops_input type="hidden" name=confirm value=1}>
 
 <table class="outer">
 
@@ -79,13 +79,13 @@
     </td>
     <td class="legacy_list_select">
       <{if $actionForm->get('display',$icid)|intval == $imagecategoryObjects[$icid]->get('imgcat_display')}>
-	<{if $imagecategoryObjects[$icid]->get('imgcat_display') == 1 }>
+	<{if $imagecategoryObjects[$icid]->get('imgcat_display') == 1}>
           	<{$smarty.const._YES}>
         	<{else}>
           	<{$smarty.const._NO}>
         	<{/if}>
       <{else}>
-        (<{if $imagecategoryObjects[$icid]->get('imgcat_display') == 1 }>
+        (<{if $imagecategoryObjects[$icid]->get('imgcat_display') == 1}>
           <{$smarty.const._YES}>
         <{else}>
           <{$smarty.const._NO}>

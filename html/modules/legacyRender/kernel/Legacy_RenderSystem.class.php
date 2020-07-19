@@ -66,7 +66,8 @@ class Legacy_XoopsTpl extends XoopsTpl
         }
     }
 
-    public function assign_by_ref($tpl_var, &$value)
+    //public function assignByRef($tpl_var, &$value)
+    public function assignByRef($tpl_var, &$value, $nocache = false)
     {
         if ('' !== $tpl_var) {
             if (isset($this->_mContextReserve[$tpl_var])) {
@@ -90,7 +91,7 @@ class Legacy_XoopsTpl extends XoopsTpl
         } elseif (isset($this->_mContextReserve[$name])) {
             $value = htmlspecialchars($root->mContext->getAttribute($this->_mContextReserve[$name]), ENT_QUOTES);
         } else {
-            $value =& parent::getTemplateVars($name);
+            $value = parent::getTemplateVars($name);
         }
         return $value;
     }
@@ -613,7 +614,7 @@ class Legacy_RenderSystem extends XCube_RenderSystem
     }
 }
 
-function LegacyRender_smartyfunction_notifications_select($params, &$smarty)
+function LegacyRender_smartyfunction_notifications_select($params, $smarty)
 {
     $root =& XCube_Root::getSingleton();
     $renderSystem =& $root->getRenderSystem('Legacy_RenderSystem');

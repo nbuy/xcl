@@ -33,7 +33,7 @@
       <a href="index.php?action=GroupEdit&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._EDIT}>">
         <img src="<{"icons/icon-user-edit.svg"|theme}>" class="svg">
       </a>
-      <{if $group->get('groupid') > $smarty.const.XOOPS_GROUP_ANONYMOUS }>
+      <{if $group->get('groupid') > $smarty.const.XOOPS_GROUP_ANONYMOUS}>
         <a href="index.php?action=GroupDelete&amp;groupid=<{$group->getShow('groupid')}>" title="<{$smarty.const._DELETE}>" class="red">
           <img src="<{"icons/icon-user-delete.svg"|theme}>" class="svg">
         </a>
@@ -70,7 +70,7 @@
 
 <form method="post" action="index.php?action=GroupPerm">
 <{xoops_token form=$actionForm}>
-<{if $systemPermissions }>
+<{if $systemPermissions}>
 <table class="outer">
     <thead>
   <tr>
@@ -81,7 +81,7 @@
   <tr>
   <{foreach item=perm from=$systemPermissions key="perm_key" name="SysPer"}>
     <td class="head" style="width:35%;">&nbsp;<{$perm->mItem->getName()|xoops_escape}></td>
-    <td class="even"><{assign var="getId" value=$perm->getId() }>
+    <td class="even"><{assign var="getId" value=$perm->getId()}>
       <label><{$smarty.const._AD_USER_LANG_PERM_ADMIN}></label>
         <input type="checkbox" name="system[<{$getId}>]" value="2" <{if $perm->mValue==2}>checked="checked"<{/if}> />
     </td>
@@ -105,7 +105,7 @@
   <tr>
   <{foreach item=perm from=$modulePermissions name="ModPer"}>
     <td class="head" style="width:25%;">&nbsp;<{$perm->mItem->getName()|xoops_escape}></td>
-    <td class="even"><{assign var="getId" value=$perm->getId() }>
+    <td class="even"><{assign var="getId" value=$perm->getId()}>
 
       <{$smarty.const._AD_USER_LANG_PERM_ACCESS}>
 
@@ -156,7 +156,7 @@
         <span class="inactive"><{$perm->mItem->getName()|xoops_escape}></span>
       <{/if}>
     </td>
-    <td class="even"><{assign var="getId" value=$perm->getId() }>
+    <td class="even"><{assign var="getId" value=$perm->getId()}>
 
       <{$smarty.const._AD_USER_LANG_PERM_ACCESS}>
 
@@ -172,7 +172,7 @@
 <{/foreach}>
 
 	<div class="pagenavi">
-	<{xoops_input type=hidden name=groupid value=$group->get('groupid')}>
+	<{xoops_input type="hidden" name=groupid value=$group->get('groupid')}>
 	<input class="button-submit" type="submit" value="<{$smarty.const._SUBMIT}>">
 	<input class="button-cancel" type="reset" value="<{$smarty.const._AD_USER_LANG_RESET}>">
 	</div>

@@ -2,7 +2,7 @@
   <a href="./index.php"><{$smarty.const._MI_LEGACY_NAME}></a>
   &raquo;&raquo; <a href="./index.php?action=BlockList"><{$smarty.const._MI_LEGACY_MENU_BLOCKLIST}></a>
   <{if $actionForm->get('content')}>
-    <{if $object->get('visible') == 1 }>
+    <{if $object->get('visible') == 1}>
       &raquo;&raquo; <span class="adminnaviTitle" aria-current="page"><{$smarty.const._AD_LEGACY_LANG_CUSTOMBLOCK_EDIT}></span>
     <{else}>
       &raquo;&raquo; <span class="adminnaviTitle" aria-current="page"><{$smarty.const._AD_LEGACY_LANG_BLOCK_INSTALL}></span>
@@ -15,7 +15,7 @@
 
 <h2 class="admintitle">
   <{if $actionForm->get('content')}>
-    <{if $object->get('visible') == 1 }>
+    <{if $object->get('visible') == 1}>
       <{$smarty.const._AD_LEGACY_LANG_CUSTOMBLOCK_EDIT}>
     <{else}>
       <{$smarty.const._AD_LEGACY_LANG_BLOCK_INSTALL}>
@@ -39,7 +39,7 @@
 
 <form action="index.php?action=CustomBlockEdit" method="post">
   <{xoops_token form=$actionForm}>
-	<{xoops_input type=hidden name=bid value=$actionForm->get('bid')}>
+	<{xoops_input type="hidden" name=bid value=$actionForm->get('bid')}>
 
   <table class="outer">
 
@@ -47,7 +47,7 @@
     <tr>
       <th colspan="2">
         <{if $actionForm->get('content')}>
-          <{if $object->get('visible') == 1 }>
+          <{if $object->get('visible') == 1}>
             <{$smarty.const._AD_LEGACY_LANG_CUSTOMBLOCK_EDIT}>
           <{else}>
             <{$smarty.const._AD_LEGACY_LANG_BLOCK_INSTALL}>
@@ -63,7 +63,7 @@
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_TITLE}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=title value=$actionForm->get('title') size=50 maxlength=255}>
+        <{xoops_input type="text" name=title value=$actionForm->get('title') size=50 maxlength=255}>
       </td>
     </tr>
     <tr>
@@ -77,7 +77,7 @@
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_WEIGHT}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{xoops_input type=text name=weight value=$actionForm->get('weight') size=5 class=legacy_list_number}>
+        <{xoops_input type="text" name=weight value=$actionForm->get('weight') size=5 class=legacy_list_number}>
       </td>
     </tr>
     <tr>
@@ -90,7 +90,7 @@
         <{else}>
             <{assign var=editor value=bbcode}>
         <{/if}>
-        <{xoops_dhtmltarea type=text name=content value=$actionForm->get('content') rows=20 cols=60 class=$editor editor=$editor}>
+        <{xoops_dhtmltarea type="text" name=content value=$actionForm->get('content') rows=20 cols=60 class=$editor editor=$editor}>
         <{* fck_htmlarea name=content width=100% hight=400px
 skin=silver value=$actionForm->get('content') *}>
       </td>

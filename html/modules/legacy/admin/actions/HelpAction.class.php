@@ -45,23 +45,29 @@ class Legacy_HelpSmarty extends Smarty
     public function Legacy_HelpSmarty()
     {
         self::__construct();
+
     }
 
     public function __construct()
     {
-        parent::Smarty();
+       parent::__construct();
 
-        $this->compile_id = null;
-        $this->_canUpdateFromFile = true;
-        $this->compile_check = true;
-        $this->compile_dir = XOOPS_COMPILE_PATH;
-        $this->left_delimiter = '<{';
-        $this->right_delimiter = '}>';
+        //$this->smarty = $this;
+        // $this->compile_id = null;
+        // $this->_canUpdateFromFile = true;
+        // $this->compile_check = true;
+        // $this->compile_dir = XOOPS_COMPILE_PATH;
 
-        $this->force_compile = true;
+        // $this->left_delimiter = '<{';
+        // $this->right_delimiter = '}>';
 
-        $this->register_modifier('helpurl', 'Legacy_modifier_helpurl');
-        $this->register_modifier('helpimage', 'Legacy_modifier_helpimage');
+        //$this->force_compile = true;
+
+        // $this->register_modifier('helpurl', 'Legacy_modifier_helpurl');
+        // $this->register_modifier('helpimage', 'Legacy_modifier_helpimage');
+        $this->registerPlugin('modifier','helpurl', 'Legacy_modifier_helpurl');
+        $this->registerPlugin('modifier','helpimage', 'Legacy_modifier_helpimage');
+
     }
 
     public function setDirname($dirname)

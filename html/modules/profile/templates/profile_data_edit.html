@@ -9,7 +9,7 @@
 <{/if}>
 <form action="index.php?action=DataEdit" method="post">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=uid value=$actionForm->get('uid')}>
+  <{xoops_input type="hidden" name=uid value=$actionForm->get('uid')}>
   <table class="outer">
     <tr>
     <{if $actionForm->get('uid')}>
@@ -23,13 +23,13 @@
       <td class="head"><{$field->getShow('label')}></td>
       <td class="<{cycle values="odd,even"}>">
       	<{if $field->get('type')=="string"}>
-        <{xoops_input type=text name=$field->get('field_name') value=$actionForm->get($field->get('field_name'))  size=40 maxlength=255}>
+        <{xoops_input type="text" name=$field->get('field_name') value=$actionForm->get($field->get('field_name'))  size=40 maxlength=255}>
         <{elseif $field->get('type')=="int"}>
-        <{xoops_input type=text name=$field->get('field_name') value=$actionForm->get($field->get('field_name')) size=15 maxlength=11}>
+        <{xoops_input type="text" name=$field->get('field_name') value=$actionForm->get($field->get('field_name')) size=15 maxlength=11}>
         <{elseif $field->get('type')=="text"}>
-        <{xoops_dhtmltarea type=text name=$field->get('field_name') value=$actionForm->get($field->get('field_name'))}>
+        <{xoops_dhtmltarea type="text" name=$field->get('field_name') value=$actionForm->get($field->get('field_name'))}>
         <{elseif $field->get('type')=="date"}>
-        <{xoops_input class=datePicker type=text name=$field->get('field_name') value=$actionForm->get($field->get('field_name'))  size=15 maxlength=12}>
+        <{xoops_input class=datePicker type="text" name=$field->get('field_name') value=$actionForm->get($field->get('field_name'))  size=15 maxlength=12}>
         <{elseif $field->get('type')=="checkbox"}>
         <{xoops_input type=checkbox name=$field->get('field_name') value=1 default=$actionForm->get($field->get('field_name'))}>
         <{elseif $field->get('type')=="selectbox"}>

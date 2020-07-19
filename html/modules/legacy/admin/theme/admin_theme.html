@@ -80,7 +80,7 @@
 
 	<header class="header">
 
-        <{include file="../templates/components/admin-nav-header.html" }>
+        <{include file="../templates/components/admin-nav-header.html"}>
 
 	</header>
 
@@ -108,7 +108,7 @@
 			<{$xoops_lblocks.sidemenu.content}>
 
 			<{foreach name=lblock item=block from=$xoops_lblocks}>
-			<{if $block.name !='action_search' && $block.name !='onlineinfo' && $block.name !='sidemenu'  }>
+			<{if $block.name !='action_search' && $block.name !='onlineinfo' && $block.name !='sidemenu'}>
 			<{$block.content}>
 			<{/if}>
 			<{/foreach}>
@@ -123,12 +123,12 @@
 
 	<main class="main">
 
-	<{include file="../templates/components/admin-options.html" }>
+	<{include file="../templates/components/admin-options.html"}>
 
 
 	<{* ---------- ---------- ---------- ---------- ---------- Block Online Info *}>
 
-	<{if $xoops_dirname == "legacy" && $currentModule->mXoopsModule->getVar('dirname') == "legacy" }>
+	<{if $xoops_dirname == "legacy" && $currentModule->mXoopsModule->getVar('dirname') == "legacy"}>
 
 	<{foreach name=lblock item=block from=$xoops_lblocks}>
         <{if $block.name =='onlineinfo' && $block.name !='sidemenu'}>

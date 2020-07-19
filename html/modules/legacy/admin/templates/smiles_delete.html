@@ -13,7 +13,7 @@
 
 <form method="post" action="./index.php?action=SmilesDelete">
   <{xoops_token form=$actionForm}>
-  <{xoops_input type=hidden name=id value=$actionForm->get('id')}>
+  <{xoops_input type="hidden" name=id value=$actionForm->get('id')}>
   <table class="outer">
     <tr>
       <th colspan="2"><{$smarty.const._AD_LEGACY_LANG_SMILES_DELETE}></th>
@@ -40,7 +40,7 @@
     <tr>
       <td class="head"><{$smarty.const._AD_LEGACY_LANG_DISPLAY}></td>
       <td class="<{cycle values="odd,even"}>">
-        <{if $object->get('display') == 1 }>
+        <{if $object->get('display') == 1}>
           <{$smarty.const._YES}>
         <{else}>
           <{$smarty.const._NO}>
